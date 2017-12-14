@@ -1,87 +1,108 @@
-var Task = Backbone.Model.extend({});
+(function($){
 
-var Tasks = Backbone.Collection.extend({
-	model: Task,
-	url: "tasks-mock.json"
-});
+	var Task = Backbone.Model.extend({});
 
-var tasks = new Tasks();
+	var Tasks = Backbone.Collection.extend({
+		model: Task,
+		url: "tasks-mock.json"
+	});
 
-var columns = [{
-	name: "id", // The key of the model attribute
-	label: "ID", // The name to display in the header
-	editable: false, // By default every cell in a column is editable, but *ID* shouldn't be
-	// Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
-	cell: Backgrid.IntegerCell.extend({
-		orderSeparator: ''
-	})
-}, {
-	name: "enabled",
-	label: "Enabled",
-	editable: false,
-	cell: "boolean"
-}, {
-	name: "domain_name",
-	label: "Domain name",
-	editable: false,
-	// The cell type can be a reference of a Backgrid.Cell subclass, any Backgrid.Cell subclass instances like *id* above, or a string
-	cell: "uri" // Renders the value in an HTML anchor element
-	// This is converted to "StringCell" and a corresponding class in the Backgrid package namespace is looked up
-}, {
-	name: "created",
-	label: "Created Date",
-	editable: false,
-	cell: "date"
-}, {
-	name: "age",
-	label: "Age",
-	editable: false,
-	cell: "integer" // An integer cell is a number cell that displays humanized integers
-}, {
-	name: "expired",
-	label: "Expired Date",
-	editable: false,
-	cell: "date"
-}, {
-	name: "need_posts",
-	label: "Need Posts",
-	editable: false,
-	cell: "integer" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-}, {
-	name: "additional_keys_percentage",
-	label: "Additional Keys Percentage",
-	editable: false,
-	cell: "number" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-}, {
-	name: "post_period_days",
-	label: "Post Period Days",
-	editable: false,
-	cell: "integer" // A cell type for floating point value, defaults to have a precision 2 decimal numbers
-}, {
-	name: "next_post",
-	label: "Next Post Date",
-	editable: false,
-	cell: "date"
-}, {
-	name: "posted",
-	label: "Posted",
-	editable: false,
-	cell: "integer" // Renders the value in an HTML anchor element
-}, {
-	name: "errors",
-	label: "Errors",
-	editable: false,
-	cell: "integer" // Renders the value in an HTML anchor element
-}];
+	var tasks = new Tasks();
 
-// Initialize a new Grid instance
-var grid = new Backgrid.Grid({
-	columns: columns,
-	collection: tasks
-});
+	var columns = [{
+		name: "id",
+		label: "ID",
+		editable: false,
+		// Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
+		cell: Backgrid.IntegerCell.extend({
+			orderSeparator: ''
+		})
+	}, {
+		name: "enabled",
+		label: "Enabled",
+		editable: false,
+		cell: "boolean"
+	}, {
+		name: "domain_name",
+		label: "Domain name",
+		editable: false,
+		cell: "uri" // Renders the value in an HTML anchor element
+	}, {
+		name: "created",
+		label: "Created Date",
+		editable: false,
+		cell: "date"
+	}, {
+		name: "age",
+		label: "Age",
+		editable: false,
+		cell: "integer"
+	}, {
+		name: "expired",
+		label: "Expired Date",
+		editable: false,
+		cell: "date"
+	}, {
+		name: "need_posts",
+		label: "Need Posts",
+		editable: false,
+		cell: "integer"
+	}, {
+		name: "additional_keys_percentage",
+		label: "Additional Keys Percentage",
+		editable: false,
+		cell: "number"
+	}, {
+		name: "post_period_days",
+		label: "Post Period Days",
+		editable: false,
+		cell: "integer"
+	}, {
+		name: "next_post",
+		label: "Next Post Date",
+		editable: false,
+		cell: "date"
+	}, {
+		name: "posted",
+		label: "Posted",
+		editable: false,
+		cell: "integer"
+	}, {
+		name: "errors",
+		label: "Errors",
+		editable: false,
+		cell: "integer"
+	}];
 
-// Render the grid and attach the root to your HTML document
-$("#tasks-grid").append(grid.render().el);
+	// Initialize a new Grid instance
+	var grid = new Backgrid.Grid({
+		columns: columns,
+		collection: tasks
+	});
 
-// Fetch some countries from the url
-tasks.fetch({reset: true});
+	// Render the grid and attach the root to your HTML document
+	//$("#tasks-grid").append(grid.render().el);
+
+	var GridView = Backbone.View.extend({
+		el: $('.backgrid-container'),
+		initialize: function(){
+			_.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
+
+			this.render(); // not all views are self-rendering. This one is.
+		},
+
+		render: function(){
+			$(this.el).append(grid.render().el);
+		},
+
+		fetchTasksGrid: function(){
+			// Fetch tasks from the url
+			tasks.fetch({reset: true});
+		}
+	});
+
+	var gridView = new GridView();
+
+	gridView.fetchGrid();
+
+})(jQuery);
