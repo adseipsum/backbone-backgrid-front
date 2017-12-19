@@ -4,7 +4,7 @@
     "enabled" : true,
     "domain_name" : "www.text.com",
     "created" : "2013-01-01",
-    "age" : 21,
+    "age" : 160,
     "expired" : "2013-01-01",
     "need_posts" : 25,
     "additional_keys_percentage" : 30,
@@ -39,6 +39,48 @@
     "post_period_days" : 10,
     "next_post" : "2013-01-01",
     "posted" : 260,
-    "errors" : 14
+    "errors" : 0
+  },
+  {
+    "id" : 128,
+    "enabled" : true,
+    "domain_name" : "www.text2.com",
+    "created" : "2013-01-01",
+    "age" : 21,
+    "expired" : "2013-01-01",
+    "need_posts" : 150,
+    "additional_keys_percentage" : 20,
+    "post_period_days" : 4,
+    "next_post" : "2013-01-01",
+    "posted" : 22,
+    "errors" : 1
+  },
+  {
+    "id" : 129,
+    "enabled" : true,
+    "domain_name" : "www.text2.com",
+    "created" : "2013-01-01",
+    "age" : 21,
+    "expired" : "2013-01-01",
+    "need_posts" : 15,
+    "additional_keys_percentage" : 20,
+    "post_period_days" : 40,
+    "next_post" : "2013-01-01",
+    "posted" : 21,
+    "errors" : 2
+  },
+  {
+    "id" : 130,
+    "enabled" : true,
+    "domain_name" : "www.text2.com",
+    "created" : "2013-01-01",
+    "age" : 21,
+    "expired" : "2013-01-01",
+    "need_posts" : 45,
+    "additional_keys_percentage" : 50,
+    "post_period_days" : 30,
+    "next_post" : "2013-01-01",
+    "posted" : 20,
+    "errors" : 5
   }
 ]

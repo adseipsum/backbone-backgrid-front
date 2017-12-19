@@ -20,7 +20,6 @@
 	}, {
 		name: "enabled",
 		label: "Enabled",
-		editable: false,
 		cell: "boolean"
 	}, {
 		name: "domain_name",
@@ -80,9 +79,6 @@
 		collection: tasks
 	});
 
-	// Render the grid and attach the root to your HTML document
-	//$("#tasks-grid").append(grid.render().el);
-
 	var GridView = Backbone.View.extend({
 		el: $('.backgrid-container'),
 		initialize: function(){
@@ -103,6 +99,17 @@
 
 	var gridView = new GridView();
 
-	gridView.fetchGrid();
+	gridView.fetchTasksGrid();
+
+	var Modal = Backbone.Modal.extend({
+		template: '#modal-template',
+		cancelEl: '.bbm-button'
+	});
+
+	$('.open').on('click', function(){
+		// Render an instance of your modal
+		var modalView = new Modal();
+		$('.app').html(modalView.render().el);
+	});
 
 })(jQuery);

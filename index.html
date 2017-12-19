@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/backgrid/lib/backgrid.css">
+    <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.css">
     <link rel="stylesheet" href="css/main.css">
 
 </head>
@@ -17,15 +18,74 @@
 
 <div class="container">
     <div class="row">
+        <div class="btn-group" style="margin:10px 0;">
+            <button type="button" id="add_task" class="btn btn-primary open">Add Task</button>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12 backgrid-container">
         </div>
     </div>
+
+    <div class="app modal-content"></div>
 </div>
+
+<script type="text/template" id="modal-template">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Task</h5>
+                    <button type="button" class="close bbm-button" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <form role="form" class="col-lg-10 col-lg-offset-2">
+                        <div class="row">
+                            <div class="form-group col-lg-10">
+                                <label for="domain-name">Select Domain</label>
+                                <select id="domain-name" class="form-control">
+                                    <option>www.text1.com</option>
+                                    <option>www.text2.com</option>
+                                    <option>www.text3.com</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-8">
+                                <label for="need_posts">Need Posts</label>
+                                <input type="number" id="need_posts" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-8">
+                                <label for="additional_keys_percentage">Additional Keys Percentage</label>
+                                <input type="number" id="additional_keys_percentage" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-8">
+                                <label for="post_period_days">Post Period Days</label>
+                                <input type="number" id="post_period_days" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary bbm-button" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+</script>
 
 <script src="bower_components/underscore/underscore.js"></script>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/backbone/backbone-min.js"></script>
 <script src="bower_components/backgrid/lib/backgrid.js"></script>
+<script src="bower_components/backbone-modal/backbone.modal.js"></script>
 <script src="js/main.js"></script>
 
 </body>
