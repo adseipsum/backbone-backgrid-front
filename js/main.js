@@ -1,6 +1,8 @@
 (function($){
 
-	var Task = Backbone.Model.extend({});
+	var Task = Backbone.Model.extend({
+
+	});
 
 	var Tasks = Backbone.Collection.extend({
 		model: Task,
@@ -81,6 +83,7 @@
 
 	var GridView = Backbone.View.extend({
 		el: $('.backgrid-container'),
+
 		initialize: function(){
 			_.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
 
@@ -94,7 +97,8 @@
 		fetchTasksGrid: function(){
 			// Fetch tasks from the url
 			tasks.fetch({reset: true});
-		}
+		},
+
 	});
 
 	var gridView = new GridView();
@@ -103,7 +107,18 @@
 
 	var Modal = Backbone.Modal.extend({
 		template: '#modal-template',
-		cancelEl: '.bbm-button'
+		cancelEl: '.bbm-button',
+		events: {
+			'click #addNewTask': 'newTask',
+		},
+		newTask: function(options) {
+			return Backbone.ajax(_.extend({
+				method: 'POST',
+				url: 'http://188.166.89.15/frontapi/task/new',
+				data: { myData : "John" },
+				processData: false,
+			}, options));
+		},
 	});
 
 	$('.open').on('click', function(){

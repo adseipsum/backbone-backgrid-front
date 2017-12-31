@@ -41,11 +41,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                    <form role="form" class="col-lg-10 col-lg-offset-2">
+                    <form id="newTaskForm" role="form" class="col-lg-10 col-lg-offset-2">
                         <div class="row">
                             <div class="form-group col-lg-10">
                                 <label for="domain-name">Select Domain</label>
-                                <select id="domain-name" class="form-control">
+                                <select id="domain-name" name="domainName" class="form-control">
                                     <option>www.text1.com</option>
                                     <option>www.text2.com</option>
                                     <option>www.text3.com</option>
@@ -55,26 +55,26 @@
                         <div class="row">
                             <div class="form-group col-lg-8">
                                 <label for="need_posts">Need Posts</label>
-                                <input type="number" id="need_posts" class="form-control"/>
+                                <input type="number" id="need_posts" name="needPosts" class="form-control"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-8">
                                 <label for="additional_keys_percentage">Additional Keys Percentage</label>
-                                <input type="number" id="additional_keys_percentage" class="form-control"/>
+                                <input type="number" id="additional_keys_percentage" name="additionalKeysPercentage" class="form-control"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-8">
                                 <label for="post_period_days">Post Period Days</label>
-                                <input type="number" id="post_period_days" class="form-control"/>
+                                <input type="number" id="post_period_days" name="postPeriodDays" class="form-control"/>
                             </div>
                         </div>
                     </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button id="addNewTask" type="button" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary bbm-button" data-dismiss="modal">Close</button>
                 </div>
             </div>
