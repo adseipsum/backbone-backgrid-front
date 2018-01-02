@@ -6,7 +6,11 @@
 
 	var Tasks = Backbone.Collection.extend({
 		model: Task,
-		url: "tasks-mock.json"
+		url: "http://188.166.89.15/frontapi/task/list",
+
+		parse : function(response){
+			return response.result.value;
+		}
 	});
 
 	var tasks = new Tasks();
@@ -15,16 +19,13 @@
 		name: "id",
 		label: "ID",
 		editable: false,
-		// Defines a cell type, and ID is displayed as an integer without the ',' separating 1000s.
-		cell: Backgrid.IntegerCell.extend({
-			orderSeparator: ''
-		})
+		cell: "string"
 	}, {
 		name: "enabled",
 		label: "Enabled",
 		cell: "boolean"
 	}, {
-		name: "domain_name",
+		name: "domainName",
 		label: "Domain name",
 		editable: false,
 		cell: "uri" // Renders the value in an HTML anchor element
@@ -44,17 +45,17 @@
 		editable: false,
 		cell: "date"
 	}, {
-		name: "need_posts",
+		name: "needPosts",
 		label: "Need Posts",
 		editable: false,
 		cell: "integer"
 	}, {
-		name: "additional_keys_percentage",
+		name: "additionalKeysPercentage",
 		label: "Additional Keys Percentage",
 		editable: false,
 		cell: "number"
 	}, {
-		name: "post_period_days",
+		name: "postPeriodDays",
 		label: "Post Period Days",
 		editable: false,
 		cell: "integer"
@@ -111,19 +112,31 @@
 		events: {
 			'click #addNewTask': 'newTask',
 		},
-		newTask: function(options) {
-			return Backbone.ajax(_.extend({
+		newTask: function() {
+			if(!$('#newTaskForm')[0].checkValidity()) {
+				return false;
+			}
+
+			$.ajax({
 				method: 'POST',
 				url: 'http://188.166.89.15/frontapi/task/new',
-				data: { myData : "John" },
-				processData: false,
-			}, options));
+				data: JSON.stringify({
+					'domainName': $('#domain_name').val(),
+					'needPosts': $('#need_posts').val(),
+					'additionalKeysPercentage': $('#additional_keys_percentage').val(),
+					'postPeriodDays': $('#post_period_days').val(),
+				}),
+				success: function () {
+					$('.app').empty();
+					gridView.fetchTasksGrid();
+				}
+			});
 		},
 	});
 
 	$('.open').on('click', function(){
-		// Render an instance of your modal
 		var modalView = new Modal();
+		// Render an instance of your modal
 		$('.app').html(modalView.render().el);
 	});
 
