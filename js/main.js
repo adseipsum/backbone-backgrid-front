@@ -25,6 +25,10 @@
 		label: "Enabled",
 		cell: "boolean"
 	}, {
+		name: "status",
+		label: "Status",
+		cell: "string"
+	}, {
 		name: "domainName",
 		label: "Domain name",
 		editable: false,
