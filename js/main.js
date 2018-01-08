@@ -108,6 +108,10 @@
 
 	var gridView = new GridView();
 
+	setInterval(function() {
+		gridView.fetchTasksGrid();
+	}, 1000);
+
 	gridView.fetchTasksGrid();
 
 	var Modal = Backbone.Modal.extend({
@@ -132,7 +136,6 @@
 				}),
 				success: function () {
 					$('.app').empty();
-					gridView.fetchTasksGrid();
 				}
 			});
 		},
