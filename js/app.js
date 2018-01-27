@@ -4,7 +4,8 @@ var App = {
 	Collections: {},
 	Grids: {},
 	Modals: {},
-	Router: {}
+	Router: {},
+	currentLoop: {}
 };
 
 $(document).ready(function() {
@@ -15,12 +16,5 @@ $(document).ready(function() {
 	});
 
 	Backbone.history.start();
-
-
-	$('.open').on('click', function () {
-		var modalView = new Modal();
-		// Render an instance of your modal
-		$('.app').html(modalView.render().el);
-	});
 
 });

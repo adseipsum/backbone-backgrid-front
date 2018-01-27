@@ -6,4 +6,23 @@ input:invalid {
     background-color: #ffdddd;
 }
 
-.top-buffer { margin-top:150px; }
+.top-buffer {
+    margin-top:150px;
+}
+
+.selected-blogs-container{
+    border: 1px solid lightgray;
+    height: 150px;
+    max-height: 150px;
+    overflow: auto;
+    padding: 5px;
+}
+
+.selected-blogs-container li{
+    list-style: none;
+}
+
+.selected-blogs-container input[type=checkbox]{
+    float: left;
+    margin-right: 5px;
+}

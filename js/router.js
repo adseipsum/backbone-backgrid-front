@@ -3,7 +3,8 @@ App.Router = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'login': 'login',
-		'campaigns': 'campaigns'
+		'campaigns': 'campaigns',
+		'blogs': 'blogs'
 	},
 
 	index: function() {
@@ -19,7 +20,26 @@ App.Router = Backbone.Router.extend({
 
 	campaigns: function(){
 		console.log('campaigns');
-		var CampaignsView = new App.Views.CampaignsView();
-		CampaignsView.fetchCampaignsGrid();
+		var CampaignView = new App.Views.CampaignView();
+		CampaignView.fetchCampaignGrid();
+		App.currentLoop = setInterval(function() {
+			CampaignView.fetchCampaignGrid();
+		}, 4000);
+	},
+
+	blogs: function(){
+		console.log('blogs');
+		var BlogView = new App.Views.BlogView();
+		BlogView.fetchBlogGrid();
+		App.currentLoop = setInterval(function() {
+			BlogView.fetchBlogGrid();
+		}, 4000);
+	},
+
+	execute: function(callback, args, name) {
+		if(App.currentLoop) {
+			clearInterval(App.currentLoop);
+		}
+		if (callback) callback.apply(this, args);
 	}
 });

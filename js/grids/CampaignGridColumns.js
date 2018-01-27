@@ -1,4 +1,4 @@
-App.Grids.CampaignsGridColumns = [{
+App.Grids.CampaignGridColumns = [{
 	name: "id",
 	label: "ID",
 	editable: false,
@@ -13,8 +13,8 @@ App.Grids.CampaignsGridColumns = [{
 	editable: false,
 	cell: "string"
 }, {
-	name: "domainName",
-	label: "Domain name",
+	name: "clientDomain",
+	label: "Client Domain",
 	editable: false,
 	cell: "uri" // Renders the value in an HTML anchor element
 }, {

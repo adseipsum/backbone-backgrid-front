@@ -1,4 +1,4 @@
-App.Views.CampaignsView = Backbone.View.extend({
+App.Views.CampaignView = Backbone.View.extend({
 	el: $('.grid'),
 
 	initialize: function(){
@@ -7,7 +7,7 @@ App.Views.CampaignsView = Backbone.View.extend({
 		// Fetch campaigns from the url
 		this.campaigns = new App.Collections.Campaigns();
 		this.campaignsGrid = new Backgrid.Grid({
-			columns: App.Grids.CampaignsGridColumns,
+			columns: App.Grids.CampaignGridColumns,
 			collection: this.campaigns
 		});
 
@@ -16,10 +16,16 @@ App.Views.CampaignsView = Backbone.View.extend({
 
 	render: function(){
 		$('#main').html($('#grid').html());
+		$('#actions').addClass('campaign');
 		$('.grid').html(this.campaignsGrid.render().el);
+		$('#add_new').on('click', function () {
+			var modalView = new App.Modals.CampaignModal();
+			$('.app').html(modalView.render().el);
+			modalView.getBlogTags();
+		});
 	},
 
-	fetchCampaignsGrid: function(){
+	fetchCampaignGrid: function(){
 		this.campaigns.fetch({reset: true});
 	},
 
