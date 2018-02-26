@@ -13,15 +13,39 @@ App.Grids.CampaignGridColumns = [{
 	editable: false,
 	cell: "string"
 }, {
-	name: "clientDomain",
-	label: "Client Domain",
+	name: "type",
+	label: "Type",
 	editable: false,
-	cell: "uri" // Renders the value in an HTML anchor element
+	cell: "string"
+}, {
+	name: "mainDomain",
+	label: "Main Domain",
+	editable: false,
+	cell: "string"
+}, {
+	name: "mainKeywords",
+	label: "Main Keywords",
+	editable: false,
+	cell: "string"
+}, {
+	name: "subLinks",
+	label: "Sub Links",
+	editable: false,
+	cell: "string",
+	formatter: {
+		fromRaw: function (object) {
+			var keys = $.map(object, function(value, key){
+				return value.subLink + '(' + value.subLinkKeywords + ')' ;
+			});
+
+			return keys.join("\n");
+		}
+	}
 }, {
 	name: "created",
 	label: "Created Date",
 	editable: false,
-	cell: "date"
+	cell: "string"
 }, {
 	name: "needPosts",
 	label: "Need Posts",
@@ -29,17 +53,17 @@ App.Grids.CampaignGridColumns = [{
 	cell: "integer"
 }, {
 	name: "additionalKeysPercentage",
-	label: "Additional Keys Percentage",
+	label: "AKP",
 	editable: false,
 	cell: "number"
 }, {
 	name: "postPeriodDays",
-	label: "Post Period Days",
+	label: "Period Days",
 	editable: false,
 	cell: "integer"
 }, {
 	name: "nextPostTime",
-	label: "Next Post Time",
+	label: "Next Post",
 	editable: false,
 	cell: "string"
 }, {

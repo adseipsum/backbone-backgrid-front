@@ -18,8 +18,14 @@ App.Views.CampaignView = Backbone.View.extend({
 		$('#main').html($('#grid').html());
 		$('#actions').addClass('campaign');
 		$('.grid').html(this.campaignsGrid.render().el);
-		$('#add_new').on('click', function () {
-			var modalView = new App.Modals.CampaignModal();
+		$('#actions').on('click', '.newCampaign', function () {
+
+			if($(this).data('type') == 'backlinked'){
+				var modalView = new App.Modals.CampaignBacklinkedModal();
+			}else if($(this).data('type') == 'regular'){
+				var modalView = new App.Modals.CampaignRegularModal();
+			}
+
 			$('.app').html(modalView.render().el);
 			modalView.getBlogTags();
 		});

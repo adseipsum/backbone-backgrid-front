@@ -18,7 +18,7 @@ App.Views.BlogView = Backbone.View.extend({
 		$('#main').html($('#grid').html());
 		$('#actions').addClass('blog');
 		$('.grid').html(this.blogsGrid.render().el);
-		$('#add_new').on('click', function () {
+		$('#actions').on('click', '.newBlog', function () {
 			var modalView = new App.Modals.BlogModal();
 			$('.app').html(modalView.render().el);
 		});

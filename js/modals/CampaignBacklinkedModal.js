@@ -1,21 +1,41 @@
-App.Modals.CampaignModal = Backbone.Modal.extend({
-	template: '#campaign-modal-template',
+App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
+	template: '#campaign-backlinked-modal-template',
 	cancelEl: '.bbm-button',
 	events: {
 		'click #addNewCampaign': 'newCampaign',
-		'change #tagsSelector': 'getAvailableBlogs'
+		'change #tagsSelector': 'getAvailableBlogs',
+		'click #addNewSubLink' : 'addNewSubLink'
 	},
 	newCampaign: function() {
 		if(!$('#newCampaignForm')[0].checkValidity()) {
 			return false;
 		}
 
+		var mapSubLinks = [];
+		$("#subLinks .sub-link-block").each(function() {
+			var subLink = $(this).find(".subLink").val();
+			var subLinkKeywords = $(this).find(".subLinkKeywords").val();
+			var subAdditionalKeywordsPercentage = $(this).find(".subAdditionalKeywordsPercentage").val();
+
+			if(subLink && subLinkKeywords) {
+				mapSubLinks.push({
+					'subLink': subLink,
+					'subLinkKeywords': subLinkKeywords,
+					'subAdditionalKeywordsPercentage': subAdditionalKeywordsPercentage
+				});
+			}
+		});
+
 		$.ajax({
 			method: 'POST',
 			url: 'http://188.166.89.15/frontapi/campaign/new',
 			data: JSON.stringify({
-				'clientDomain': $('#clientDomain').val(),
-				'needPosts': $('#needPosts').val(),
+				'type' : 'backlinked',
+				'mainDomain': $('#mainDomain').val(),
+				'postMainDomainLinks': $('#postMainDomainLinks').val(),
+				'postSubPageLinks': $('#postSubPageLinks').val(),
+				'mainKeywords' : $('#mainKeywords').val(),
+				'subLinks': mapSubLinks,
 				'additionalKeysPercentage': $('#additionalKeysPercentage').val(),
 				'postPeriodDays': $('#postPeriodDays').val(),
 				'selectedBlogs': $('#selectedBlogs input[type=checkbox]:checked').map(function() {return this.value;}).get()
@@ -56,6 +76,12 @@ App.Modals.CampaignModal = Backbone.Modal.extend({
 				$('#tagsSelector').selectpicker();
 			}
 		});
+	},
+	addNewSubLink: function(){
+		//TODO: template with Mustache
+		//TODO: check if domain name same as main
+		$('#subLinks').append($('#sub-links-template').html());
+		return false;
 	},
 	execute: function(callback, args, name) {
 		$('#selectedBlogs').html('');

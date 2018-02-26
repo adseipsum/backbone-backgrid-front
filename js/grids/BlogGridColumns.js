@@ -11,7 +11,7 @@ App.Grids.BlogGridColumns = [{
 	name: "domainName",
 	label: "Domain name",
 	editable: false,
-	cell: "uri"
+	cell: "string"
 }, {
 	name: "postingUserLogin",
 	label: "User",
@@ -42,5 +42,5 @@ App.Grids.BlogGridColumns = [{
 	name: "lastPostDate",
 	label: "Last Post",
 	editable: false,
-	cell: "datetime"
+	cell: "string"
 }];

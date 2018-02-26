@@ -20,20 +20,26 @@ App.Router = Backbone.Router.extend({
 
 	campaigns: function(){
 		console.log('campaigns');
+
 		var CampaignView = new App.Views.CampaignView();
 		CampaignView.fetchCampaignGrid();
 		App.currentLoop = setInterval(function() {
 			CampaignView.fetchCampaignGrid();
 		}, 4000);
+
+		$('#actions').html($('#campaign-action-buttons-template').html());
 	},
 
 	blogs: function(){
 		console.log('blogs');
+
 		var BlogView = new App.Views.BlogView();
 		BlogView.fetchBlogGrid();
 		App.currentLoop = setInterval(function() {
 			BlogView.fetchBlogGrid();
 		}, 4000);
+
+		$('#actions').html($('#blog-action-buttons-template').html());
 	},
 
 	execute: function(callback, args, name) {

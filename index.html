@@ -16,14 +16,13 @@
 </head>
 
 <body>
-
 <div id="main" class="container">
 
 </div>
 
 <div class="app modal-content"></div>
 
-<script type="text/template" id="campaign-modal-template">
+<script type="text/template" id="campaign-backlinked-modal-template">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -40,32 +39,50 @@
                     <div class="row">
                     <form id="newCampaignForm" role="form" class="col-lg-11 col-lg-offset-1">
                         <div class="row">
-                            <div class="form-group col-lg-8">
-                                <label for="clientDomain">Client Domain Name</label>
-                                <input type="text" id="clientDomain" name="clientDomain" class="form-control" required/>
+                            <div class="form-group col-lg-10">
+                                <label for="mainDomain">Main Domain Link</label>
+                                <input type="text" id="mainDomain" name="mainDomain" class="form-control" required/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-lg-8">
-                                <label for="needPosts">Need Posts</label>
-                                <input type="number" id="needPosts" name="needPosts" class="form-control" required/>
+                            <div class="form-group col-lg-5">
+                                <label for="postMainDomainLinks">Post Main Domain Links</label>
+                                <input type="number" id="postMainDomainLinks" name="postMainDomainLinks" class="form-control" min="0" required/>
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="postSubLinks">Post Sub Links</label>
+                                <input type="number" id="postSubLinks" name="postSubLinks" class="form-control" min="0" required/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-lg-8">
-                                <label for="additionalKeysPercentage">Additional Keys Percentage</label>
-                                <input type="number" id="additionalKeysPercentage" name="additionalKeysPercentage" class="form-control" required/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-8">
+
+                            <div class="form-group col-lg-5">
                                 <label for="postPeriodDays">Post Period Days</label>
-                                <input type="number" id="postPeriodDays" name="postPeriodDays" class="form-control" required/>
+                                <input type="number" id="postPeriodDays" name="postPeriodDays" class="form-control" min="0" required/>
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="additionalKeysPercentage">Additional Keys %</label>
+                                <input type="number" id="additionalKeysPercentage" name="additionalKeysPercentage" class="form-control" min="0" required/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-lg-8">
-                                <label for="tagsSelector">Select Blog Tags</label>
+                            <div class="form-group col-lg-10">
+                                <label for="mainKeywords">Main Keywords</label>
+                                <textarea id="mainKeywords" name="mainKeywords" class="form-control" required></textarea>
+                            </div>
+                        </div>
+
+                        <div id="subLinks">
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-7 text-center">
+                                <button id="addNewSubLink" class="btn btn-success col-lg-8 col-lg-offset-5">Add Sub Page</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-10 text-center">
+                                <label for="tagsSelector">Select Blogs By Tags</label>
                                 <select id="tagsSelector" name="tags[]" multiple>
 
                                 </select>
@@ -73,8 +90,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-10">
-                                <label>Selected Blogs</label>
-                                <div class="selected-blogs-container">
+                                <div class="selected-blogs-container form-control">
                                     <ul id="selectedBlogs"></ul>
                                 </div>
                             </div>
@@ -88,6 +104,77 @@
                 </div>
             </div>
         </div>
+</script>
+
+<script type="text/template" id="campaign-regular-modal-template">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="modal-title">Add New Regular Campaign</h4>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="close bbm-button" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="newCampaignForm" role="form" class="col-lg-11 col-lg-offset-1">
+                        <div class="row">
+                            <div class="form-group col-lg-5">
+                                <label for="needPosts">Need Posts</label>
+                                <input type="number" id="needPosts" name="needPosts" class="form-control" min="0" required/>
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="postPeriodDays">Post Period Days</label>
+                                <input type="number" id="postPeriodDays" name="postPeriodDays" class="form-control" min="0" required/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-10 text-center">
+                                <label for="tagsSelector">Select Blogs By Tags</label>
+                                <select id="tagsSelector" name="tags[]" multiple>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-10">
+                                <div class="selected-blogs-container form-control">
+                                    <ul id="selectedBlogs"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="addNewCampaign" type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary bbm-button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="sub-links-template">
+    <div class="row">
+        <div class="well well-sm col-lg-10 sub-link-block">
+            <div class="form-group">
+                <label>Sub Link</label>
+                <input type="text" class="subLink form-control" name="subLink"/>
+            </div>
+            <div class="form-group">
+                <label>Sub Keywords</label>
+                <textarea class="subLinkKeywords form-control" name="subLinkKeywords"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Additional Keys %</label>
+                <input type="text" class="subAdditionalKeywordsPercentage form-control" name="subAdditionalKeywordsPercentage" min="0"/>
+            </div>
+        </div>
+    </div>
 </script>
 
 <script type="text/template" id="blog-modal-template">
@@ -165,7 +252,6 @@
             <a href="#campaigns" class="btn btn-primary">Campaigns</a>
             <a href="#blogs" class="btn btn-primary">Blogs</a>
             <div id="actions" class="pull-right">
-                <button type="button" id="add_new" class="btn btn-success open">Add New</button>
             </div>
         </div>
 
@@ -175,6 +261,15 @@
         <div class="col-md-12 backgrid-container grid">
         </div>
     </div>
+</script>
+
+<script id="campaign-action-buttons-template" type="text/template">
+	<button type="button" data-type="regular" class="btn btn-success open newCampaign">Add Regular</button>
+	<button type="button" data-type="backlinked" class="btn btn-success open newCampaign">Add Backlinked</button>
+</script>
+
+<script id="blog-action-buttons-template" type="text/template">
+	<button type="button" class="btn btn-success open newBlog">Add New</button>
 </script>
 
 <script id="login" type="text/template">
@@ -226,7 +321,8 @@
 <script src="js/collections/BlogsCollection.js"></script>
 <script src="js/grids/CampaignGridColumns.js"></script>
 <script src="js/grids/BlogGridColumns.js"></script>
-<script src="js/modals/CampaignModal.js"></script>
+<script src="js/modals/CampaignBacklinkedModal.js"></script>
+<script src="js/modals/CampaignRegularModal.js"></script>
 <script src="js/modals/BlogModal.js"></script>
 <script src="js/views/CampaignView.js"></script>
 <script src="js/views/BlogView.js"></script>
