@@ -13,20 +13,10 @@ App.Grids.BlogGridColumns = [{
 	editable: false,
 	cell: "string"
 }, {
-	name: "postingUserLogin",
-	label: "User",
-	editable: false,
-	cell: "string"
-}, {
 	name: "postPeriodSeconds",
 	label: "Post Period",
 	editable: false,
 	cell: "integer"
-}, {
-	name: "clientId",
-	label: "Client Id",
-	editable: false,
-	cell: "string"
 }, {
 	name: "tags",
 	label: "Tags",
