@@ -25,7 +25,7 @@ App.Router = Backbone.Router.extend({
 		CampaignView.fetchCampaignGrid();
 		App.currentLoop = setInterval(function() {
 			CampaignView.fetchCampaignGrid();
-		}, 4000);
+		}, 20000);
 
 		$('#actions').html($('#campaign-action-buttons-template').html());
 	},
@@ -37,7 +37,7 @@ App.Router = Backbone.Router.extend({
 		BlogView.fetchBlogGrid();
 		App.currentLoop = setInterval(function() {
 			BlogView.fetchBlogGrid();
-		}, 4000);
+		}, 20000);
 
 		$('#actions').html($('#blog-action-buttons-template').html());
 	},
