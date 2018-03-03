@@ -4,7 +4,62 @@
     }
 }
 
-.backgrid .date-cell, .backgrid .time-cell, .backgrid .datetime-cell, .backgrid .number-cell, .backgrid .integer-cell, .backgrid .percent-cell, .backgrid .date-cell.editor input[type=text], .backgrid .time-cell.editor input[type=text], .backgrid .datetime-cell.editor input[type=text], .backgrid .number-cell.editor input[type=text], .backgrid .integer-cell.editor input[type=text], .backgrid .percent-cell.editor input[type=text]{
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+div#main {
+    height: 99%;
+}
+
+div.floatThead-container + table.backgrid {
+    width: 99%;
+}
+
+td.html-center-cell {
+    text-align: center;
+}
+
+.backgrid th.googleCheck,
+.backgrid th.enabled,
+.backgrid th.postPeriodSeconds,
+.backgrid th.id {
+    text-align: center;
+    width: 80px;
+}
+
+.backgrid th.lastPostDate {
+    width: 150px;
+}
+
+.backgrid th.googleCheck button,
+.backgrid th.enabled button,
+.backgrid th.postPeriodSeconds button,
+.backgrid th.lastPostDate button {
+   display: inline;
+}
+
+.googl-check-img {
+    width: 20px;
+    height: 20px;
+}
+
+.backgrid .date-cell,
+.backgrid .time-cell,
+.backgrid .datetime-cell,
+.backgrid .number-cell,
+.backgrid .integer-cell,
+.backgrid .percent-cell,
+.backgrid .date-cell.editor input[type=text],
+.backgrid .time-cell.editor input[type=text],
+.backgrid .datetime-cell.editor input[type=text],
+.backgrid .number-cell.editor input[type=text],
+.backgrid .integer-cell.editor input[type=text],
+.backgrid .percent-cell.editor input[type=text]{
     text-align: center;
 }
 

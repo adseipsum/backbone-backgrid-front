@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Grids.CampaignGridColumns = [{
 	name: "id",
 	label: "ID",

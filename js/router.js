@@ -1,3 +1,7 @@
+/*jshint esversion: 6 */
+
+
+
 App.Router = Backbone.Router.extend({
 
 	routes: {
@@ -14,18 +18,16 @@ App.Router = Backbone.Router.extend({
 
 	login: function () {
 		console.log('login');
-		var LoginView = new App.Views.LoginView();
-		LoginView.render();
+        App.currentView = new App.Views.LoginView();
+        App.currentView.render();
 	},
 
 	campaigns: function(){
 		console.log('campaigns');
 
-		var CampaignView = new App.Views.CampaignView();
-		CampaignView.fetchCampaignGrid();
-		App.currentLoop = setInterval(function() {
-			CampaignView.fetchCampaignGrid();
-		}, 4000);
+        App.currentView = new App.Views.CampaignView();
+        App.currentView.fetchGrid();
+        $.fn.changeAutoUpdate();
 
 		$('#actions').html($('#campaign-action-buttons-template').html());
 	},
@@ -33,11 +35,9 @@ App.Router = Backbone.Router.extend({
 	blogs: function(){
 		console.log('blogs');
 
-		var BlogView = new App.Views.BlogView();
-		BlogView.fetchBlogGrid();
-		App.currentLoop = setInterval(function() {
-			BlogView.fetchBlogGrid();
-		}, 4000);
+        App.currentView = new App.Views.BlogView();
+        App.currentView.fetchGrid();
+        $.fn.changeAutoUpdate();
 
 		$('#actions').html($('#blog-action-buttons-template').html());
 	},
@@ -49,3 +49,15 @@ App.Router = Backbone.Router.extend({
 		if (callback) callback.apply(this, args);
 	}
 });
+
+
+$.fn.changeAutoUpdate = function() {
+    if ($('#auto-update-enable').is(":checked")) {
+        App.currentLoop = setInterval(function () {
+            App.currentView.fetchGrid();
+        }, 4000);
+    } else {
+        clearInterval(App.currentLoop);
+        App.currentLoop = null;
+    }
+}

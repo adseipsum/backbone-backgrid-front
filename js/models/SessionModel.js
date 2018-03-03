@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Models.SessionModel = Backbone.Model.extend({
 
 	// Initialize with negative/empty defaults

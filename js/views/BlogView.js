@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Views.BlogView = Backbone.View.extend({
 	el: $('.grid'),
 
@@ -22,9 +24,11 @@ App.Views.BlogView = Backbone.View.extend({
 			var modalView = new App.Modals.BlogModal();
 			$('.app').html(modalView.render().el);
 		});
+
+        $('table.backgrid').floatThead();
 	},
 
-	fetchBlogGrid: function(){
+	fetchGrid: function(){
 		// Fetch blogs from the url
 		this.blogs.fetch({reset: true});
 	},

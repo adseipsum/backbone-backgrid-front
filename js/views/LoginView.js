@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Views.LoginView = Backbone.View.extend({
 	el: $('#main'),
 

@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Modals.BlogModal = Backbone.Modal.extend({
 	template: '#blog-modal-template',
 	cancelEl: '.bbm-button',
@@ -11,7 +13,7 @@ App.Modals.BlogModal = Backbone.Modal.extend({
 
 		$.ajax({
 			method: 'POST',
-			url: 'http://188.166.89.15/frontapi/blog/new',
+			url: App.baseUrl + '/frontapi/blog/new',
 			data: JSON.stringify({
 				'domainName': $('#domainName').val(),
 				'postingUserLogin': $('#postingUserLogin').val(),

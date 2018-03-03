@@ -1,0 +1,9 @@
+{
+    "license": "UNLICENSED",
+    "dependencies": {
+        "bower": "^1.8.2",
+        "helmet-csp": "^2.7.0",
+        "koa-helmet": "^3.3.0",
+        "local-web-server": "^2.4.0"
+    }
+}

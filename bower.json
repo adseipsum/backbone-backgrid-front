@@ -15,11 +15,20 @@
     "tests"
   ],
   "dependencies": {
+    
     "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.12.4",
+    
     "backgrid": "^0.3.8",
+    "backgrid-html-cell": "https://github.com/clementmouchet/backgrid-html-cell",
+    
     "backbone": "backbonejs#^1.3.3",
     "backbone-modal": "^1.1.5",
+    
     "jquery": "^3.2.1",
-    "backgrid-html-cell": "https://github.com/clementmouchet/backgrid-html-cell"
+    "jquery.floatThead": "^2.1.1",
+        
+        
+    "underscore": "^1.8.3"
   }
 }

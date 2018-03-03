@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Views.CampaignView = Backbone.View.extend({
 	el: $('.grid'),
 
@@ -29,9 +31,11 @@ App.Views.CampaignView = Backbone.View.extend({
 			$('.app').html(modalView.render().el);
 			modalView.getBlogTags();
 		});
+
+        $('table.backgrid').floatThead();
 	},
 
-	fetchCampaignGrid: function(){
+	fetchGrid: function(){
 		this.campaigns.fetch({reset: true});
 	},
 

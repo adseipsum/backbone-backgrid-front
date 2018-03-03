@@ -1,6 +1,8 @@
+/*jshint esversion: 6 */
+
 App.Collections.Campaigns = Backbone.Collection.extend({
 	model: App.Models.Campaign,
-	url: "http://188.166.89.15/frontapi/campaign/list",
+	url: App.baseUrl + "/frontapi/campaign/list",
 
 	parse : function(response){
 		return response.result.value;

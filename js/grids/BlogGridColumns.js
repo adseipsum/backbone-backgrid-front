@@ -1,3 +1,14 @@
+/*jshint esversion: 6 */
+
+(function () {
+    'use strict';
+
+
+    const HtmlCenterCell = Backgrid.HtmlCell.extend({
+		className: "html-cell html-center-cell"
+	})
+
+
 App.Grids.BlogGridColumns = [{
 	name: "id",
 	label: "ID",
@@ -8,10 +19,15 @@ App.Grids.BlogGridColumns = [{
 	label: "Enabled",
 	cell: "boolean"
 }, {
-	name: "domainName",
-	label: "Domain name",
-	editable: false,
-	cell: "string"
+    name: "domainName",
+    label: "Domain name",
+    editable: false,
+    cell: "html"
+}, {
+    name: "googleCheck",
+    label: "Google",
+    editable: false,
+    cell: HtmlCenterCell
 }, {
 	name: "postPeriodSeconds",
 	label: "Post Period",
@@ -24,7 +40,7 @@ App.Grids.BlogGridColumns = [{
 	cell: "string",
 	formatter: {
 		fromRaw: function (value, model) {
-			var keys = Object.values(value);
+			const keys = Object.values(value);
 			return keys.join();
 		}
 	}
@@ -34,3 +50,5 @@ App.Grids.BlogGridColumns = [{
 	editable: false,
 	cell: "string"
 }];
+
+}());

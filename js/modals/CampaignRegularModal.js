@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 App.Modals.CampaignRegularModal = Backbone.Modal.extend({
 	template: '#campaign-regular-modal-template',
 	cancelEl: '.bbm-button',
@@ -12,7 +14,7 @@ App.Modals.CampaignRegularModal = Backbone.Modal.extend({
 
 		$.ajax({
 			method: 'POST',
-			url: 'http://188.166.89.15/frontapi/campaign/new',
+			url: App.baseUrl + '/frontapi/campaign/new',
 			data: JSON.stringify({
 				'type' : 'regular',
 				'needPosts': $('#needPosts').val(),
@@ -29,7 +31,7 @@ App.Modals.CampaignRegularModal = Backbone.Modal.extend({
 
 		$.ajax({
 			method: 'GET',
-			url: 'http://188.166.89.15/frontapi/blog/list',
+			url: App.baseUrl + '/frontapi/blog/list',
 			data: {
 				'tags': $('#tagsSelector').val()
 			},
@@ -46,7 +48,7 @@ App.Modals.CampaignRegularModal = Backbone.Modal.extend({
 	getBlogTags: function(){
 		$.ajax({
 			method: 'GET',
-			url: 'http://188.166.89.15/frontapi/blog/tags',
+			url: App.baseUrl + '/frontapi/blog/tags',
 			success: function (responce) {
 				$.each(responce.result.value, function(key, val){
 					$('#tagsSelector').append($('<option>').val(val).html(val));
