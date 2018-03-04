@@ -21,7 +21,7 @@
    @class Backgrid.HtmlCell
    @extends Backgrid.Cell
 */
-var HtmlCell = Backgrid.HtmlCell = Backgrid.Cell.extend({
+Backgrid.HtmlCell = Backgrid.Cell.extend({
 
     /** @property */
     className: "html-cell",
@@ -38,4 +38,8 @@ var HtmlCell = Backgrid.HtmlCell = Backgrid.Cell.extend({
         this.delegateEvents();
         return this;
     }
+});
+
+Backgrid.HtmlCenterCell = Backgrid.HtmlCell.extend({
+    className: "html-cell html-center-cell"
 });
