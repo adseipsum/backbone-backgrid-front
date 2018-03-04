@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 
+
 App.Modals.BlogModal = Backbone.Modal.extend({
 	template: '#blog-modal-template',
 	cancelEl: '.bbm-button',

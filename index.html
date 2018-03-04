@@ -180,6 +180,30 @@
     </div>
 </script>
 
+
+<script type="text/template" id="simple-template">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="close bbm-button" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div id="simple-template-main-container" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary bbm-button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+
 <script type="text/template" id="blog-modal-template">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -321,18 +345,31 @@
 <script src="js/app.js"></script>
 
 <!-- App structure-->
+
 <script src="js/models/CampaignModel.js"></script>
 <script src="js/models/BlogModel.js"></script>
+<script src="js/models/BlogSeoPingModel.js"></script>
+<script src="js/models/BlogSeoAvailabilityModel.js"></script>
 <script src="js/models/SessionModel.js"></script>
 <script src="js/models/UserModel.js"></script>
+
 <script src="js/collections/CampaignsCollection.js"></script>
 <script src="js/collections/BlogsCollection.js"></script>
+<script src="js/collections/BlogSeoPingsCollection.js"></script>
+<script src="js/collections/BlogSeoAvailabilitiesCollection.js"></script>
+
 <script src="js/grids/HtmlCell.js"></script>
 <script src="js/grids/CampaignGridColumns.js"></script>
 <script src="js/grids/BlogGridColumns.js"></script>
+<script src="js/grids/BlogSeoPingsGridColumns.js"></script>
+<script src="js/grids/BlogSeoAvailabilitiesGridColumns.js"></script>
+
 <script src="js/modals/CampaignBacklinkedModal.js"></script>
 <script src="js/modals/CampaignRegularModal.js"></script>
 <script src="js/modals/BlogModal.js"></script>
+<script src="js/modals/BlogSeoPingModal.js"></script>
+<script src="js/modals/BlogSeoAvailabilityModal.js"></script>
+
 <script src="js/views/CampaignView.js"></script>
 <script src="js/views/BlogView.js"></script>
 <script src="js/views/LoginView.js"></script>

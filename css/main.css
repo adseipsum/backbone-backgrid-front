@@ -16,21 +16,47 @@ div#main {
     height: 99%;
 }
 
+div.floatThead-container table.backgrid,
 div.floatThead-container + table.backgrid {
-    width: 99%;
+    width: 99% !important;
 }
 
 td.html-center-cell {
     text-align: center;
 }
 
+
+
 .backgrid th.googleCheck,
+.backgrid th.ping,
+.backgrid th.availability,
 .backgrid th.enabled,
 .backgrid th.postPeriodSeconds,
-.backgrid th.id {
+.backgrid th.id,
+
+.backgrid th.locationid,
+.backgrid th.location,
+.backgrid th.ip,
+.backgrid th.status,
+.backgrid th.min_rtt_ms,
+.backgrid th.avg_rtt_ms,
+.backgrid th.max_rtt_ms,
+.backgrid th.packet_loss_percent,
+
+.backgrid th.responce_code,
+.backgrid th.responce_str,
+.backgrid th.size_responce,
+.backgrid th.start_connect_ms,
+.backgrid th.dns_resolve_ms,
+.backgrid th.first_byte_recive_ms,
+.backgrid th.last_byte_recive_ms,
+.backgrid th.response_time_ms
+
+{
     text-align: center;
     width: 80px;
 }
+
 
 .backgrid th.lastPostDate {
     width: 150px;
@@ -38,28 +64,87 @@ td.html-center-cell {
 
 .backgrid th.googleCheck button,
 .backgrid th.enabled button,
+.backgrid th.ping button,
+.backgrid th.availability button,
 .backgrid th.postPeriodSeconds button,
-.backgrid th.lastPostDate button {
+.backgrid th.lastPostDate button,
+
+.backgrid th.locationid button,
+.backgrid th.location button,
+.backgrid th.ip button,
+.backgrid th.status button,
+.backgrid th.min_rtt_ms button,
+.backgrid th.avg_rtt_ms button,
+.backgrid th.max_rtt_ms button,
+.backgrid th.packet_loss_percent button,
+
+.backgrid th.responce_code button,
+.backgrid th.responce_str button,
+.backgrid th.size_responce button,
+.backgrid th.start_connect_ms button,
+.backgrid th.dns_resolve_ms button,
+.backgrid th.first_byte_recive_ms button,
+.backgrid th.last_byte_recive_ms button,
+.backgrid th.response_time_ms button
+
+{
    display: inline;
 }
 
-.googl-check-img {
+.status-img {
     width: 20px;
     height: 20px;
+}
+
+.focus-hand-cursor {
+    cursor: default;
+}
+
+.focus-hand-cursor:hover {
+    cursor: pointer;
+}
+
+div.bbm-wrapper {
+    z-index: 2000;
+}
+
+div.bbm-modal {
+    background: transparent;
+    box-shadow: none;
+}
+
+div.bbm-wrapper div.modal-dialog {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+div.bbm-modal--open {
+    -webkit-animation-fill-mode: none;
+    -webkit-animation-duration: 0s;
+    -webkit-animation-name: none;
+    -webkit-animation-timing-function: linear;
+}
+
+.backgrid .number-cell,
+.backgrid .integer-cell,
+.backgrid .percent-cell,
+.backgrid .number-cell.editor input[type=text],
+.backgrid .integer-cell.editor input[type=text],
+.backgrid .percent-cell.editor input[type=text]{
+    text-align: right;
+    padding-right: 30px;
 }
 
 .backgrid .date-cell,
 .backgrid .time-cell,
 .backgrid .datetime-cell,
-.backgrid .number-cell,
-.backgrid .integer-cell,
-.backgrid .percent-cell,
 .backgrid .date-cell.editor input[type=text],
 .backgrid .time-cell.editor input[type=text],
-.backgrid .datetime-cell.editor input[type=text],
-.backgrid .number-cell.editor input[type=text],
-.backgrid .integer-cell.editor input[type=text],
-.backgrid .percent-cell.editor input[type=text]{
+.backgrid .datetime-cell.editor input[type=text] {
     text-align: center;
 }
 

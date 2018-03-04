@@ -3,12 +3,6 @@
 (function () {
     'use strict';
 
-
-    const HtmlCenterCell = Backgrid.HtmlCell.extend({
-		className: "html-cell html-center-cell"
-	})
-
-
 App.Grids.BlogGridColumns = [{
 	name: "id",
 	label: "ID",
@@ -27,7 +21,17 @@ App.Grids.BlogGridColumns = [{
     name: "googleCheck",
     label: "Google",
     editable: false,
-    cell: HtmlCenterCell
+    cell: Backgrid.HtmlCenterCell
+}, {
+    name: "ping",
+    label: "Ping",
+    editable: false,
+    cell: Backgrid.HtmlCenterCell
+}, {
+    name: "availability",
+    label: "Availability",
+    editable: false,
+    cell: Backgrid.HtmlCenterCell
 }, {
 	name: "postPeriodSeconds",
 	label: "Post Period",

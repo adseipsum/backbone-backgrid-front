@@ -12,18 +12,18 @@ App.Router = Backbone.Router.extend({
 	},
 
 	index: function() {
-		console.log('index');
+//		console.log('index');
 		this.navigate("campaigns", {trigger: true});
 	},
 
 	login: function () {
-		console.log('login');
+//		console.log('login');
         App.currentView = new App.Views.LoginView();
         App.currentView.render();
 	},
 
 	campaigns: function(){
-		console.log('campaigns');
+//		console.log('campaigns');
 
         App.currentView = new App.Views.CampaignView();
         App.currentView.fetchGrid();
@@ -33,7 +33,7 @@ App.Router = Backbone.Router.extend({
 	},
 
 	blogs: function(){
-		console.log('blogs');
+//		console.log('blogs');
 
         App.currentView = new App.Views.BlogView();
         App.currentView.fetchGrid();
@@ -49,7 +49,6 @@ App.Router = Backbone.Router.extend({
 		if (callback) callback.apply(this, args);
 	}
 });
-
 
 $.fn.changeAutoUpdate = function() {
     if ($('#auto-update-enable').is(":checked")) {
