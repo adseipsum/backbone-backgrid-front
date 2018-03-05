@@ -188,3 +188,7 @@ table.backgrid td.nextPostTime {
 #actions .btn{
     margin-right: 5px;
 }
+
+.locked{
+    background-color: #fdff68;
+}

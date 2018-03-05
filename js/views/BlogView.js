@@ -10,7 +10,8 @@ App.Views.BlogView = Backbone.View.extend({
 		this.blogs = new App.Collections.Blogs();
 		this.blogsGrid = new Backgrid.Grid({
 			columns: App.Grids.BlogGridColumns,
-			collection: this.blogs
+			collection: this.blogs,
+			row: App.Views.BlogView.LockedRow
 		});
 
 		this.render(); // not all views are self-rendering. This one is.
@@ -35,3 +36,15 @@ App.Views.BlogView = Backbone.View.extend({
 	},
 
 });
+
+App.Views.BlogView.LockedRow = Backgrid.Row.extend({
+	render: function() {
+		Backgrid.Row.prototype.render.call(this);
+		if (this.model.get('locked')) {
+			this.$el.addClass('locked');
+		} else {
+			this.$el.removeClass('locked');
+		}
+		return this;
+	}
+})
