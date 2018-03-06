@@ -1,10 +1,12 @@
 {
   "name": "backgrid-html-cell",
-  "_cacheHeaders": {
-    "Content-Type": "text/html; charset=utf-8"
+  "homepage": "https://github.com/clementmouchet/backgrid-html-cell",
+  "_release": "90955aebc7",
+  "_resolution": {
+    "type": "commit",
+    "commit": "90955aebc7594d5ed407d3340f969f7777d50b29"
   },
-  "main": "index",
-  "_source": "https://github.com/clementmouchet/backgrid-html-cell",
-  "_target": "*",
-  "_originalSource": "https://github.com/clementmouchet/backgrid-html-cell"
+  "_source": "git://github.com/clementmouchet/backgrid-html-cell.git",
+  "_target": "90955aebc7594d5ed407d3340f969f7777d50b29",
+  "_originalSource": "git://github.com/clementmouchet/backgrid-html-cell.git"
 }

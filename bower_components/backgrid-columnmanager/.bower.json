@@ -1,0 +1,37 @@
+{
+  "name": "backgrid-columnmanager",
+  "homepage": "https://github.com/WRidder/Backgrid.ColumnManager",
+  "authors": [
+    "Wilbert van de Ridder <wilbert.ridder@gmail.com>"
+  ],
+  "description": "A manager for backgrid columns allowing to load/save the state and set initially visible columns.",
+  "main": "lib/Backgrid.ColumnManager.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "backgrid",
+    "columns",
+    "state",
+    "orderable",
+    "sizeable",
+    "renderable",
+    "localstorage"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "cfe5213793",
+  "_resolution": {
+    "type": "commit",
+    "commit": "cfe5213793c09d2e7268a86a58cd77087d57f2e0"
+  },
+  "_source": "git://github.com/marseille/Backgrid.ColumnManager.git",
+  "_target": "cfe5213793c09d2e7268a86a58cd77087d57f2e0",
+  "_originalSource": "git://github.com/marseille/Backgrid.ColumnManager.git"
+}

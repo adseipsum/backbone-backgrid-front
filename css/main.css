@@ -16,16 +16,18 @@ div#main {
     height: 99%;
 }
 
+div#main table.backgrid {
+    width: 99.5% !important;
+}
+
 div.floatThead-container table.backgrid,
 div.floatThead-container + table.backgrid {
-    width: 99% !important;
+    width: 99.5% !important;
 }
 
 td.html-center-cell {
     text-align: center;
 }
-
-
 
 .backgrid th.googleCheck,
 .backgrid th.ping,
@@ -33,6 +35,16 @@ td.html-center-cell {
 .backgrid th.enabled,
 .backgrid th.postPeriodSeconds,
 .backgrid th.id,
+.backgrid th.lastPostDate,
+.backgrid td.lastPostDate,
+.backgrid th.domainExpirationDate,
+.backgrid td.domainExpirationDate,
+.backgrid th.maj_cf,
+.backgrid th.maj_tf,
+.backgrid th.moz_pa,
+.backgrid th.moz_da,
+.backgrid th.moz_rank,
+.backgrid th.alexa_rank,
 
 .backgrid th.locationid,
 .backgrid th.location,
@@ -54,13 +66,8 @@ td.html-center-cell {
 
 {
     text-align: center;
-    width: 80px;
 }
 
-
-.backgrid th.lastPostDate {
-    width: 150px;
-}
 
 .backgrid th.googleCheck button,
 .backgrid th.enabled button,
@@ -68,6 +75,13 @@ td.html-center-cell {
 .backgrid th.availability button,
 .backgrid th.postPeriodSeconds button,
 .backgrid th.lastPostDate button,
+.backgrid th.domainExpirationDate button,
+.backgrid th.maj_cf button,
+.backgrid th.maj_tf button,
+.backgrid th.moz_pa button,
+.backgrid th.moz_da button,
+.backgrid th.moz_rank button,
+.backgrid th.alexa_rank button,
 
 .backgrid th.locationid button,
 .backgrid th.location button,

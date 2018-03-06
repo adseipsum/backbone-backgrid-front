@@ -2,19 +2,24 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
 
     <title>Sattelitor Web Front</title>
-    <meta name="description" content="Sattelitor Web Front">
+    <meta name="description" content="Sattelitor Web Front" />
     <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="bower_components/backgrid/lib/backgrid.css">
-    <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.css">
-    <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.theme.css">
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-columnmanager/lib/Backgrid.ColumnManager.css" />
+
+    <link rel="stylesheet" href="bower_components/backgrid/lib/backgrid.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-sizeable-columns/backgrid-sizeable-columns.css" />
+
+    <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.css" />
+    <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.theme.css" />
+
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 
@@ -288,6 +293,10 @@
 
 
     </div>
+    <div class="row" style="margin: 5px 0 10px 0">
+        <div style="font-weight: bold; float: left; margin-right: 10px;">Column control:</div>
+        <div id="grid-control" style="float: left; margin-right: 30px;"></div>
+    </div>
     <div class="row">
         <div class="col-md-12 backgrid-container grid">
         </div>
@@ -333,11 +342,20 @@
 </script>
 
 <script src="bower_components/underscore/underscore.js"></script>
+
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/jquery.floatThead/dist/jquery.floatThead.min.js"></script>
+
 <script src="bower_components/backbone/backbone-min.js"></script>
+
 <script src="bower_components/backgrid/lib/backgrid.js"></script>
+<script src="js/backgrid-patch.js"></script>
+<script src="bower_components/backgrid-html-cell/backgrid-html-cell.js"></script>
+<script src="bower_components/backgrid-sizeable-columns/backgrid-sizeable-columns.js"></script>
+<script src="bower_components/backgrid-columnmanager/src/Backgrid.ColumnManager.js"></script>
+
 <script src="bower_components/backbone-modal/backbone.modal.js"></script>
+
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
 
@@ -358,7 +376,7 @@
 <script src="js/collections/BlogSeoPingsCollection.js"></script>
 <script src="js/collections/BlogSeoAvailabilitiesCollection.js"></script>
 
-<script src="js/grids/HtmlCell.js"></script>
+<script src="js/grids/HtmlCenterCell.js"></script>
 <script src="js/grids/CampaignGridColumns.js"></script>
 <script src="js/grids/BlogGridColumns.js"></script>
 <script src="js/grids/BlogSeoPingsGridColumns.js"></script>

@@ -20,15 +20,16 @@
     "bootstrap-select": "^1.12.4",
     
     "backgrid": "^0.3.8",
-    "backgrid-html-cell": "https://github.com/clementmouchet/backgrid-html-cell",
+    "backgrid-html-cell": "git://github.com/clementmouchet/backgrid-html-cell.git#90955aebc7594d5ed407d3340f969f7777d50b29",
+    "backgrid-sizeable-columns": "git://github.com/FortesSolutions/backgrid-sizeable-columns.git#0f19eef37684f327c74fe05f28752a02f93752a3",
+    "backgrid-columnmanager": "git://github.com/marseille/Backgrid.ColumnManager.git#cfe5213793c09d2e7268a86a58cd77087d57f2e0",
     
     "backbone": "backbonejs#^1.3.3",
     "backbone-modal": "^1.1.5",
     
     "jquery": "^3.2.1",
     "jquery.floatThead": "^2.1.1",
-        
-        
+       
     "underscore": "^1.8.3"
   }
 }
