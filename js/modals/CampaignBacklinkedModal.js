@@ -8,6 +8,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		'change #tagsSelector': 'getAvailableBlogs',
 		'click #addNewSubLink' : 'addNewSubLink'
 	},
+
 	newCampaign: function() {
 		if(!$('#newCampaignForm')[0].checkValidity()) {
 			return false;
@@ -30,9 +31,10 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 
 		$.ajax({
 			method: 'POST',
-			url: App.baseUrl + '/frontapi/campaign/new',
+			url: App.baseUrl + '/frontapi/campaign/upsert',
 			data: JSON.stringify({
 				'type' : 'backlinked',
+				'campaignId': $('#campaignId').val(),
 				'mainDomain': $('#mainDomain').val(),
 				'postMainDomainLinks': $('#postMainDomainLinks').val(),
 				'postSubLinks': $('#postSubLinks').val(),
@@ -40,60 +42,66 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 				'subLinks': mapSubLinks,
 				'additionalKeysPercentage': $('#additionalKeysPercentage').val(),
 				'postPeriodDays': $('#postPeriodDays').val(),
+				'blogTags' : $('#newCampaignForm .filter-option').text(),
 				'selectedBlogs': $('#selectedBlogs input[type=checkbox]:checked').map(function() {return this.value;}).get()
 			}),
 			success: function () {
 				$('.app').empty();
 			}
 		});
+
+		App.currentView.fetchGrid();
 	},
+
 	getAvailableBlogs: function(){
 		$('#selectedBlogs').html('');
-
-		$.ajax({
-			method: 'GET',
-			url: App.baseUrl + '/frontapi/blog/list',
-			data: {
-				'tags': $('#tagsSelector').val()
-			},
-			success: function (responce) {
-				$.each(responce.result.value, function(key, val){
-					//TODO: template with Mustache
-					$('#selectedBlogs')
-						.append($('<li>').text(val.domainName)
-						.append($('<input>').attr('type', 'checkbox').attr('value', val.id).attr('checked', true)));
-				});
-			}
-		});
+		var tags = $('#tagsSelector').val();
+		if(tags.length) {
+			this.fillInBlogs($('#tagsSelector').val());
+		}
 	},
-	getBlogTags: function(){
+
+	getBlogTags: function(selectedTags){
 		$.ajax({
 			method: 'GET',
 			url: App.baseUrl + '/frontapi/blog/tags',
 			success: function (responce) {
 				$.each(responce.result.value, function(key, val){
-					$('#tagsSelector').append($('<option>').val(val).html(val));
+					var option = $('<option>').val(val).html(val);
+
+					if(typeof(selectedTags) != 'undefined' && $.inArray(val, selectedTags) > -1){
+						option.attr('selected', true);
+					}
+
+					$('#tagsSelector').append(option);
 				});
 
-				$('#tagsSelector').selectpicker();
+				$('#tagsSelector').selectpicker('refresh');
 			}
 		});
 	},
+
 	addNewSubLink: function(data){
 		//TODO: template with Mustache
 		//TODO: check if domain name same as main
 
-		var tpl = _.template($('#sub-links-template').html(), JSON.stringify({
-			"subLink": data.subLink,
-			"subLinkKeywords": data.subLinkKeywords,
-			"subAdditionalKeywordsPercentage": data.subAdditionalKeywordsPercentage
-		}));
+		var tpl = $.parseHTML($('#sub-links-template').html());
+
+		if(data) {
+			$(tpl).find('.subLink').val(data.subLink);
+			$(tpl).find('.subLinkKeywords').text(data.subLinkKeywords);
+			$(tpl).find('.subAdditionalKeywordsPercentage').val(data.subAdditionalKeywordsPercentage);
+		}
 
 		$('#subLinks').append(tpl);
+
+		return false;
 	},
+
 	fillForm: function(data){
 		var current = this;
-		console.log(data.subLinks);
+
+		$('#campaignId').val(data.id);
 		$('#mainDomain').val(data.mainDomain);
 		$('#postMainDomainLinks').val(data.postMainDomainLinks);
 		$('#postSubLinks').val(data.postSubLinks);
@@ -101,11 +109,39 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		$('#additionalKeysPercentage').val(data.additionalKeysPercentage);
 		$('#postPeriodDays').val(data.postPeriodDays);
 		$.each(data.subLinks, function(key, value){
-			//current.addNewSubLink(value);
+			current.addNewSubLink(value);
 		});
+
+		this.getBlogTags(data.blogTags);
+		this.fillInBlogs(data.blogTags, data.blogs);
 	},
+
 	execute: function(callback, args, name) {
 		$('#selectedBlogs').html('');
 		if (callback) callback.apply(this, args);
+	},
+
+	fillInBlogs: function(tags, blogs){
+
+		$.ajax({
+			method: 'GET',
+			url: App.baseUrl + '/frontapi/blog/list',
+			data: {
+				'tags': tags
+			},
+			success: function (response) {
+				$.each(response.result.value, function(key, val){
+
+					if(typeof(blogs) != 'undefined' && !(val.id in blogs)){
+						return true;
+					}
+
+					//TODO: template with Mustache
+					$('#selectedBlogs')
+						.append($('<li>').text(val.domainName)
+							.append($('<input>').attr('type', 'checkbox').attr('value', val.id).attr('checked', true)));
+				});
+			}
+		});
 	}
 });
