@@ -19,7 +19,8 @@ App.Views.CampaignView = Backbone.View.extend({
 	render: function(){
 		$('#main').html($('#grid').html());
 		$('#actions').addClass('campaign');
-		$('.grid').html(this.campaignsGrid.render().el);
+		const content = $('.content');
+        content.html(this.campaignsGrid.render().el);
 		$('#actions').on('click', '.newCampaign', function () {
 
 			if($(this).data('type') == 'backlinked'){
