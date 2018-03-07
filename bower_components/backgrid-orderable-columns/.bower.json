@@ -1,0 +1,36 @@
+{
+  "name": "backgrid-orderable-columns",
+  "main": [
+    "backgrid-orderable-columns.js",
+    "backgrid-orderable-columns.css"
+  ],
+  "description": "Backgrid.js extension for (re)orderable columns",
+  "homepage": "https://github.com/WRidder/backgrid-orderable-columns",
+  "authors": [
+    "Wilbert van de Ridder <wilbert.ridder@gmail.com>"
+  ],
+  "keywords": [
+    "backbone",
+    "backgrid"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backgrid": "~0.3.0",
+    "backbone": "~1.1.0"
+  },
+  "_release": "95fca3ff54",
+  "_resolution": {
+    "type": "commit",
+    "commit": "95fca3ff541627d7291d984dac4236edb0651545"
+  },
+  "_source": "git://github.com/FortesSolutions/backgrid-orderable-columns.git",
+  "_target": "95fca3ff541627d7291d984dac4236edb0651545",
+  "_originalSource": "git://github.com/FortesSolutions/backgrid-orderable-columns.git"
+}

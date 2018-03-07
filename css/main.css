@@ -13,7 +13,32 @@ body {
 }
 
 div#main {
+    display: flex;
+    flex-flow: column;
     height: 99%;
+}
+
+div#main div.header {
+    flex: 0 1 auto;
+    /* The above is shorthand for:
+    flex-grow: 0,
+    flex-shrink: 1,
+    flex-basis: auto
+    */
+}
+
+div#main div.content {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+div#main div.footer {
+    flex: 0 1 40px;
+}
+
+div#main div.footer .backgrid-paginator ul {
+    margin: 3px 0 0 0;
+    padding: 0;
 }
 
 div#main table.backgrid {
@@ -29,80 +54,19 @@ td.html-center-cell {
     text-align: center;
 }
 
-.backgrid th.googleCheck,
-.backgrid th.ping,
-.backgrid th.availability,
-.backgrid th.enabled,
-.backgrid th.postPeriodSeconds,
-.backgrid th.id,
-.backgrid th.lastPostDate,
+.backgrid thead th,
 .backgrid td.lastPostDate,
-.backgrid th.domainExpirationDate,
-.backgrid td.domainExpirationDate,
-.backgrid th.maj_cf,
-.backgrid th.maj_tf,
-.backgrid th.moz_pa,
-.backgrid th.moz_da,
-.backgrid th.moz_rank,
-.backgrid th.alexa_rank,
-
-.backgrid th.locationid,
-.backgrid th.location,
-.backgrid th.ip,
-.backgrid th.status,
-.backgrid th.min_rtt_ms,
-.backgrid th.avg_rtt_ms,
-.backgrid th.max_rtt_ms,
-.backgrid th.packet_loss_percent,
-
-.backgrid th.responce_code,
-.backgrid th.responce_str,
-.backgrid th.size_responce,
-.backgrid th.start_connect_ms,
-.backgrid th.dns_resolve_ms,
-.backgrid th.first_byte_recive_ms,
-.backgrid th.last_byte_recive_ms,
-.backgrid th.response_time_ms
-
-{
+.backgrid td.domainExpirationDate {
     text-align: center;
 }
 
 
-.backgrid th.googleCheck button,
-.backgrid th.enabled button,
-.backgrid th.ping button,
-.backgrid th.availability button,
-.backgrid th.postPeriodSeconds button,
-.backgrid th.lastPostDate button,
-.backgrid th.domainExpirationDate button,
-.backgrid th.maj_cf button,
-.backgrid th.maj_tf button,
-.backgrid th.moz_pa button,
-.backgrid th.moz_da button,
-.backgrid th.moz_rank button,
-.backgrid th.alexa_rank button,
-
-.backgrid th.locationid button,
-.backgrid th.location button,
-.backgrid th.ip button,
-.backgrid th.status button,
-.backgrid th.min_rtt_ms button,
-.backgrid th.avg_rtt_ms button,
-.backgrid th.max_rtt_ms button,
-.backgrid th.packet_loss_percent button,
-
-.backgrid th.responce_code button,
-.backgrid th.responce_str button,
-.backgrid th.size_responce button,
-.backgrid th.start_connect_ms button,
-.backgrid th.dns_resolve_ms button,
-.backgrid th.first_byte_recive_ms button,
-.backgrid th.last_byte_recive_ms button,
-.backgrid th.response_time_ms button
-
-{
+.backgrid thead th button {
    display: inline;
+}
+
+.backgrid th.sortable  button {
+    color: #118;
 }
 
 .status-img {
@@ -206,3 +170,9 @@ table.backgrid td.nextPostTime {
 .locked{
     background-color: #fdff68;
 }
+
+.backgrid-paginator .rewind,
+.backgrid-paginator .fast-forward {
+    display: none;
+}
+

@@ -15,6 +15,9 @@
 
     <link rel="stylesheet" href="bower_components/backgrid/lib/backgrid.css" />
     <link rel="stylesheet" href="bower_components/backgrid-sizeable-columns/backgrid-sizeable-columns.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-grouped-columns/backgrid-grouped-columns.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-paginator/backgrid-paginator.css" /> <!-- !!! dont change to  min !!! -->
+    <link rel="stylesheet" href="bower_components/backgrid-orderable-columns/backgrid-orderable-columns.css" />
 
     <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.css" />
     <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.theme.css" />
@@ -279,27 +282,29 @@
 </script>
 
 <script id="grid" type="text/template">
-    <div class="row">
-        <div class="btn-toolbar" style="margin:10px 0;">
-            <a href="#campaigns" class="btn btn-primary">Campaigns</a>
-            <a href="#blogs" class="btn btn-primary">Blogs</a>
-            <div style="float: left; margin: 5px 0 0 15px">
-                <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
-                <label for="auto-update-enable">Enable Table Auto Update.</label>
+    <div class="header">
+        <div class="row">
+            <div class="btn-toolbar" style="margin:10px 0;">
+                <a href="#campaigns" class="btn btn-primary">Campaigns</a>
+                <a href="#blogs" class="btn btn-primary">Blogs</a>
+                <div style="float: left; margin: 5px 0 0 15px">
+                    <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
+                    <label for="auto-update-enable">Enable Table Auto Update.</label>
+                </div>
+                <div id="actions" class="pull-right">
+                </div>
             </div>
-            <div id="actions" class="pull-right">
-            </div>
-        </div>
 
 
-    </div>
-    <div class="row" style="margin: 5px 0 10px 0">
-        <div style="font-weight: bold; float: left; margin-right: 10px;">Column control:</div>
-        <div id="grid-control" style="float: left; margin-right: 30px;"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 backgrid-container grid">
         </div>
+        <div class="row" style="margin: 5px 0 10px 0">
+            <div style="font-weight: bold; float: left; margin-right: 10px;">Column control:</div>
+            <div id="grid-control" style="float: left; margin-right: 30px;"></div>
+        </div>
+    </div>
+    <div class="content">
+    </div>
+    <div class="footer">
     </div>
 </script>
 
@@ -347,12 +352,16 @@
 <script src="bower_components/jquery.floatThead/dist/jquery.floatThead.min.js"></script>
 
 <script src="bower_components/backbone/backbone-min.js"></script>
+<script src="bower_components/backbone.paginator/lib/backbone.paginator.min.js"></script>
 
 <script src="bower_components/backgrid/lib/backgrid.js"></script>
 <script src="js/backgrid-patch.js"></script>
 <script src="bower_components/backgrid-html-cell/backgrid-html-cell.js"></script>
 <script src="bower_components/backgrid-sizeable-columns/backgrid-sizeable-columns.js"></script>
-<script src="bower_components/backgrid-columnmanager/src/Backgrid.ColumnManager.js"></script>
+<script src="bower_components/backgrid-grouped-columns/backgrid-grouped-columns.js"></script>
+<script src="bower_components/backgrid-orderable-columns/backgrid-orderable-columns.js"></script>
+<script src="bower_components/backgrid-paginator/backgrid-paginator.js"></script> <!-- !!! dont change to  min !!! -->
+<script src="bower_components/backgrid-columnmanager/src/Backgrid.ColumnManager.js"></script> <!-- !!! dont change to lib folder !!! -->
 
 <script src="bower_components/backbone-modal/backbone.modal.js"></script>
 

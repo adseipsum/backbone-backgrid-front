@@ -10,6 +10,61 @@
  * Should not be needed anymore once https://github.com/wyuenho/backgrid/pull/546 has been discussed
  */
 
+
+Backgrid.Column.prototype.sortValue = function () {
+    const sortValue = this.get("sortValue");
+    if (_.isString(sortValue)) {
+        return function (model, colName) {
+            return model.get(sortValue);
+        };
+    } else if (_.isFunction(sortValue)) {
+        return sortValue;
+    }
+
+    return function (model, colName) {
+        return model.get(colName);
+    };
+};
+
+
+Backgrid.Body.prototype.makeComparator = function (attr, order, func) {
+    return function (left, right) {
+        // extract the values from the models
+        let l = func(left, attr);
+        let r = func(right, attr);
+
+        // if descending order, swap left and right
+        if (order === 1) {
+            const t = l;
+            l = r;
+            r = t;
+        }
+
+        // compare as usual
+        const ret = $.fn.naturalComparator(l, r);
+        return ret;
+    };
+};
+
+Backbone.PageableCollection.prototype._makeComparator = function (sortKey, order, sortValue) {
+    const state = this.state;
+
+    sortKey = sortKey || state.sortKey;
+    order = order || state.order;
+
+    if (!sortKey || !order) {
+        return;
+    }
+
+    if (!sortValue) {
+        sortValue = function (model, attr) {
+            return model.get(attr);
+        };
+    }
+
+    return Backgrid.Body.prototype.makeComparator(sortKey, order, sortValue);
+};
+
 Backgrid.HeaderCell.prototype.render = function () {
     this.$el.empty();
     const column = this.column;

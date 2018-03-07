@@ -1,0 +1,36 @@
+{
+  "name": "backgrid-grouped-columns",
+  "main": [
+    "backgrid-grouped-columns.js",
+    "backgrid-grouped-columns.css"
+  ],
+  "description": "Backgrid.js extension for (re)orderable columns",
+  "homepage": "https://github.com/WRidder/backgrid-select-all",
+  "authors": [
+    "Wilbert van de Ridder <wilbert.ridder@gmail.com>"
+  ],
+  "keywords": [
+    "backbone",
+    "backgrid"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backgrid": "~0.3.0",
+    "backbone": "~1.1.0"
+  },
+  "_release": "ab5bbd5621",
+  "_resolution": {
+    "type": "commit",
+    "commit": "ab5bbd562164a7459b2c0f7d7f8c89fe22ae1373"
+  },
+  "_source": "git://github.com/FortesSolutions/backgrid-grouped-columns.git",
+  "_target": "ab5bbd562164a7459b2c0f7d7f8c89fe22ae1373",
+  "_originalSource": "git://github.com/FortesSolutions/backgrid-grouped-columns.git"
+}
