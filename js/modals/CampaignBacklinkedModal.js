@@ -35,7 +35,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 				'type' : 'backlinked',
 				'mainDomain': $('#mainDomain').val(),
 				'postMainDomainLinks': $('#postMainDomainLinks').val(),
-				'postSubPageLinks': $('#postSubPageLinks').val(),
+				'postSubLinks': $('#postSubLinks').val(),
 				'mainKeywords' : $('#mainKeywords').val(),
 				'subLinks': mapSubLinks,
 				'additionalKeysPercentage': $('#additionalKeysPercentage').val(),
@@ -79,11 +79,30 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 			}
 		});
 	},
-	addNewSubLink: function(){
+	addNewSubLink: function(data){
 		//TODO: template with Mustache
 		//TODO: check if domain name same as main
-		$('#subLinks').append($('#sub-links-template').html());
-		return false;
+
+		var tpl = _.template($('#sub-links-template').html(), JSON.stringify({
+			"subLink": data.subLink,
+			"subLinkKeywords": data.subLinkKeywords,
+			"subAdditionalKeywordsPercentage": data.subAdditionalKeywordsPercentage
+		}));
+
+		$('#subLinks').append(tpl);
+	},
+	fillForm: function(data){
+		var current = this;
+		console.log(data.subLinks);
+		$('#mainDomain').val(data.mainDomain);
+		$('#postMainDomainLinks').val(data.postMainDomainLinks);
+		$('#postSubLinks').val(data.postSubLinks);
+		$('#mainKeywords').val(data.mainKeywords);
+		$('#additionalKeysPercentage').val(data.additionalKeysPercentage);
+		$('#postPeriodDays').val(data.postPeriodDays);
+		$.each(data.subLinks, function(key, value){
+			//current.addNewSubLink(value);
+		});
 	},
 	execute: function(callback, args, name) {
 		$('#selectedBlogs').html('');

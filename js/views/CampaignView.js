@@ -34,7 +34,6 @@ App.Views.CampaignView = Backbone.View.extend({
 
         $('table.backgrid').floatThead();
 	},
-
 	fetchGrid: function(){
 		this.campaigns.fetch({reset: true});
 	},

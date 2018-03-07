@@ -1,32 +1,64 @@
 /*jshint esversion: 6 */
 
+var ActionCell = Backgrid.Cell.extend({
+	events: {
+		'click .delete': 'deleteCampaign',
+		'click .edit': 'editCampaign'
+	},
+	deleteCampaign: function(e) {
+		e.preventDefault();
+		var collection = this.model.collection;
+		if(confirm("Are you sure you want to delete this campaign? \n This action can't be undone!")){
+			$.ajax({
+				method: 'POST',
+				url: App.baseUrl + '/frontapi/campaign/remove',
+				data: JSON.stringify({
+					'campaignId': this.model.attributes.id
+				}),
+				success: function(){
+					collection.remove(this.model);
+				}
+			});
+
+
+		}
+	},
+	editCampaign: function(e){
+		e.preventDefault();
+		var modalView = new App.Modals.CampaignBacklinkedModal();
+		$('.app').html(modalView.render().el);
+		modalView.fillForm(this.model.attributes);
+
+	},
+	render: function () {
+		this.$el.html('<button class="edit btn btn-sm btn-info glyphicon glyphicon-pencil"></button>&nbsp;<button class="delete btn btn-sm btn-danger glyphicon glyphicon-trash"></button>');
+		return this;
+	}
+});
+
 App.Grids.CampaignGridColumns = [{
 	name: "id",
 	label: "ID",
 	editable: false,
-	cell: "string"
-}, {
-	name: "enabled",
-	label: "Enabled",
-	cell: "boolean"
+	cell: "string",
+	formatter: {
+		fromRaw: function (object) {
+			return object.substring(9);
+		}
+	}
 }, {
 	name: "status",
 	label: "Status",
 	editable: false,
 	cell: "string"
 }, {
-	name: "type",
-	label: "Type",
-	editable: false,
-	cell: "string"
-}, {
 	name: "mainDomain",
-	label: "Main Domain",
+	label: "Domain",
 	editable: false,
 	cell: "string"
 }, {
 	name: "mainKeywords",
-	label: "Main Keywords",
+	label: "Keywords",
 	editable: false,
 	cell: "string"
 }, {
@@ -45,12 +77,12 @@ App.Grids.CampaignGridColumns = [{
 	}
 }, {
 	name: "created",
-	label: "Created Date",
+	label: "Created",
 	editable: false,
 	cell: "string"
 }, {
 	name: "needPosts",
-	label: "Need Posts",
+	label: "Posts",
 	editable: false,
 	cell: "integer"
 }, {
@@ -60,7 +92,7 @@ App.Grids.CampaignGridColumns = [{
 	cell: "number"
 }, {
 	name: "postPeriodDays",
-	label: "Period Days",
+	label: "Days",
 	editable: false,
 	cell: "integer"
 }, {
@@ -78,4 +110,9 @@ App.Grids.CampaignGridColumns = [{
 	label: "Errors",
 	editable: false,
 	cell: "integer"
+}, {
+	name: "",
+	label: "Action",
+	editable: false,
+	cell: ActionCell
 }];

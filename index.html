@@ -166,24 +166,24 @@
     </div>
 </script>
 
-<script type="text/template" id="sub-links-template">
+<template id="sub-links-template">
     <div class="row">
         <div class="well well-sm col-lg-10 sub-link-block">
             <div class="form-group">
                 <label>Sub Link</label>
-                <input type="text" class="subLink form-control" name="subLink"/>
+                <input type="text" class="subLink form-control" name="subLink" val="<%= subLinks %>"/>
             </div>
             <div class="form-group">
                 <label>Sub Keywords</label>
-                <textarea class="subLinkKeywords form-control" name="subLinkKeywords"></textarea>
+                <textarea class="subLinkKeywords form-control" name="subLinkKeywords"><%= subLinkKeywords %></textarea>
             </div>
             <div class="form-group">
                 <label>Additional Keys %</label>
-                <input type="text" class="subAdditionalKeywordsPercentage form-control" name="subAdditionalKeywordsPercentage" min="0"/>
+
             </div>
         </div>
     </div>
-</script>
+</template>
 
 
 <script type="text/template" id="simple-template">
