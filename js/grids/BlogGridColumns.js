@@ -3,126 +3,168 @@
 (function () {
     'use strict';
 
-App.Grids.BlogGridColumns = new Backgrid.Columns([{
-	name: "id",
-	label: "ID",
-	editable: false,
-	cell: "string",
-    comparator: $.fn.naturalComparator,
-    resizeable: true,
-    width: 80,
-}, {
-	name: "enabled",
-	label: "Enabled",
-	cell: "boolean",
-    resizeable: true,
-    width: 80,
-}, {
-    name: "domainName",
-    label: "Domain name",
-    editable: false,
-    cell: "html",
-    resizeable: true,
-    width: "*",
-}, {
-    name: "googleCheck",
-    label: "Google",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "ping",
-    label: "Ping",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "availability",
-    label: "Availability",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-},{
-    name: "domainExpirationDate",
-    label: "Domain expiration",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "maj_cf",
-    label: "maj_cf",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "maj_tf",
-    label: "maj_tf",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "moz_pa",
-    label: "moz_pa",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "moz_da",
-    label: "moz_da",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "moz_rank",
-    label: "moz_rank",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-    name: "alexa_rank",
-    label: "alexa_rank",
-    editable: false,
-    cell: Backgrid.HtmlCenterCell,
-    resizeable: true,
-    width: 80,
-}, {
-	name: "postPeriodSeconds",
-	label: "Post Period",
-	editable: false,
-	cell: "integer",
-    resizeable: true,
-    width: 80,
-}, {
-	name: "tags",
-	label: "Tags",
-	editable: false,
-	cell: "string",
-	formatter: {
-		fromRaw: function (value, model) {
-			const keys = Object.values(value);
-			return keys.join();
-		}
-	},
-    resizeable: true,
-    width: 80,
-}, {
-	name: "lastPostDate",
-	label: "Last Post",
-	editable: false,
-	cell: "string",
-    resizeable: true,
-    width: 150,
-},
-//    Backgrid.Extension.SizeAbleColumns.spacerColumnDefinition
+App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection([
+    {
+        name: "id",
+        label: "ID",
+        editable: false,
+        cell: "string",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["General"]
+    }, {
+        name: "enabled",
+        label: "Enabled",
+        cell: "boolean",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["General"]
+    }, {
+        name: "domainName",
+        sortValue: "domainNameSort",
+        label: "Domain name",
+        editable: false,
+        cell: "html",
+        resizeable: true,
+        width: "*",
+        orderable: true,
+        nesting: ["General"]
+    }, {
+        name: "googleCheck",
+        sortValue: "googleCheckStatus",
+        label: "Google",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Server"]
+    }, {
+        name: "ping",
+        sortValue: "pingStatus",
+        label: "Ping",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Server"]
+    }, {
+        name: "availability",
+        sortValue: "availabilitieStatus",
+        label: "Availability",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Server"]
+    },{
+        name: "domainExpirationDate",
+        sortValue: "domainExpirationDateSort",
+        label: "Domain expired",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        nesting: ["Check", "Server"]
+    }, {
+        name: "moz_da",
+        sortValue: "moz_da_sort",
+        label: "DA",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Moz"]
+    }, {
+        name: "moz_pa",
+        sortValue: "moz_pa_sort",
+        label: "PA",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Moz"]
+    }, {
+        name: "moz_rank",
+        sortValue: "moz_rank_sort",
+        label: "Rank",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Moz"]
+    }, {
+        name: "maj_tf",
+        sortValue: "maj_tf_sort",
+        label: "TF",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Majestic"]
+    }, {
+        name: "maj_cf",
+        sortValue: "maj_cf_sort",
+        label: "CF",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Majestic"]
+    }, {
+        name: "alexa_rank",
+        sortValue: "alexa_rank_sort",
+        label: "Rank",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Http", "Alexa"]
+    }, {
+        name: "postPeriodSeconds",
+        label: "Period",
+        editable: false,
+        cell: "integer",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Posting"]
+    }, {
+        name: "tags",
+        label: "Tags",
+        editable: false,
+        cell: "string",
+        formatter: {
+            fromRaw: function (value, model) {
+                const keys = Object.values(value);
+                return keys.join();
+            }
+        },
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Posting"]
+    }, {
+        name: "lastPostDate",
+        sortValue: "lastPostDateSort",
+        label: "Last Post",
+        editable: false,
+        cell: "string",
+        resizeable: true,
+        width: 150,
+        orderable: true,
+        nesting: ["Posting"]
+    }
 ]);
 
 }());

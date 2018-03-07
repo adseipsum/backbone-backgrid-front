@@ -9,8 +9,8 @@ const App = {
 	Router: {},
 	currentLoop: {},
 
-//	baseUrl: 'http://localhost:8000'
-    baseUrl: 'http://188.166.89.15'
+	baseUrl: 'http://localhost:8000'
+//    baseUrl: 'http://188.166.89.15'
 };
 
 $(document).ready(function() {
@@ -26,30 +26,40 @@ $(document).ready(function() {
 
 });
 
-$.fn.unixTimeConverter = function(unixTimestamp){
+$.fn.unixTimeConverter = function(unixTimestamp, isDate = true, isTime = true){
     const a = new Date(unixTimestamp * 1000);
-    const year = a.getFullYear();
-    let month = a.getMonth();
-    if (month < 9) {
-        month = '0' + month;
+    let ret = '';
+    if (isDate) {
+        const year = a.getFullYear();
+        let month = a.getMonth() + 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        let date = a.getDate();
+        if (date < 10) {
+            date = '0' + date;
+        }
+        ret += year + '-' + month + '-' + date;
+        if (isTime) {
+            ret += ' ';
+        }
     }
-    let date = a.getDate();
-    if (date < 9) {
-        date = '0' + date;
+    if (isTime) {
+        let hour = a.getHours();
+        if (hour < 10) {
+            hour = '0' + hour;
+        }
+        let min = a.getMinutes();
+        if (min < 10) {
+            min = '0' + min;
+        }
+        let sec = a.getSeconds();
+        if (sec < 10) {
+            sec = '0' + sec;
+        }
+        ret += hour + ':' + min + ':' + sec;
     }
-    let hour = a.getHours();
-    if (hour < 9) {
-        hour = '0' + hour;
-	}
-    let min = a.getMinutes();
-    if (min < 9) {
-        min = '0' + min;
-    }
-    let sec = a.getSeconds();
-    if (sec < 9) {
-        sec = '0' + sec;
-    }
-    return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    return ret;
 };
 
 
@@ -105,8 +115,11 @@ $.fn.naturalComparator = function() {
                 const comp = oFxNcL.localeCompare(oFyNcL);
                 return comp / Math.abs(comp);
             }
-            if (oFxNcL < oFyNcL) { return -1; }
-            else if (oFxNcL > oFyNcL) { return 1; }
+            if (oFxNcL < oFyNcL) {
+                return -1;
+            } else if (oFxNcL > oFyNcL) {
+                return 1;
+            }
         }
         return 0;
     }
