@@ -9,8 +9,8 @@ const App = {
 	Router: {},
 	currentLoop: {},
 
-	baseUrl: 'http://localhost:8000'
-//    baseUrl: 'http://188.166.89.15'
+//	baseUrl: 'http://localhost:8000'
+    baseUrl: 'http://188.166.89.15'
 };
 
 $(document).ready(function() {
