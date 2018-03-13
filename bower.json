@@ -26,12 +26,17 @@
     "backgrid-paginator": "git://github.com/myENA/backgrid-paginator.git#7fe3deb941c0c162208264f1ef3e0aca65e87332",
     "backgrid-grouped-columns": "git://github.com/FortesSolutions/backgrid-grouped-columns.git#ab5bbd562164a7459b2c0f7d7f8c89fe22ae1373",
     "backgrid-columnmanager": "git://github.com/marseille/Backgrid.ColumnManager.git#cfe5213793c09d2e7268a86a58cd77087d57f2e0",
+    "backgrid-filter": "git://github.com/Cultti/backgrid-filter.git#69208a2974b2c60050e376fe517e7650092a6067",
+    "backgrid-advanced-filter": "git://github.com/WRidder/backgrid-advanced-filter.git#5b10216f091d0e4bad418398fb4ec4c4588f4475",
+    
+    "sift": "git://github.com/crcn/sift.js.git#f5760495208c2ffdf90614c278f9d2a058b0bad9",
     
     "backbone": "backbonejs#^1.3.3",
     "backbone-modal": "^1.1.5",
     
     "jquery": "^3.2.1",
     "jquery.floatThead": "^2.1.1",
+    "jquery-timeago": "^1.6.3",
        
     "underscore": "^1.8.3"
   }

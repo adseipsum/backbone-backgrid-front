@@ -12,7 +12,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["General"]
+        nesting: ["General"],
+        filterType: "string"
     }, {
         name: "enabled",
         label: "Enabled",
@@ -20,7 +21,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["General"]
+        nesting: ["General"],
+        filterType: "boolean"
     }, {
         name: "domainName",
         sortValue: "domainNameSort",
@@ -30,17 +32,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: "*",
         orderable: true,
-        nesting: ["General"]
-    }, {
-        name: "googleCheck",
-        sortValue: "googleCheckStatus",
-        label: "Google",
-        editable: false,
-        cell: Backgrid.HtmlCenterCell,
-        resizeable: true,
-        width: 80,
-        orderable: true,
-        nesting: ["Check", "Server"]
+        nesting: ["General"],
+        filterType: "string"
     }, {
         name: "ping",
         sortValue: "pingStatus",
@@ -50,7 +43,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Server"]
+        nesting: ["Check", "Server"],
+        filterType: "number"
     }, {
         name: "availability",
         sortValue: "availabilitieStatus",
@@ -60,7 +54,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Server"]
+        nesting: ["Check", "Server"],
+        filterType: "number"
     },{
         name: "domainExpirationDate",
         sortValue: "domainExpirationDateSort",
@@ -69,7 +64,19 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         cell: Backgrid.HtmlCenterCell,
         resizeable: true,
         width: 80,
-        nesting: ["Check", "Server"]
+        nesting: ["Check", "Server"],
+        filterType: "number"
+    }, {
+        name: "googleCheck",
+        sortValue: "googleCheckStatus",
+        label: "Google",
+        editable: false,
+        cell: Backgrid.HtmlCenterCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
+        nesting: ["Check", "Seo"],
+        filterType: "number"
     }, {
         name: "moz_da",
         sortValue: "moz_da_sort",
@@ -79,7 +86,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Moz"]
+        nesting: ["Check", "Seo", "Moz"],
+        filterType: "number"
     }, {
         name: "moz_pa",
         sortValue: "moz_pa_sort",
@@ -89,7 +97,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Moz"]
+        nesting: ["Check", "Seo", "Moz"],
+        filterType: "number"
     }, {
         name: "moz_rank",
         sortValue: "moz_rank_sort",
@@ -99,7 +108,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Moz"]
+        nesting: ["Check", "Seo", "Moz"],
+        filterType: "number"
     }, {
         name: "maj_tf",
         sortValue: "maj_tf_sort",
@@ -109,7 +119,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Majestic"]
+        nesting: ["Check", "Seo", "Majestic"],
+        filterType: "number"
     }, {
         name: "maj_cf",
         sortValue: "maj_cf_sort",
@@ -119,7 +130,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Majestic"]
+        nesting: ["Check", "Seo", "Majestic"],
+        filterType: "number"
     }, {
         name: "alexa_rank",
         sortValue: "alexa_rank_sort",
@@ -129,7 +141,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Check", "Http", "Alexa"]
+        nesting: ["Check", "Seo", "Alexa"],
+        filterType: "number"
     }, {
         name: "postPeriodSeconds",
         label: "Period",
@@ -138,7 +151,8 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Posting"]
+        nesting: ["Posting"],
+        filterType: "number"
     }, {
         name: "tags",
         label: "Tags",
@@ -153,17 +167,19 @@ App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableCol
         resizeable: true,
         width: 80,
         orderable: true,
-        nesting: ["Posting"]
+        nesting: ["Posting"],
+        filterType: "string"
     }, {
         name: "lastPostDate",
         sortValue: "lastPostDateSort",
         label: "Last Post",
         editable: false,
-        cell: "string",
+        cell: Backgrid.HtmlCenterCell,
         resizeable: true,
         width: 150,
         orderable: true,
-        nesting: ["Posting"]
+        nesting: ["Posting"],
+        filterType: "number"
     }
 ]);
 
