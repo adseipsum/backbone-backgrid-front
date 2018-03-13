@@ -130,6 +130,10 @@ input:invalid {
     background-color: #ffdddd;
 }
 
+div#grid-control div.columnmanager-visibilitycontrol {
+    display: inline;
+}
+
 .top-buffer {
     margin-top:150px;
 }
@@ -176,3 +180,7 @@ table.backgrid td.nextPostTime {
     display: none;
 }
 
+div.advancedfilter-editor > .filter-editor {
+    margin-top: 0;
+    margin-bottom: 0;
+}

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="bower_components/backgrid-grouped-columns/backgrid-grouped-columns.css" />
     <link rel="stylesheet" href="bower_components/backgrid-paginator/backgrid-paginator.css" /> <!-- !!! dont change to  min !!! -->
     <link rel="stylesheet" href="bower_components/backgrid-orderable-columns/backgrid-orderable-columns.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-filter/backgrid-filter.min.css" />
+    <link rel="stylesheet" href="bower_components/backgrid-advanced-filter/lib/Backgrid.AdvancedFilter.css" />
 
     <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.css" />
     <link rel="stylesheet" href="bower_components/backbone-modal/backbone.modal.theme.css" />
@@ -195,10 +197,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="col-md-6">
+                <div class="col-md-11">
                     <h4 class="modal-title"></h4>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-1">
                     <button type="button" class="close bbm-button" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -300,8 +302,10 @@
 
         </div>
         <div class="row" style="margin: 5px 0 10px 0">
-            <div style="font-weight: bold; float: left; margin-right: 10px;">Column control:</div>
-            <div id="grid-control" style="float: left; margin-right: 30px;"></div>
+            <div class="col-md-1" style="font-weight: bold; text-align: right; margin-top: 5px;">Column control:</div>
+            <div class="col-md-1" id="grid-control" style="text-align: left; padding: 0; margin-top: 5px;"></div>
+            <div class="col-md-1" style="font-weight: bold; text-align: right; margin-top: 5px;">Filter:</div>
+            <div class="col-md-9" id="grid-filter" style="text-align: left; padding: 0"></div>
         </div>
     </div>
     <div class="content">
@@ -351,6 +355,9 @@
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/jquery.floatThead/dist/jquery.floatThead.min.js"></script>
+<script src="bower_components/jquery-timeago/jquery.timeago.js"></script>
+
+<script src="bower_components/sift/sift.js"></script>
 
 <script src="bower_components/backbone/backbone-min.js"></script>
 <script src="bower_components/backbone.paginator/lib/backbone.paginator.min.js"></script>
@@ -363,6 +370,8 @@
 <script src="bower_components/backgrid-orderable-columns/backgrid-orderable-columns.js"></script>
 <script src="bower_components/backgrid-paginator/backgrid-paginator.js"></script> <!-- !!! dont change to  min !!! -->
 <script src="bower_components/backgrid-columnmanager/src/Backgrid.ColumnManager.js"></script> <!-- !!! dont change to lib folder !!! -->
+<script src="bower_components/backgrid-filter/backgrid-filter.min.js"></script>
+<script src="bower_components/backgrid-advanced-filter/lib/Backgrid.AdvancedFilter.js"></script> <!-- !!! dont change to  min !!! -->
 
 <script src="bower_components/backbone-modal/backbone.modal.js"></script>
 

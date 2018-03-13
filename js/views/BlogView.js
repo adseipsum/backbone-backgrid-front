@@ -19,7 +19,39 @@ App.Views.BlogView = Backbone.View.extend({
         });
 
         // Fetch campaigns from the url
-        this.blogs = new App.Collections.Blogs();
+        const blogs = this.blogs = new App.Collections.Blogs();
+
+        this.advancedFilter = new Backgrid.Extension.AdvancedFilter.Main({
+            collection: this.blogs,
+            columns: App.Grids.BlogGridColumns
+        });
+
+        let dataFiltered = false;
+        this.advancedFilter.on("filter:apply", function(filterId, filterModel) {
+            $('.content').fadeTo("fast", 0.33);
+            dataFiltered = true;
+            blogs.fetch({reset: true,
+                success: function(){
+                    const requestFilter = filterModel.exportFilter("mongo");
+                    const resultDataIn = blogs.fullCollection.models.slice(0);
+                    const resultDataOut = sift(requestFilter, resultDataIn);
+                    blogs.fullCollection.reset(resultDataOut);
+                    $('.content').fadeTo("fast", 1);
+                }
+            });
+        });
+
+        this.advancedFilter.on("filter:close filter:loaded filter:remove", function() {
+            if (dataFiltered) {
+                $('.content').fadeTo("fast", 0.33);
+                dataFiltered = false;
+                blogs.fetch({reset: true,
+                    success: function(){
+                        $('.content').fadeTo("fast", 1);
+                    }
+                });
+            }
+        });
 
         this.blogsGrid = new Backgrid.Grid({
             header: Backgrid.Extension.GroupedHeader,
@@ -108,6 +140,8 @@ App.Views.BlogView = Backbone.View.extend({
         actions.addClass('blog');
 
         main.find('#grid-control').html(this.colVisibilityControl.render().el);
+        main.find('#grid-filter').html(this.advancedFilter.render().el);
+
         const content = $('.content');
         content.html(this.blogsGrid.render().el);
         this.addSizer(content);
@@ -122,8 +156,20 @@ App.Views.BlogView = Backbone.View.extend({
 	},
 
 	fetchGrid: function(){
-		// Fetch blogs from the url
-		this.blogs.fetch({reset: true});
+	    const activeFilter = this.advancedFilter.filterStateModel.getActiveFilter();
+	    if (activeFilter === undefined) {
+            this.blogs.fetch({reset: true});
+        } else {
+	        const blogs = this.blogs;
+            blogs.fetch({reset: true,
+                success: function(){
+                    const requestFilter = activeFilter.exportFilter("mongo");
+                    const resultDataIn = blogs.fullCollection.models.slice(0);
+                    const resultDataOut = sift(requestFilter, resultDataIn);
+                    blogs.fullCollection.reset(resultDataOut);
+                }
+            });
+        }
 	},
 
 });

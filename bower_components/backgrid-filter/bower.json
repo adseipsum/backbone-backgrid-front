@@ -1,0 +1,30 @@
+{
+  "name": "backgrid-filter",
+  "main": [
+    "backgrid-filter.js",
+    "backgrid-filter.css"
+  ],
+  "description": "Search box widget extension for Backgrid.js. Supports server-side, client-side and full-text searching.",
+  "homepage": "https://github.com/wyuenho/backgrid-filter",
+  "keywords": [
+    "backbone",
+    "backgrid",
+    "filter"
+  ],
+  "authors": [
+    "Cloudflare, Inc <jwong@cloudflare.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "1.1.2 || 1.2.3 || ^1.3.2",
+    "backgrid": "~0.3.7",
+    "underscore": "^1.8.0"
+  }
+}

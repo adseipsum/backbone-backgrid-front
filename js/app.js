@@ -26,6 +26,23 @@ $(document).ready(function() {
 
 });
 
+
+$.timeago.settings.allowFuture = true;
+
+$.fn.unixTimeConverterAgo = function(unixTimestamp){
+    return $.timeago(new Date(unixTimestamp * 1000));
+};
+
+$.fn.unixTimeConverterEx = function(unixTimestamp, isDate = true, isTime = true){
+    const cur = Date.now() / 1000;
+    if (Math.abs(cur - unixTimestamp) >= (30 * 24 * 60 * 60)) {
+        return $.fn.unixTimeConverter(unixTimestamp, isDate, isTime);
+    } else {
+        return $.fn.unixTimeConverterAgo(unixTimestamp);
+    }
+};
+
+
 $.fn.unixTimeConverter = function(unixTimestamp, isDate = true, isTime = true){
     const a = new Date(unixTimestamp * 1000);
     let ret = '';
