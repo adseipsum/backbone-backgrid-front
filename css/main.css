@@ -4,21 +4,21 @@
     }
 }
 
-html {
+html.frame-enable {
     height: 100%;
 }
 
-body {
+html.frame-enable body {
     height: 100%;
 }
 
-div#main {
+html.frame-enable div#main {
     display: flex;
     flex-flow: column;
     height: 99%;
 }
 
-div#main div.header {
+html.frame-enable div#main div.header {
     flex: 0 1 auto;
     /* The above is shorthand for:
     flex-grow: 0,
@@ -27,12 +27,12 @@ div#main div.header {
     */
 }
 
-div#main div.content {
+html.frame-enable div#main div.content {
     flex: 1 1 auto;
     overflow: auto;
 }
 
-div#main div.footer {
+html.frame-enable div#main div.footer {
     flex: 0 1 40px;
 }
 

@@ -59,4 +59,14 @@ $.fn.changeAutoUpdate = function() {
         clearInterval(App.currentLoop);
         App.currentLoop = null;
     }
-}
+};
+
+$.fn.changeFrame = function() {
+    const fraim = $('html');
+    const className = "frame-enable";
+    if ($('#use-frame').is(":checked")) {
+        fraim.addClass(className);
+    } else {
+        fraim.removeClass(className);
+    }
+};

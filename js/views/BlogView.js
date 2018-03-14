@@ -115,6 +115,25 @@ App.Views.BlogView = Backbone.View.extend({
         });
 
         this.render(); // not all views are self-rendering. This one is.
+
+        const linePerPageControl = $('#grid-line-per-page');
+        linePerPageControl.off('change');
+        linePerPageControl.val(blogs.state.pageSize);
+
+        linePerPageControl.on('change', function() {
+            const val = linePerPageControl.val();
+            const newVal = parseInt(val);
+            if (newVal === blogs.state.pageSize) {
+                return;
+            } else if (newVal <= 0 || isNaN(newVal) || ('' + newVal !== val)) {
+                linePerPageControl.val(blogs.state.pageSize);
+                return;
+            }
+
+            blogs.state.pageSize = newVal;
+            const resultDataIn = blogs.fullCollection.models.slice(0);
+            blogs.fullCollection.reset(resultDataIn);
+        });
 	},
     
     addSizer: function (grid) {
