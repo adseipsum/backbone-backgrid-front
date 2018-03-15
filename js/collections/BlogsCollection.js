@@ -54,7 +54,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                 let lastPostDate = v.lastPostDate;
                 if (lastPostDate !== undefined && lastPostDate !== 0) {
                     lastPostDate = '<span title="' + $.fn.unixTimeConverter(lastPostDate) + '">' + $.fn.unixTimeConverterAgo(lastPostDate) + '</span>';
-                    v.lastPostDateSort = v.lastPostDate;
+                    v.lastPostDateSort = (Date.now() / 1000) - v.lastPostDate;
                 } else {
                     lastPostDate = "";
                     v.lastPostDateSort = -1;
