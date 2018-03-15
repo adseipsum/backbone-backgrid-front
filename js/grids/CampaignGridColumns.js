@@ -72,18 +72,18 @@ App.Grids.campaignGridColumns = new Backgrid.Extension.OrderableColumns.orderabl
 		name: "subLinks",
 		label: "Sub Links",
 		editable: false,
-		cell: "string",
+		cell: "html",
 		formatter: {
 			fromRaw: function (object) {
 				const keys = $.map(object, function(value, key){
-					return value.subLink + '(' + value.subLinkKeywords + ')' ;
+					return '<a href="' + value.subLink  + '" alt="' + value.subLink  + '">' + 'Sub Link ' + ++key + '</a>' + ' (' + value.subLinkKeywords + ') </br>' ;
 				});
 
 				return keys.join("\n");
 			}
 		},
         resizeable: true,
-        width: 80,
+		width: "*",
         orderable: true,
 	}, {
 		name: "created",
