@@ -67,7 +67,9 @@ App.Views.BaseView = Backbone.View.extend({
                     const resultDataIn = collections.fullCollection.models.slice(0);
                     const resultDataOut = sift(requestFilter, resultDataIn);
                     collections.fullCollection.reset(resultDataOut);
-                    collections.getPage(currPage);
+                    if (currPage !== 1) {
+                        collections.getPage(currPage);
+                    }
                     $('.content').fadeTo("fast", 1);
                 }
             });
@@ -247,7 +249,9 @@ App.Views.BaseView = Backbone.View.extend({
 	    if (activeFilter === undefined) {
             collections.fetch({reset: true,
                 success: function(){
-                    collections.getPage(currPage);
+                    if (currPage !== 1) {
+                        collections.getPage(currPage);
+                    }
                 }
             });
         } else {
@@ -257,7 +261,9 @@ App.Views.BaseView = Backbone.View.extend({
                     const resultDataIn = collections.fullCollection.models.slice(0);
                     const resultDataOut = sift(requestFilter, resultDataIn);
                     collections.fullCollection.reset(resultDataOut);
-                    collections.getPage(currPage);
+                    if (currPage !== 1) {
+                        collections.getPage(currPage);
+                    }
                 }
             });
         }
