@@ -12,6 +12,8 @@ App.Views.BaseView = Backbone.View.extend({
 	    const self = this;
         _.bindAll(self, 'render'); // fixes loss of context for 'this' within methods
 
+        self.gridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection(self.columns);
+
         self.gridColumns.setPositions().sort();
 
         self.colManager = new Backgrid.Extension.ColumnManager(self.gridColumns, {
@@ -19,7 +21,7 @@ App.Views.BaseView = Backbone.View.extend({
             saveState: true,
             loadStateOnInit: true
         });
-        const storage = this.colManager.getStorage();
+        const storage = self.storage = this.colManager.getStorage();
 
         self.colVisibilityControl = new Backgrid.Extension.ColumnManagerVisibilityControl({
             columnManager: this.colManager
@@ -120,6 +122,9 @@ App.Views.BaseView = Backbone.View.extend({
             // No ids so identify model with CID
             const cid = model.cid;
 
+            storage.setItem(self.stateKey + '-sortField', model.attributes.name);
+            storage.setItem(self.stateKey + '-sortDirection', model.attributes.direction);
+
             const filtered = model.collection.filter(function(model) {
                 return model.cid !== cid;
             });
@@ -129,7 +134,15 @@ App.Views.BaseView = Backbone.View.extend({
             });
         });
 
-        self.grid.sort(self.defaultSortField, 'ascending');
+        let sortField = storage.getItem(self.stateKey + '-sortField');
+        if (sortField === undefined || sortField === null) {
+            sortField = self.defaultSortField;
+        }
+        let sortDirection = storage.getItem(self.stateKey + '-sortDirection');
+        if (sortDirection === undefined || sortDirection === null) {
+            sortDirection = self.defaultSortDirection;
+        }
+        self.grid.sort(sortField, sortDirection);
 
         self.paginator = new Backgrid.Extension.Paginator({
             collection: self.collections
@@ -165,7 +178,7 @@ App.Views.BaseView = Backbone.View.extend({
         self.gridColumns.on("ordered", function () {
             self.gridColumns.setPositions().sort();
             const main = $('#main');
-            main.find('#grid-control').html(thisRef.colVisibilityControl.render().el);
+            main.find('#grid-control').html(self.colVisibilityControl.render().el);
         });
 
         self.render(); // not all views are self-rendering. This one is.

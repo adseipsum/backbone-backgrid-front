@@ -185,3 +185,13 @@ div.advancedfilter-editor > .filter-editor {
     margin-top: 0;
     margin-bottom: 0;
 }
+
+div.columnmanager-dropdown-container {
+    width: 400px;
+}
+
+div.columnmanager-dropdown-container li span.column-label {
+    width: 350px;
+}
+
+

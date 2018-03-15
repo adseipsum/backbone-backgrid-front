@@ -491,8 +491,15 @@ var DropDownItemView = Backbone.View.extend({
   render: function () {
     this.$el.empty();
 
+    var labelVal = this.column.get("nesting");
+    if (labelVal !== undefined) {
+        labelVal = labelVal.join(' | ') + ' | ' + this.column.get("label");
+    } else {
+        labelVal = this.column.get("label");
+    }
+
     this.$el.append(this.template({
-      label: this.column.get("label")
+      label: labelVal
     }));
 
     if (this.column.get("renderable")) {

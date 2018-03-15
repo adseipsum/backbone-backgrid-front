@@ -30,48 +30,32 @@ const ActionCell = Backgrid.Cell.extend({
 	}
 });
 
-App.Grids.campaignGridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection([
+App.Grids.campaignGridColumns = $.fn.createGridColumns([
 	{
 		name: "id",
 		label: "ID",
-		editable: false,
 		cell: "string",
 		formatter: {
 			fromRaw: function (object) {
 				return object.substring(9);
 			}
 		},
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "status",
 		label: "Status",
-		editable: false,
 		cell: "string",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "mainDomain",
 		label: "Domain",
-		editable: false,
 		cell: "string",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "mainKeywords",
 		label: "Keywords",
-		editable: false,
 		cell: "string",
-        resizeable: true,
         width: "*",
-        orderable: true,
 	}, {
 		name: "subLinks",
 		label: "Sub Links",
-		editable: false,
 		cell: "string",
 		formatter: {
 			fromRaw: function (object) {
@@ -82,72 +66,37 @@ App.Grids.campaignGridColumns = new Backgrid.Extension.OrderableColumns.orderabl
 				return keys.join("\n");
 			}
 		},
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "created",
 		label: "Created",
-		editable: false,
 		cell: "string",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "needPosts",
 		label: "Posts",
-		editable: false,
 		cell: "integer",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "additionalKeysPercentage",
 		label: "AKP",
-		editable: false,
 		cell: "number",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "postPeriodDays",
 		label: "Days",
-		editable: false,
 		cell: "integer",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "nextPostTime",
 		label: "Next Post",
-		editable: false,
 		cell: "string",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "posted",
 		label: "Posted",
-		editable: false,
 		cell: "integer",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "errors",
 		label: "Errors",
-		editable: false,
 		cell: "integer",
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}, {
 		name: "",
 		label: "Action",
-		editable: false,
 		cell: ActionCell,
-        resizeable: true,
-        width: 80,
-        orderable: true,
 	}
 ]);

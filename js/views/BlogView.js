@@ -6,8 +6,9 @@ App.Views.BlogView = App.Views.BaseView.extend({
     stateKey: "blogView",
 
     defaultSortField: "id",
+    defaultSortDirection: 'ascending',
 
-    gridColumns: App.Grids.blogGridColumns,
+    columns: App.Grids.blogGridColumns,
 
     GridRowClass: Backgrid.Row.extend({
         render: function() {
@@ -25,6 +26,7 @@ App.Views.BlogView = App.Views.BaseView.extend({
 
     onAfterRender: function () {
         const actions = $('#actions');
+        actions.html($('#blog-action-buttons-template').html());
         actions.addClass('blog');
 
         actions.on('click', '.newBlog', function () {

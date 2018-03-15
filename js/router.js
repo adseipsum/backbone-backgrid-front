@@ -12,46 +12,66 @@ App.Router = Backbone.Router.extend({
 	},
 
 	index: function() {
-//		console.log('index');
 		this.navigate("campaigns", {trigger: true});
 	},
 
 	login: function () {
-//		console.log('login');
         App.currentView = new App.Views.LoginView();
         App.currentView.render();
+        this.afterRender();
 	},
 
 	campaigns: function(){
-//		console.log('campaigns');
-
         App.currentView = new App.Views.CampaignView();
         App.currentView.fetchGrid();
-        $.fn.changeAutoUpdate();
-
-		$('#actions').html($('#campaign-action-buttons-template').html());
+        this.afterRender();
 	},
 
 	blogs: function(){
-//		console.log('blogs');
-
         App.currentView = new App.Views.BlogView();
         App.currentView.fetchGrid();
-        $.fn.changeAutoUpdate();
-
-		$('#actions').html($('#blog-action-buttons-template').html());
+        this.afterRender();
 	},
 
 	execute: function(callback, args, name) {
 		if(App.currentLoop) {
 			clearInterval(App.currentLoop);
 		}
-		if (callback) callback.apply(this, args);
-	}
+		if (callback) {
+		    callback.apply(this, args);
+        }
+	},
+
+    /**
+     * @private
+     */
+    afterRender: function() {
+        {
+            const isFrameControl = $('#use-frame');
+            let isFrame = sessionStorage.getItem('general-isFrame');
+            isFrame = (isFrame === "true");
+            if (isFrameControl.is(":checked") !== isFrame) {
+                isFrameControl[0].checked = isFrame;
+            }
+            $.fn.changeFrame();
+        }
+
+        {
+            const autoUpdateControl = $('#auto-update-enable');
+            let isAutoUpdate = sessionStorage.getItem('general-isAutoUpdate');
+            isAutoUpdate = (isAutoUpdate === "true");
+            if (autoUpdateControl.is(":checked") !== isAutoUpdate) {
+                autoUpdateControl[0].checked = isAutoUpdate;
+            }
+            $.fn.changeAutoUpdate();
+        }
+    }
 });
 
 $.fn.changeAutoUpdate = function() {
-    if ($('#auto-update-enable').is(":checked")) {
+    const isAutoUpdate = $('#auto-update-enable').is(":checked");
+    sessionStorage.setItem('general-isAutoUpdate', isAutoUpdate);
+    if (isAutoUpdate) {
         App.currentLoop = setInterval(function () {
             App.currentView.fetchGrid();
         }, 4000);
@@ -64,9 +84,14 @@ $.fn.changeAutoUpdate = function() {
 $.fn.changeFrame = function() {
     const fraim = $('html');
     const className = "frame-enable";
-    if ($('#use-frame').is(":checked")) {
+
+    const isFrame = $('#use-frame').is(":checked");
+    sessionStorage.setItem('general-isFrame', isFrame);
+
+    if (isFrame) {
         fraim.addClass(className);
     } else {
         fraim.removeClass(className);
     }
 };
+
