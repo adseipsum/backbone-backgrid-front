@@ -167,16 +167,54 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
             ////////////////////////////////////////////////////////////////////////////////////////
 
             {
-                const checkSeo1 = function (v, m) {
+                const checkSeo1 = function (v, options) {
+                    if (options === undefined) {
+                        options = {};
+                    }
+
                     const f = parseFloat(v);
                     if (isNaN(f)) {
                         return '<img src="img/status1.png" title="Value unknown.\n' + seoCheckTimestamp + '" class="status-img" />';
                     }
+
                     let color = 'green';
-                    if (m !== undefined && f < m) {
+                    if (options.minVal !== undefined && f < options.minVal) {
                         color = 'red';
                     }
-                    return '<span title="' + seoCheckTimestamp + '" style="color: ' + color + '">' + f + '</span>';
+
+                    let str = '' + f;
+                    if (options.addEndZero !== undefined && options.addEndZero) {
+                        if (parseInt(f) === f) {
+                            str += '.0';
+                        }
+                    }
+
+                    if (options.maxSymbols !== undefined && options.maxSymbols > 0) {
+                        for(let i = str.length; i < options.maxSymbols; i++) {
+                            str = '&nbsp;' + str;
+                        }
+                    }
+
+                    if (options.addSpacer !== undefined && options.addSpacer) {
+                        let ret = '';
+                        let counter = 0;
+                        for(let i = str.length - 1; i >= 0; i--) {
+                            const c = str[i];
+                            if (c === ';') {
+                                ret = str.substring(0, i) + ret;
+                                break;
+                            }
+                            counter += 1;
+                            if (counter > 3) {
+                                ret = "'" + ret;
+                                counter = 1;
+                            }
+                            ret = c + ret;
+                        }
+                        str = ret;
+                    }
+
+                    return '<span title="' + seoCheckTimestamp + '" style="color: ' + color + '">' + str + '</span>';
                 };
 
                 const checkSeo2 = function (v) {
@@ -203,12 +241,12 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                     v.alexa_rank = val;
                     v.alexa_rank_sort = -2;
                 } else {
-                    v.maj_cf = checkSeo1(seo.maj_cf, 15);
-                    v.maj_tf = checkSeo1(seo.maj_tf, 15);
-                    v.moz_pa = checkSeo1(seo.moz_pa, 15);
-                    v.moz_da = checkSeo1(seo.moz_da, 15);
-                    v.moz_rank = checkSeo1(seo.moz_rank);
-                    v.alexa_rank = checkSeo1(seo.alexa_rank);
+                    v.maj_cf = checkSeo1(seo.maj_cf, {minVal: 15, maxSymbols: 2});
+                    v.maj_tf = checkSeo1(seo.maj_tf, {minVal: 15, maxSymbols: 2});
+                    v.moz_pa = checkSeo1(seo.moz_pa, {minVal: 15, addEndZero: true});
+                    v.moz_da = checkSeo1(seo.moz_da, {minVal: 15, addEndZero: true});
+                    v.moz_rank = checkSeo1(seo.moz_rank, {addEndZero: true});
+                    v.alexa_rank = checkSeo1(seo.alexa_rank, {maxSymbols: 8, addSpacer: true});
 
                     v.maj_cf_sort = checkSeo2(seo.maj_cf);
                     v.maj_tf_sort = checkSeo2(seo.maj_tf);

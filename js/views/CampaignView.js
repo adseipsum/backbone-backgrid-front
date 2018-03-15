@@ -5,13 +5,15 @@ App.Views.CampaignView = App.Views.BaseView.extend({
     stateKey: "campaignView",
 
     defaultSortField: "id",
+    defaultSortDirection: 'ascending',
 
-    gridColumns: App.Grids.campaignGridColumns,
+    columns: App.Grids.campaignGridColumns,
 
     Collections: App.Collections.Campaigns,
 
     onAfterRender: function () {
         const actions = $('#actions');
+        actions.html($('#campaign-action-buttons-template').html());
         actions.addClass('campaign');
 
         actions.on('click', '.newCampaign', function () {

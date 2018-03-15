@@ -35,7 +35,6 @@
     "backbone-modal": "^1.1.5",
     
     "jquery": "^3.2.1",
-    "jquery.floatThead": "^2.1.1",
     "jquery-timeago": "^1.6.3",
        
     "underscore": "^1.8.3"

@@ -145,3 +145,33 @@ $.fn.naturalComparator = function() {
     return naturalSort;
 }();
 
+
+$.fn.createGridColumns = function(columns) {
+    for(const c of columns) {
+        if (c.editable === undefined) {
+            c.editable = false;
+        }
+        if (c.orderable === undefined) {
+            c.orderable = true;
+        }
+        if (c.resizeable === undefined) {
+            c.resizeable = true;
+        }
+        if (c.width === undefined) {
+            c.width = 80;
+        }
+        if (c.filterType === undefined) {
+            if (c.cell === "string") {
+                c.filterType = "string";
+            } else if (c.cell === "boolean") {
+                c.filterType = "boolean";
+            } else if (c.cell === "integer") {
+                c.filterType = "number";
+            }
+        }
+        if (c.sortType === undefined) {
+            c.sortType = "toggle";
+        }
+    }
+    return columns;
+};
