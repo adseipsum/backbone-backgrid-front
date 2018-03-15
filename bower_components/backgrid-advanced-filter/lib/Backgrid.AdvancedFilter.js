@@ -1666,6 +1666,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (self.get("filterCollection").get(filterId)) {
 	      self.set("activeFilterId", filterId);
+          self.trigger("filter:activeFilterChange");
 	    }
 	  },
 
@@ -2899,6 +2900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      self.filterStateModel.trigger("filter:save");
 	      self.filterStateModel.trigger("filter:close");
 	      self.filterStateModel.set("activeFilterId", null);
+          self.filterStateModel.trigger("filter:activeFilterChange");
 	    }
 	  },
 
@@ -3678,6 +3680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var fsm = self.filterStateModel;
 	    self.listenTo(fsm, "filter:new", self.evtNewFilter);
 	    self.listenTo(fsm, "filter:save", self.evtSaveFilter);
+        self.listenTo(fsm, "filter:activeFilterChange", self.evtActiveFilterChange);
 	    self.listenTo(fsm, "filter:apply", self.evtApplyFilter);
 	    //self.listenTo(fsm, "filter:change", self.evtChangeFilter);
 	    self.listenTo(fsm, "filter:reset", self.evtResetFilter);
@@ -3714,6 +3717,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      self.trigger("filter:save", filter.cid, filter);
 	    }
 	  },
+
+		/**
+		 * @method evtActiveFilterChange
+		 */
+        evtActiveFilterChange: function() {
+			var self = this;
+			var fsm = self.filterStateModel;
+			var filter = fsm.getActiveFilter();
+			if (filter) {
+				filter.saveFilter();
+			}
+            self.trigger("filter:activeFilterChange", filter);
+		},
 
 	  /**
 	   * Event handler for filter:apply (fsm)

@@ -30,7 +30,8 @@ $(document).ready(function() {
 $.timeago.settings.allowFuture = true;
 
 $.fn.unixTimeConverterAgo = function(unixTimestamp){
-    return $.timeago(new Date(unixTimestamp * 1000));
+    const ret = $.timeago(new Date(unixTimestamp * 1000));
+    return ret.replace('about ', '');
 };
 
 $.fn.unixTimeConverterEx = function(unixTimestamp, isDate = true, isTime = true){

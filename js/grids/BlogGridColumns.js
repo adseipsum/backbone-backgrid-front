@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-App.Grids.BlogGridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection([
+App.Grids.blogGridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection([
     {
         name: "id",
         label: "ID",

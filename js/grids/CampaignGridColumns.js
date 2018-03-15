@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-var ActionCell = Backgrid.Cell.extend({
+const ActionCell = Backgrid.Cell.extend({
 	events: {
 		'click .delete': 'deleteCampaign',
 		'click .edit': 'editCampaign'
@@ -20,7 +20,7 @@ var ActionCell = Backgrid.Cell.extend({
 	},
 	editCampaign: function(e){
 		e.preventDefault();
-		var modalView = new App.Modals.CampaignBacklinkedModal();
+		const modalView = new App.Modals.CampaignBacklinkedModal();
 		$('.app').html(modalView.render().el);
 		modalView.fillForm(this.model.attributes);
 	},
@@ -30,83 +30,124 @@ var ActionCell = Backgrid.Cell.extend({
 	}
 });
 
-App.Grids.CampaignGridColumns = [{
-	name: "id",
-	label: "ID",
-	editable: false,
-	cell: "string",
-	formatter: {
-		fromRaw: function (object) {
-			return object.substring(9);
-		}
-	}
-}, {
-	name: "status",
-	label: "Status",
-	editable: false,
-	cell: "string"
-}, {
-	name: "mainDomain",
-	label: "Domain",
-	editable: false,
-	cell: "string"
-}, {
-	name: "mainKeywords",
-	label: "Keywords",
-	editable: false,
-	cell: "string"
-}, {
-	name: "subLinks",
-	label: "Sub Links",
-	editable: false,
-	cell: "string",
-	formatter: {
-		fromRaw: function (object) {
-			var keys = $.map(object, function(value, key){
-				return value.subLink + '(' + value.subLinkKeywords + ')' ;
-			});
+App.Grids.campaignGridColumns = new Backgrid.Extension.OrderableColumns.orderableColumnCollection([
+	{
+		name: "id",
+		label: "ID",
+		editable: false,
+		cell: "string",
+		formatter: {
+			fromRaw: function (object) {
+				return object.substring(9);
+			}
+		},
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "status",
+		label: "Status",
+		editable: false,
+		cell: "string",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "mainDomain",
+		label: "Domain",
+		editable: false,
+		cell: "string",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "mainKeywords",
+		label: "Keywords",
+		editable: false,
+		cell: "string",
+        resizeable: true,
+        width: "*",
+        orderable: true,
+	}, {
+		name: "subLinks",
+		label: "Sub Links",
+		editable: false,
+		cell: "string",
+		formatter: {
+			fromRaw: function (object) {
+				const keys = $.map(object, function(value, key){
+					return value.subLink + '(' + value.subLinkKeywords + ')' ;
+				});
 
-			return keys.join("\n");
-		}
+				return keys.join("\n");
+			}
+		},
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "created",
+		label: "Created",
+		editable: false,
+		cell: "string",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "needPosts",
+		label: "Posts",
+		editable: false,
+		cell: "integer",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "additionalKeysPercentage",
+		label: "AKP",
+		editable: false,
+		cell: "number",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "postPeriodDays",
+		label: "Days",
+		editable: false,
+		cell: "integer",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "nextPostTime",
+		label: "Next Post",
+		editable: false,
+		cell: "string",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "posted",
+		label: "Posted",
+		editable: false,
+		cell: "integer",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "errors",
+		label: "Errors",
+		editable: false,
+		cell: "integer",
+        resizeable: true,
+        width: 80,
+        orderable: true,
+	}, {
+		name: "",
+		label: "Action",
+		editable: false,
+		cell: ActionCell,
+        resizeable: true,
+        width: 80,
+        orderable: true,
 	}
-}, {
-	name: "created",
-	label: "Created",
-	editable: false,
-	cell: "string"
-}, {
-	name: "needPosts",
-	label: "Posts",
-	editable: false,
-	cell: "integer"
-}, {
-	name: "additionalKeysPercentage",
-	label: "AKP",
-	editable: false,
-	cell: "number"
-}, {
-	name: "postPeriodDays",
-	label: "Days",
-	editable: false,
-	cell: "integer"
-}, {
-	name: "nextPostTime",
-	label: "Next Post",
-	editable: false,
-	cell: "string"
-}, {
-	name: "posted",
-	label: "Posted",
-	editable: false,
-	cell: "integer"
-}, {
-	name: "errors",
-	label: "Errors",
-	editable: false,
-	cell: "integer"
-}, {
-	name: "",
-	label: "Action",
-	editable: false,
-	cell: ActionCell
-}];
+]);

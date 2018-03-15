@@ -73,6 +73,15 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
 
             ////////////////////////////////////////////////////////////////////////////////////////
 
+            let seoCheckTimestamp = v.seoCheckTimestamp;
+            if (seoCheckTimestamp !== undefined && seoCheckTimestamp !== -1) {
+                seoCheckTimestamp = 'Last check: ' + $.fn.unixTimeConverterEx(seoCheckTimestamp);
+            } else {
+                seoCheckTimestamp = notCheckStr;
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
             let title;
 
             {
@@ -82,7 +91,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                 }
 
                 let googleCheckStatus = -1;
-                title = "Google position: " + (urlIndex !== -1 ? urlIndex : 'absent') + "\nGoogle first url: '" + v.googleFirstUrl + "'\n" + checkTimestamp;
+                title = "Google position: " + (urlIndex !== -1 ? urlIndex : 'absent') + "\nGoogle first url: '" + v.googleFirstUrl + "'\n" + seoCheckTimestamp;
                 if (v.isCheckGoogle === undefined) {
                     googleCheckStatus = 0;
                     title = notCheckStr;
@@ -153,15 +162,6 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                     v.availability = '<img src="img/status' + availabilitieStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').html(new App.Modals.BlogSeoAvailabilityModal(\'' + v.id + '\', \'' + url + '\', ' + v.checkTimestamp + ').render().el);" />';
                 }
                 v.availabilitieStatus = availabilitieStatus;
-            }
-
-            ////////////////////////////////////////////////////////////////////////////////////////
-
-            let seoCheckTimestamp = v.seoCheckTimestamp;
-            if (seoCheckTimestamp !== undefined && seoCheckTimestamp !== -1) {
-                seoCheckTimestamp = 'Last check: ' + $.fn.unixTimeConverterEx(seoCheckTimestamp);
-            } else {
-                seoCheckTimestamp = notCheckStr;
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////

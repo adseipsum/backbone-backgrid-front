@@ -1,42 +1,31 @@
 /*jshint esversion: 6 */
 
-App.Views.CampaignView = Backbone.View.extend({
-	el: $('.grid'),
+App.Views.CampaignView = App.Views.BaseView.extend({
 
-	initialize: function(){
-		_.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
+    stateKey: "campaignView",
 
-		// Fetch campaigns from the url
-		this.campaigns = new App.Collections.Campaigns();
-		this.campaignsGrid = new Backgrid.Grid({
-			columns: App.Grids.CampaignGridColumns,
-			collection: this.campaigns
-		});
+    defaultSortField: "id",
 
-		this.render(); // not all views are self-rendering. This one is.
-	},
+    gridColumns: App.Grids.campaignGridColumns,
 
-	render: function(){
-		$('#main').html($('#grid').html());
-		$('#actions').addClass('campaign');
-		const content = $('.content');
-        content.html(this.campaignsGrid.render().el);
-		$('#actions').on('click', '.newCampaign', function () {
+    Collections: App.Collections.Campaigns,
 
-			if($(this).data('type') == 'backlinked'){
-				var modalView = new App.Modals.CampaignBacklinkedModal();
-			}else if($(this).data('type') == 'regular'){
-				var modalView = new App.Modals.CampaignRegularModal();
-			}
+    onAfterRender: function () {
+        const actions = $('#actions');
+        actions.addClass('campaign');
 
-			$('.app').html(modalView.render().el);
-			modalView.getBlogTags();
-		});
+        actions.on('click', '.newCampaign', function () {
+        	const type = $(this).data('type');
+        	let modalView;
+            if(type === 'backlinked'){
+                modalView = new App.Modals.CampaignBacklinkedModal();
+            }else if(type === 'regular'){
+                modalView = new App.Modals.CampaignRegularModal();
+            }
 
-        $('table.backgrid').floatThead();
-	},
-	fetchGrid: function(){
-		this.campaigns.fetch({reset: true});
-	},
+            $('.app').html(modalView.render().el);
+            modalView.getBlogTags();
+        });
+    }
 
 });
