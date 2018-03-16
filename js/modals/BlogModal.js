@@ -17,6 +17,7 @@ App.Modals.BlogModal = Backbone.Modal.extend({
 			url: App.baseUrl + '/frontapi/blog/new',
 			data: JSON.stringify({
 				'domainName': $('#domainName').val(),
+				'realIp': $('#realIp').val(),
 				'postingUserLogin': $('#postingUserLogin').val(),
 				'postingUserPassword': $('#postingUserPassword').val(),
 				'clientId': $('#clientId').val(),

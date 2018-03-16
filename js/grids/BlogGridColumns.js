@@ -22,6 +22,14 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         width: "*",
         nesting: ["General"],
         filterType: "string"
+	}, {
+		name: "realIp",
+		sortValue: "realIpSort",
+		label: "Real Ip",
+		cell: "html",
+		width: "*",
+		nesting: ["General"],
+		filterType: "string"
     }, {
         name: "ping",
         sortValue: "pingStatus",
