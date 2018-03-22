@@ -22,10 +22,8 @@ App.Models.Session = Backbone.Model.extend({
 	 * and return a user object if authenticated
 	 */
 	checkAuth: function() {
-		var self = this;
 		if(App.token){
 			this.set({ logged_in : true });
-			this.getUserInfo();
 		}else{
 			this.set({ logged_in : false });
 		}
@@ -40,9 +38,6 @@ App.Models.Session = Backbone.Model.extend({
 			async: false,
 			method: 'POST',
 			url: App.baseUrl + '/oauth/v2/token',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
 			data: {
 				'grant_type': 'password',
 				'client_id': '1_g7fxszqcapkw84048o4kg4w8oc0800ccg80kko48ws0k44wow',
@@ -65,17 +60,13 @@ App.Models.Session = Backbone.Model.extend({
 
 				if (response.responseJSON.error) {
 					self.set({ logged_in : false });
-					errorEl.text(response.responseJSON.error_description);
+					errorEl.show().text(response.responseJSON.error_description);
 				}
 			}
 		});
 
 		if(token){
 			App.token = token;
-			App.tokenHeader = function (xhr) {
-				xhr.setRequestHeader('Authorization', ("Bearer ".concat(token)));
-			}
-
 			localStorage.setItem("token", token);
 			this.getUserInfo();
 		}
@@ -84,18 +75,22 @@ App.Models.Session = Backbone.Model.extend({
 
 	getUserInfo: function () {
 		var self = this;
-		$.ajax({
+		$.post({
 			async: false,
 			method: 'GET',
 			url: App.baseUrl + '/frontapi/v1/getuserinfo',
-			headers: {
-				'Authorization': "Bearer ".concat(btoa(App.token))
-			},
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader('Authorization', 'Bearer ' + App.token);
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization', "Bearer ".concat(App.token));
 			},
 			success: function(response){
 				self.updateSessionUser(response.result.value);
+				//temp
+				if(!App.Session.isInRole(['ROLE_ADMIN'])){
+					$('#blogs-button').remove();
+					$('#campaigns-button').remove();
+				}
+				$('#buttons-block').html($('#logout-action-buttons-template').html());
+				Backbone.history.navigate("/campaigns", true);
 			}
 		});
 	},
@@ -103,13 +98,6 @@ App.Models.Session = Backbone.Model.extend({
 	updateSessionUser: function( userData ){
 		this.user.set('username', userData.username);
 		this.user.set('roles', userData.roles);
-
-		//temp
-		if(!App.Session.isInRole(['ROLE_ADMIN'])){
-			$('#blogs-button').remove();
-			$('#campaigns-button').remove();
-			$('#buttons-block').append($('#logout-action-buttons-template').html())
-		}
 	},
 
 	isInRole: function (roles) {

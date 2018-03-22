@@ -45,6 +45,9 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 				'blogTags' : $('#newCampaignForm .filter-option').text(),
 				'selectedBlogs': $('#selectedBlogs input[type=checkbox]:checked').map(function() {return this.value;}).get()
 			}),
+			headers: {
+				'Authorization': "Bearer ".concat(App.token)
+			},
 			success: function () {
 				$('.app').empty();
 			}
@@ -65,6 +68,9 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		$.ajax({
 			method: 'GET',
 			url: App.baseUrl + '/frontapi/blog/tags',
+			headers: {
+				'Authorization': "Bearer ".concat(App.token)
+			},
 			success: function (responce) {
 				$.each(responce.result.value, function(key, val){
 					var option = $('<option>').val(val).html(val);
@@ -128,6 +134,9 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 			url: App.baseUrl + '/frontapi/blog/list',
 			data: {
 				'tags': tags
+			},
+			headers: {
+				'Authorization': "Bearer ".concat(App.token)
 			},
 			success: function (response) {
 				$.each(response.result.value, function(key, val){

@@ -13,7 +13,7 @@ App.Views.CampaignView = App.Views.BaseView.extend({
 
     onAfterRender: function () {
         const actions = $('#actions');
-        $('#grid-actions').append($('#campaign-action-buttons-template').html());
+        actions.append($('#campaign-action-buttons-template').html());
         actions.addClass('campaign');
 
         actions.on('click', '.newCampaign', function () {
@@ -25,7 +25,7 @@ App.Views.CampaignView = App.Views.BaseView.extend({
                 modalView = new App.Modals.CampaignRegularModal();
             }
 
-            $('.app').html(modalView.render().el);
+            $('.app').show().html(modalView.render().el);
             modalView.getBlogTags();
         });
     }

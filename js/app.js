@@ -10,11 +10,12 @@ const App = {
     Session: {},
 	currentLoop: {},
     token: '',
-	tokenHeader: '',
     baseUrl: 'http://188.166.89.15'
 };
 
 $(document).ready(function() {
+
+
 	App.Router.Instance = new App.Router;
 	App.Session = new App.Models.Session;
 
@@ -22,22 +23,16 @@ $(document).ready(function() {
 		App.token = localStorage.getItem("token");
     }
 
+	App.Session.checkAuth();
+
+	if(App.Session.logged_in){
+		this.getUserInfo();
+		Backbone.history.navigate("campaigns", true);
+    }else{
+		Backbone.history.navigate("/login", true);
+    }
+
 	Backbone.history.start();
-
-	// Check the auth status upon initialization,
-	// before rendering anything or matching routes
-	App.Session.checkAuth({
-		// Start the backbone routing once we have captured a user's auth status
-		complete: function(){
-			Backbone.history.navigate("/campaigns", true);
-		}
-	});
-
-	// Backbone.history.on("route", function() {
-	// 	if (true) {
-	// 	    Backbone.history.navigate("/login", true);
-     //    }
-	// });
 
 	$.ajaxSetup({cache: false});
 

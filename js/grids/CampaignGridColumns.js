@@ -13,7 +13,10 @@ const ActionCell = Backgrid.Cell.extend({
 				url: App.baseUrl + '/frontapi/campaign/remove',
 				data: JSON.stringify({
 					'campaignId': this.model.attributes.id
-				})
+				}),
+				headers: {
+					'Authorization': "Bearer ".concat(App.token)
+				}
 			});
 			App.currentView.fetchGrid();
 		}

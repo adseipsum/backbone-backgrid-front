@@ -8,9 +8,7 @@ App.Views.LoginView = Backbone.View.extend({
 	},
 
 	initialize: function(){
-		_.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
-
-		this.render(); // not all views are self-rendering. This one is.
+		this.render();
 	},
 
 	render: function(){
@@ -22,7 +20,7 @@ App.Views.LoginView = Backbone.View.extend({
 		var password = this.$('#login-password-input').val();
 		var errorEl = this.$('#login-error');
 		errorEl.hide();
-		errorEl.show().text(App.Session.auth(username, password, errorEl));
+		App.Session.auth(username, password, errorEl);
 	}
 
 });
