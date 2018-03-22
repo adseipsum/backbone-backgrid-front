@@ -29,6 +29,7 @@
 </head>
 
 <body>
+<div class="header-block"></div>
 <div id="main" class="container">
 
 </div>
@@ -292,11 +293,13 @@
 </script>
 
 <script id="grid" type="text/template">
+    <div id="actions" class="btn-toolbar text-center well well-sm">
+    </div>
     <div class="header">
         <div class="row">
             <div class="btn-toolbar" style="margin:10px 0;">
-                <a href="#campaigns" class="btn btn-primary">Campaigns</a>
-                <a href="#blogs" class="btn btn-primary">Blogs</a>
+                <a href="#campaigns" id="campaigns-button" class="btn btn-primary">Campaigns</a>
+                <a href="#blogs" id="blogs-button" class="btn btn-primary">Blogs</a>
                 <div style="float: left; margin: 5px 0 0 15px">
                     <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
                     <label for="auto-update-enable">Enable Table Auto Update.</label>
@@ -304,8 +307,6 @@
                 <div style="float: left; margin: 5px 0 0 15px">
                     <input id="use-frame" type="checkbox" checked="checked" onchange="$.fn.changeFrame();"/>
                     <label for="use-frame">Use frame.</label>
-                </div>
-                <div id="actions" class="pull-right">
                 </div>
             </div>
 
@@ -324,14 +325,46 @@
     </div>
     <div class="footer">
     </div>
+    <div id="grid-actions" class="btn-toolbar pull-right">
+    </div>
 </script>
 
 <script id="campaign-action-buttons-template" type="text/template">
-    <button type="button" data-type="backlinked" class="btn btn-success open newCampaign">Add Campaigh</button>
+    <button type="button" data-type="backlinked" class="btn btn-success open newCampaign">Add Campaign</button>
 </script>
 
 <script id="blog-action-buttons-template" type="text/template">
     <button type="button" class="btn btn-success open newBlog">Add New</button>
+</script>
+
+<script id="logout-action-buttons-template" type="text/template">
+    <a href="#logout" class="btn btn-sm navbar-btn btn-warning">Logout</a>
+</script>
+
+<script id="header" type="text/template">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sattelitor</a>
+
+            <div id="header-alert" class="alert alert-success col-md-7 navbar-button" style="display:none;"></div>
+
+            <div id="buttons-block" class="pull-right">
+
+            </div>
+            <% if(logged_in){ %>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.username %> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a id="logout-link" href="#" data-bypass>Sign Out</a></li>
+                        <li><a id="remove-account-link" href="#" data-bypass>Remove Account</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <% } %>
+
+        </div>
+    </div>
 </script>
 
 <script id="login" type="text/template">
@@ -344,6 +377,7 @@
 
             <form id="login-form" class="form" data-validate="parsley">
                 <fieldset>
+                    <div id="login-error" class="alert alert-danger" style="display:none;"></div>
                     <div class="control-group">
                         <div class="controls">
                             <input type="text" id="login-username-input" name="username" placeholder="Username" value="" data-required="true" data-notblank="true">
@@ -398,8 +432,8 @@
 <script src="js/models/BlogModel.js"></script>
 <script src="js/models/BlogSeoPingModel.js"></script>
 <script src="js/models/BlogSeoAvailabilityModel.js"></script>
-<script src="js/models/SessionModel.js"></script>
 <script src="js/models/UserModel.js"></script>
+<script src="js/models/SessionModel.js"></script>
 
 <script src="js/collections/CampaignsCollection.js"></script>
 <script src="js/collections/BlogsCollection.js"></script>
@@ -422,6 +456,7 @@
 <script src="js/views/CampaignView.js"></script>
 <script src="js/views/BlogView.js"></script>
 <script src="js/views/LoginView.js"></script>
+<script src="js/views/HeaderView.js"></script>
 
 <!-- Router -->
 <script src="js/router.js"></script>

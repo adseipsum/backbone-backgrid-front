@@ -9,6 +9,7 @@ App.Views.BaseView = Backbone.View.extend({
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	initialize: function() {
+
 	    const self = this;
         _.bindAll(self, 'render'); // fixes loss of context for 'this' within methods
 
@@ -260,7 +261,9 @@ App.Views.BaseView = Backbone.View.extend({
 
         const activeFilter = this.advancedFilter.filterStateModel.getActiveFilter();
 	    if (activeFilter === undefined) {
-            collections.fetch({reset: true,
+            collections.fetch({
+	            headers: {'Authorization' : "Bearer ".concat(App.token)},
+                reset: true,
                 success: function(){
                     if (currPage !== 1) {
                         collections.getPage(currPage);

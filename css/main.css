@@ -194,4 +194,11 @@ div.columnmanager-dropdown-container li span.column-label {
     width: 350px;
 }
 
+.app{
+    display: none;
+}
+
+#actions{
+    margin-top: 60px;
+}
 

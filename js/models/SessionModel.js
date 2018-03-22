@@ -1,102 +1,133 @@
 /*jshint esversion: 6 */
 
-App.Models.SessionModel = Backbone.Model.extend({
+App.Models.Session = Backbone.Model.extend({
 
 	// Initialize with negative/empty defaults
 	// These will be overriden after the initial checkAuth
 	defaults: {
 		logged_in: false,
-		user_id: ''
+		user_id: '',
+		error: '',
 	},
 
 	initialize: function(){
-		_.bindAll(this);
-
 		// Singleton user object
 		// Access or listen on this throughout any module with app.session.user
-		this.user = new UserModel({});
+		this.user = new App.Models.UserModel();
 	},
-
-	// Fxn to update user attributes after recieving API response
-	updateSessionUser: function( userData ){
-		this.user.set(_.pick(userData, _.keys(this.user.defaults)));
-	},
-
 
 	/*
 	 * Check for session from API
 	 * The API will parse client cookies using its secret token
 	 * and return a user object if authenticated
 	 */
-	checkAuth: function(callback, args) {
+	checkAuth: function() {
 		var self = this;
-		this.fetch({
-			success: function(mod, res){
-				if(!res.error && res.user){
-					self.updateSessionUser(res.user);
-					self.set({ logged_in : true });
-					if('success' in callback) callback.success(mod, res);
-				} else {
+		if(App.token){
+			this.set({ logged_in : true });
+			this.getUserInfo();
+		}else{
+			this.set({ logged_in : false });
+		}
+	},
+
+	auth: function(login, password, errorEl) {
+		event.preventDefault();
+		var self = this;
+		var token;
+
+		$.post({
+			async: false,
+			method: 'POST',
+			url: App.baseUrl + '/oauth/v2/token',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: {
+				'grant_type': 'password',
+				'client_id': '1_g7fxszqcapkw84048o4kg4w8oc0800ccg80kko48ws0k44wow',
+				'client_secret': '4ibwinsr1400cgcwggg88wookccwsoocckkcwcg40gc84socs4',
+				'redirect_uri': 'https://api.aitext.me/oauth/oauth-callback',
+				'username': login,
+				'password': password
+			},
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+			},
+			success: function () {
+				self.set({ logged_in : true });
+			},
+			complete: function (response) {
+				if (response.responseJSON.access_token) {
+					token = response.responseJSON.access_token;
+					Backbone.history.navigate("/campaigns", true);
+				}
+
+				if (response.responseJSON.error) {
 					self.set({ logged_in : false });
-					if('error' in callback) callback.error(mod, res);
+					errorEl.text(response.responseJSON.error_description);
 				}
-			}, error:function(mod, res){
-				self.set({ logged_in : false });
-				if('error' in callback) callback.error(mod, res);
 			}
-		}).complete( function(){
-			if('complete' in callback) callback.complete();
 		});
+
+		if(token){
+			App.token = token;
+			App.tokenHeader = function (xhr) {
+				xhr.setRequestHeader('Authorization', ("Bearer ".concat(token)));
+			}
+
+			localStorage.setItem("token", token);
+			this.getUserInfo();
+		}
+
 	},
 
-
-	/*
-	 * Abstracted fxn to make a POST request to the auth endpoint
-	 * This takes care of the CSRF header for security, as well as
-	 * updating the user and session after receiving an API response
-	 */
-	postAuth: function(opts, callback, args){
+	getUserInfo: function () {
 		var self = this;
-		var postData = _.omit(opts, 'method');
-		console.log(postData);
 		$.ajax({
-			url: this.url() + '/' + opts.method,
-			contentType: 'application/json',
-			dataType: 'json',
-			type: 'POST',
+			async: false,
+			method: 'GET',
+			url: App.baseUrl + '/frontapi/v1/getuserinfo',
+			headers: {
+				'Authorization': "Bearer ".concat(btoa(App.token))
+			},
 			beforeSend: function(xhr) {
-				// Set the CSRF Token in the header for security
-				var token = $('meta[name="csrf-token"]').attr('content');
-				if (token) xhr.setRequestHeader('X-CSRF-Token', token);
+				xhr.setRequestHeader('Authorization', 'Bearer ' + App.token);
 			},
-			data:  JSON.stringify( _.omit(opts, 'method') ),
-			success: function(res){
-
-				if( !res.error ){
-					if(_.indexOf(['login', 'signup'], opts.method) !== -1){
-
-						self.updateSessionUser( res.user || {} );
-						self.set({ user_id: res.user.id, logged_in: true });
-					} else {
-						self.set({ logged_in: false });
-					}
-
-					if(callback && 'success' in callback) callback.success(res);
-				} else {
-					if(callback && 'error' in callback) callback.error(res);
-				}
-			},
-			error: function(mod, res){
-				if(callback && 'error' in callback) callback.error(res);
+			success: function(response){
+				self.updateSessionUser(response.result.value);
 			}
-		}).complete( function(){
-			if(callback && 'complete' in callback) callback.complete(res);
 		});
 	},
 
+	updateSessionUser: function( userData ){
+		this.user.set('username', userData.username);
+		this.user.set('roles', userData.roles);
 
-	login: function(opts, callback, args){
-		this.postAuth(_.extend(opts, { method: 'login' }), callback);
+		//temp
+		if(!App.Session.isInRole(['ROLE_ADMIN'])){
+			$('#blogs-button').remove();
+			$('#campaigns-button').remove();
+			$('#buttons-block').append($('#logout-action-buttons-template').html())
+		}
 	},
+
+	isInRole: function (roles) {
+		var allowed = false;
+		var userRoles = this.user.get('roles');
+
+		var self = this;
+		$.each(roles, function(i) {
+			if (userRoles.indexOf(roles[i]) > -1) {
+				allowed = true;
+			}
+		});
+
+		if(allowed){
+			return true;
+		}
+
+		return false;
+	}
 
 });

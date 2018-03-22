@@ -9,11 +9,11 @@ App.Views.CampaignView = App.Views.BaseView.extend({
 
     columns: App.Grids.campaignGridColumns,
 
-    Collections: App.Collections.Campaigns,
+	Collections: App.Collections.Campaigns,
 
     onAfterRender: function () {
         const actions = $('#actions');
-        actions.html($('#campaign-action-buttons-template').html());
+        $('#grid-actions').append($('#campaign-action-buttons-template').html());
         actions.addClass('campaign');
 
         actions.on('click', '.newCampaign', function () {

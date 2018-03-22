@@ -7,8 +7,16 @@ App.Router = Backbone.Router.extend({
 	routes: {
 		'': 'index',
 		'login': 'login',
+		'logout': 'logout',
 		'campaigns': 'campaigns',
 		'blogs': 'blogs'
+	},
+
+	initialize: function(){
+		if(!this.headerView){
+			this.headerView = new App.Views.HeaderView();
+			this.headerView.setElement($(".header-block")).render();
+		}
 	},
 
 	index: function() {
@@ -18,7 +26,12 @@ App.Router = Backbone.Router.extend({
 	login: function () {
         App.currentView = new App.Views.LoginView();
         App.currentView.render();
-        this.afterRender();
+	},
+
+	logout: function () {
+		App.token = '';
+		localStorage.removeItem("token");
+		this.navigate("login", {trigger: true});
 	},
 
 	campaigns: function(){
@@ -28,6 +41,10 @@ App.Router = Backbone.Router.extend({
 	},
 
 	blogs: function(){
+		if(!App.Session.isInRole(['ROLE_ADMIN'])){
+			App.Router.Instance.navigate('campaigns', true);
+			return false;
+		}
         App.currentView = new App.Views.BlogView();
         App.currentView.fetchGrid();
         this.afterRender();
