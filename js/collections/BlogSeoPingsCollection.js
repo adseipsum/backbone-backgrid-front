@@ -9,6 +9,12 @@ App.Collections.BlogSeoPings = Backbone.Collection.extend({
         this.url += '/' + blogId;
     },
 
+	processError: function (error) {
+		if(error.responseJSON.error == 'invalid_grant'){
+			Backbone.history.navigate("/logout", true);
+		}
+	},
+
     parse : function(response){
         const ret = response.result.value;
 

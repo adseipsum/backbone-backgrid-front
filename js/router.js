@@ -4,6 +4,7 @@ App.Router = Backbone.Router.extend({
 
 	routes: {
 		'': 'index',
+		'index': 'index',
 		'login': 'login',
 		'logout': 'logout',
 		'campaigns': 'campaigns',
@@ -18,7 +19,7 @@ App.Router = Backbone.Router.extend({
 
 	index: function() {
 		if(App.token){
-			this.navigate("campaigns", true);
+			this.navigate("/campaigns", true);
 		}else{
 			this.navigate("/login", true);
 		}
@@ -31,10 +32,9 @@ App.Router = Backbone.Router.extend({
 	},
 
 	logout: function () {
-		App.token = '';
+		App.Session.clearToken();
 		App.Session.user = new App.Models.UserModel();
-		localStorage.removeItem("token");
-		this.navigate("/login", {trigger: true});
+		this.navigate("/login", true);
 	},
 
 	campaigns: function(){
@@ -60,6 +60,12 @@ App.Router = Backbone.Router.extend({
 		}
 		if (callback) {
 		    callback.apply(this, args);
+        }
+
+        if(Backbone.history.getFragment().indexOf('login') < 0 && Backbone.history.getFragment().indexOf('login') < 0){
+	        if(!App.Session.isInRole(['ROLE_USER'])){
+	        	this.navigate('/logout', true);
+	        }
         }
 	},
 

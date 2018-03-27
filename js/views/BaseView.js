@@ -261,9 +261,10 @@ App.Views.BaseView = Backbone.View.extend({
         const activeFilter = this.advancedFilter.filterStateModel.getActiveFilter();
 	    if (activeFilter === undefined) {
             collections.fetch({
+	            reset: true,
 	            headers: {'Authorization' : "Bearer ".concat(App.token)},
 	            crossDomain: true,
-                reset: true,
+	            error: function(collection, response, options) { collections.processError(response); },
                 success: function(){
                     if (currPage !== 1) {
                         collections.getPage(currPage);
@@ -275,6 +276,7 @@ App.Views.BaseView = Backbone.View.extend({
                 reset: true,
 	            headers: {'Authorization' : "Bearer ".concat(App.token)},
 	            crossDomain: true,
+	            error: function(collection, response, options) { collections.processError(arguments); },
                 success: function(){
                     const requestFilter = activeFilter.exportFilter("mongo");
                     const resultDataIn = collections.fullCollection.models.slice(0);

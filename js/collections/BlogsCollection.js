@@ -9,6 +9,12 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
     },
     mode: "client", // page entirely on the client side
 
+	processError: function (error) {
+		if(error.responseJSON.error == 'invalid_grant'){
+			Backbone.history.navigate("/logout", true);
+		}
+	},
+
 	parse : function(response){
 	    const ret = response.result.value;
 

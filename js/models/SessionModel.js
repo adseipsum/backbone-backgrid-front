@@ -17,41 +17,20 @@ App.Models.Session = Backbone.Model.extend({
 		}
 	},
 
-	auth: function(login, password, errorEl) {
-		var self = this;
-		var token;
+	start: function(token){
+		this.setToken(token);
+		this.getUserInfo();
+		Backbone.history.navigate("/index", true);
+	},
 
-		$.post({
-			async: false,
-			crossOrigin: true,
-			method: 'POST',
-			url: App.baseUrl + '/oauth/v2/token',
-			data: {
-				'grant_type': 'password',
-				'client_id': '1_g7fxszqcapkw84048o4kg4w8oc0800ccg80kko48ws0k44wow',
-				'client_secret': '4ibwinsr1400cgcwggg88wookccwsoocckkcwcg40gc84socs4',
-				'redirect_uri': 'https://api.aitext.me/oauth/oauth-callback',
-				'username': login,
-				'password': password
-			},
-			beforeSend: function (xhr) {
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			},
-			success: function (response) {
-				if (response.access_token) {
-					App.token = response.access_token;
-					localStorage.setItem("token", App.token);
-					self.getUserInfo();
-					Backbone.history.navigate("/index", true);
-				}
-			},
-			error: function (response) {
-				if (response.error) {
-					errorEl.show().text(response.error_description);
-				}
-			}
-		});
+	setToken: function(token){
+		App.token = token;
+		localStorage.setItem("token", App.token);
+	},
 
+	clearToken: function(){
+		App.token = '';
+		localStorage.removeItem("token");
 	},
 
 	getUserInfo: function () {
@@ -62,6 +41,12 @@ App.Models.Session = Backbone.Model.extend({
 			url: App.baseUrl + '/frontapi/v1/getuserinfo',
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader('Authorization', "Bearer ".concat(App.token));
+			},
+			error: function(responseObject){
+				if(responseObject.responseJSON.error == 'invalid_grant'){
+					self.clearToken();
+					Backbone.history.navigate("/logout", true);
+				}
 			},
 			success: function(response){
 				self.updateSessionUser(response);
