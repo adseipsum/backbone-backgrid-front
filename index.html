@@ -298,8 +298,6 @@
     <div class="header">
         <div class="row">
             <div class="btn-toolbar" style="margin:10px 0;">
-                <a href="#campaigns" id="campaigns-button" class="btn btn-primary">Campaigns</a>
-                <a href="#blogs" id="blogs-button" class="btn btn-primary">Blogs</a>
                 <div style="float: left; margin: 5px 0 0 15px">
                     <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
                     <label for="auto-update-enable">Enable Table Auto Update.</label>
@@ -334,11 +332,7 @@
 </script>
 
 <script id="blog-action-buttons-template" type="text/template">
-    <button type="button" class="btn btn-success open newBlog">Add New</button>
-</script>
-
-<script id="logout-action-buttons-template" type="text/template">
-    <a href="#logout" class="btn btn-sm navbar-btn btn-warning">Logout</a>
+    <button type="button" class="btn btn-success open newBlog">Add Blog</button>
 </script>
 
 <script id="header" type="text/template">
@@ -348,19 +342,22 @@
 
             <div id="header-alert" class="alert alert-success col-md-7 navbar-button" style="display:none;"></div>
 
-            <div id="buttons-block" class="pull-right">
+            <% if(token){ %>
+                <div id="buttons-block" class="navbar-right">
+                    <a href="#campaigns" id="campaigns-button" class="btn btn-primary navbar-btn">Campaigns</a>
+                    <% if(user.get('roles').indexOf('ROLE_ADMIN') > -1){ %>
+                        <a href="#blogs" id="blogs-button" class="btn btn-primary navbar-btn">Blogs</a>
+                    <% } %>
+                </div>
 
-            </div>
-            <% if(logged_in){ %>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.username %> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a id="logout-link" href="#" data-bypass>Sign Out</a></li>
-                        <li><a id="remove-account-link" href="#" data-bypass>Remove Account</a></li>
-                    </ul>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav navbar-right pull-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.get('username') %> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#logout" data-bypass>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             <% } %>
 
         </div>

@@ -9,7 +9,6 @@ App.Views.BaseView = Backbone.View.extend({
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	initialize: function() {
-
 	    const self = this;
         _.bindAll(self, 'render'); // fixes loss of context for 'this' within methods
 
@@ -263,6 +262,7 @@ App.Views.BaseView = Backbone.View.extend({
 	    if (activeFilter === undefined) {
             collections.fetch({
 	            headers: {'Authorization' : "Bearer ".concat(App.token)},
+	            crossDomain: true,
                 reset: true,
                 success: function(){
                     if (currPage !== 1) {
@@ -271,7 +271,10 @@ App.Views.BaseView = Backbone.View.extend({
                 }
             });
         } else {
-            collections.fetch({reset: true,
+            collections.fetch({
+                reset: true,
+	            headers: {'Authorization' : "Bearer ".concat(App.token)},
+	            crossDomain: true,
                 success: function(){
                     const requestFilter = activeFilter.exportFilter("mongo");
                     const resultDataIn = collections.fullCollection.models.slice(0);

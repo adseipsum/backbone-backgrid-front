@@ -15,7 +15,8 @@ App.Views.LoginView = Backbone.View.extend({
 		$(this.el).html($('#login').html());
 	},
 
-	login: function () {
+	login: function (e) {
+		e.preventDefault();
 		var username = this.$('#login-username-input').val();
 		var password = this.$('#login-password-input').val();
 		var errorEl = this.$('#login-error');

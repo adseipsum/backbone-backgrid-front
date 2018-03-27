@@ -1,7 +1,5 @@
 /*jshint esversion: 6 */
 
-
-
 App.Router = Backbone.Router.extend({
 
 	routes: {
@@ -15,12 +13,16 @@ App.Router = Backbone.Router.extend({
 	initialize: function(){
 		if(!this.headerView){
 			this.headerView = new App.Views.HeaderView();
-			this.headerView.setElement($(".header-block")).render();
 		}
 	},
 
 	index: function() {
-		this.navigate("campaigns", {trigger: true});
+		if(App.token){
+			this.navigate("campaigns", true);
+		}else{
+			this.navigate("/login", true);
+		}
+
 	},
 
 	login: function () {
@@ -30,8 +32,9 @@ App.Router = Backbone.Router.extend({
 
 	logout: function () {
 		App.token = '';
+		App.Session.user = new App.Models.UserModel();
 		localStorage.removeItem("token");
-		this.navigate("login", {trigger: true});
+		this.navigate("/login", {trigger: true});
 	},
 
 	campaigns: function(){
@@ -51,6 +54,7 @@ App.Router = Backbone.Router.extend({
 	},
 
 	execute: function(callback, args, name) {
+		this.headerView.setElement($(".header-block")).render();
 		if(App.currentLoop) {
 			clearInterval(App.currentLoop);
 		}

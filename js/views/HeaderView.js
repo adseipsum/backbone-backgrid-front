@@ -5,30 +5,27 @@ App.Views.HeaderView = Backbone.View.extend({
 	template: _.template($('#header').html()),
 
 	initialize: function () {
+		if(App.token){
+			if(!App.Session.isInRole(['ROLE_ADMIN'])){
+			}
+		}
 
 		// Listen for session logged_in state changes and re-render
 		//App.Session.Instance.on("change:logged_in", this.onLoginStatusChange);
 	},
 
-	events: {
-		"click #logout-link"         : "onLogoutClick",
-		"click #remove-account-link" : "onRemoveAccountClick"
-	},
-
-	onLoginStatusChange: function(e){
-
-	},
-
-	onLogoutClick: function(evt) {
-		evt.preventDefault();
-		App.Session.logout({});  // No callbacks needed b/c of session event listening
-	},
-
 	render: function () {
-		this.$el.html(this.template({
-			logged_in: App.Session.logged_in,
-			user: App.Session.user
-		}));
+		var data = {
+			token: '',
+			user: ''
+		};
+
+		if(App.token && App.Session.user){
+			data.token = App.token;
+			data.user = App.Session.user;
+		}
+
+		this.$el.html(this.template(data));
 		return this;
 	},
 

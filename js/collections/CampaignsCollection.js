@@ -10,6 +10,6 @@ App.Collections.Campaigns = Backbone.PageableCollection.extend({
     mode: "client", // page entirely on the client side
 
     parse : function(response){
-        return response.result.value;
+        return response;
     }
 });

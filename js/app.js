@@ -10,27 +10,15 @@ const App = {
     Session: {},
 	currentLoop: {},
     token: '',
-    baseUrl: 'http://188.166.89.15'
+    baseUrl: 'https://sapi.robobloglab.com'
 };
 
 $(document).ready(function() {
 
-
-	App.Router.Instance = new App.Router;
 	App.Session = new App.Models.Session;
-
-	if(!App.token){
-		App.token = localStorage.getItem("token");
-    }
-
 	App.Session.checkAuth();
 
-	if(App.Session.logged_in){
-		this.getUserInfo();
-		Backbone.history.navigate("campaigns", true);
-    }else{
-		Backbone.history.navigate("/login", true);
-    }
+	App.Router.Instance = new App.Router;
 
 	Backbone.history.start();
 

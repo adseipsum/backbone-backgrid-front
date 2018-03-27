@@ -9,6 +9,7 @@ const ActionCell = Backgrid.Cell.extend({
 		e.preventDefault();
 		if(confirm("Are you sure you want to delete this campaign? \n This action can't be undone!")){
 			$.ajax({
+				async: false,
 				method: 'POST',
 				url: App.baseUrl + '/frontapi/campaign/remove',
 				data: JSON.stringify({
@@ -54,8 +55,14 @@ App.Grids.campaignGridColumns = $.fn.createGridColumns([
 	}, {
 		name: "mainKeywords",
 		label: "Keywords",
-		cell: "string",
+		cell: "html",
         width: "*",
+		formatter: {
+			fromRaw: function (value, model) {
+				return value.substring(0, 30);
+
+			}
+		},
 	}, {
 		name: "subLinks",
 		label: "Sub Links",

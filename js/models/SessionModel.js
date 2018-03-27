@@ -2,40 +2,28 @@
 
 App.Models.Session = Backbone.Model.extend({
 
-	// Initialize with negative/empty defaults
-	// These will be overriden after the initial checkAuth
-	defaults: {
-		logged_in: false,
-		user_id: '',
-		error: '',
-	},
-
 	initialize: function(){
-		// Singleton user object
-		// Access or listen on this throughout any module with app.session.user
-		this.user = new App.Models.UserModel();
+		this.user = new App.Models.UserModel;
 	},
 
-	/*
-	 * Check for session from API
-	 * The API will parse client cookies using its secret token
-	 * and return a user object if authenticated
-	 */
-	checkAuth: function() {
+	checkAuth: function(){
+		App.token = App.token.length > 1 ? App.token : localStorage.getItem("token");
+
 		if(App.token){
-			this.set({ logged_in : true });
+			this.getUserInfo();
+			Backbone.history.navigate("/index", true);
 		}else{
-			this.set({ logged_in : false });
+			Backbone.history.navigate("/login", true);
 		}
 	},
 
 	auth: function(login, password, errorEl) {
-		event.preventDefault();
 		var self = this;
 		var token;
 
 		$.post({
 			async: false,
+			crossOrigin: true,
 			method: 'POST',
 			url: App.baseUrl + '/oauth/v2/token',
 			data: {
@@ -47,29 +35,22 @@ App.Models.Session = Backbone.Model.extend({
 				'password': password
 			},
 			beforeSend: function (xhr) {
-				xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			},
-			success: function () {
-				self.set({ logged_in : true });
-			},
-			complete: function (response) {
-				if (response.responseJSON.access_token) {
-					token = response.responseJSON.access_token;
-					Backbone.history.navigate("/campaigns", true);
+			success: function (response) {
+				if (response.access_token) {
+					App.token = response.access_token;
+					localStorage.setItem("token", App.token);
+					self.getUserInfo();
+					Backbone.history.navigate("/index", true);
 				}
-
-				if (response.responseJSON.error) {
-					self.set({ logged_in : false });
-					errorEl.show().text(response.responseJSON.error_description);
+			},
+			error: function (response) {
+				if (response.error) {
+					errorEl.show().text(response.error_description);
 				}
 			}
 		});
-
-		if(token){
-			App.token = token;
-			localStorage.setItem("token", token);
-			this.getUserInfo();
-		}
 
 	},
 
@@ -83,14 +64,7 @@ App.Models.Session = Backbone.Model.extend({
 				xhr.setRequestHeader('Authorization', "Bearer ".concat(App.token));
 			},
 			success: function(response){
-				self.updateSessionUser(response.result.value);
-				//temp
-				if(!App.Session.isInRole(['ROLE_ADMIN'])){
-					$('#blogs-button').remove();
-					$('#campaigns-button').remove();
-				}
-				$('#buttons-block').html($('#logout-action-buttons-template').html());
-				Backbone.history.navigate("/campaigns", true);
+				self.updateSessionUser(response);
 			}
 		});
 	},
@@ -103,6 +77,10 @@ App.Models.Session = Backbone.Model.extend({
 	isInRole: function (roles) {
 		var allowed = false;
 		var userRoles = this.user.get('roles');
+
+		if(!roles || $.isEmptyObject(userRoles)){
+			return false;
+		}
 
 		var self = this;
 		$.each(roles, function(i) {

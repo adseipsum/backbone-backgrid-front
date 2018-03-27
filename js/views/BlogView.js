@@ -31,7 +31,7 @@ App.Views.BlogView = App.Views.BaseView.extend({
 
         actions.on('click', '.newBlog', function () {
             const modalView = new App.Modals.BlogModal();
-            $('.app').html(modalView.render().el);
+            $('.app').show().html(modalView.render().el);
         });
     }
 

@@ -25,6 +25,9 @@ App.Modals.BlogModal = Backbone.Modal.extend({
 				'postPeriodSeconds': $('#postPeriodSeconds').val(),
 				'tags': $('#tags').val()
 			}),
+			headers: {
+				'Authorization': "Bearer ".concat(App.token)
+			},
 			success: function () {
 				$('.app').empty();
 			}
