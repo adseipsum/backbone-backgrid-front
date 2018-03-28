@@ -27,7 +27,7 @@ const ActionCell = Backgrid.Cell.extend({
 	editCampaign: function(e){
 		e.preventDefault();
 		const modalView = new App.Modals.CampaignBacklinkedModal();
-		$('.app').html(modalView.render().el);
+		$('.app').show().html(modalView.render().el);
 		modalView.fillForm(this.model.attributes);
 	},
 
