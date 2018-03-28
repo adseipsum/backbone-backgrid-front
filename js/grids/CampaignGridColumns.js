@@ -5,6 +5,7 @@ const ActionCell = Backgrid.Cell.extend({
 		'click .delete': 'deleteCampaign',
 		'click .edit': 'editCampaign'
 	},
+
 	deleteCampaign: function(e) {
 		e.preventDefault();
 		if(confirm("Are you sure you want to delete this campaign? \n This action can't be undone!")){
@@ -22,12 +23,14 @@ const ActionCell = Backgrid.Cell.extend({
 			App.currentView.fetchGrid();
 		}
 	},
+
 	editCampaign: function(e){
 		e.preventDefault();
 		const modalView = new App.Modals.CampaignBacklinkedModal();
 		$('.app').html(modalView.render().el);
 		modalView.fillForm(this.model.attributes);
 	},
+
 	render: function () {
 		this.$el.html('<button class="edit btn btn-sm btn-info glyphicon glyphicon-pencil"></button>&nbsp;<button class="delete btn btn-sm btn-danger glyphicon glyphicon-trash"></button>');
 		return this;
@@ -44,6 +47,17 @@ App.Grids.campaignGridColumns = $.fn.createGridColumns([
 				return object.substring(9);
 			}
 		},
+	}, {
+		name: "enabled",
+		label: "Enabled",
+		editable: true,
+		cell: Backgrid.BooleanCell.extend({
+			events: {
+				'change input': function (e) {
+					this.model.enableCampaign(e.target.checked);
+				}
+			}
+		})
 	}, {
 		name: "status",
 		label: "Status",
