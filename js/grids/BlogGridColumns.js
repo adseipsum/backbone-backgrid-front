@@ -10,10 +10,22 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         cell: "string",
         nesting: ["General"],
     }, {
-        name: "enabled",
-        label: "Enabled",
-        cell: "boolean",
-        nesting: ["General"],
+        name: "locked",
+        label: "Locked",
+        editable: true,
+        cell: Backgrid.BooleanCell.extend({
+            events: {
+                'change input': function (e) {
+                    this.model.lockBlog(e.target.checked);
+                    if(e.target.checked){
+                        this.$el.parent().addClass('locked');
+                    }else{
+                        this.$el.parent().removeClass('locked');
+                    }
+
+                }
+            }
+        })
     }, {
         name: "domainName",
         sortValue: "domainNameSort",
