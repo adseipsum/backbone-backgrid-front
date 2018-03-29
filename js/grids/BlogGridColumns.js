@@ -3,6 +3,24 @@
 (function () {
     'use strict';
 
+const ActionCell = Backgrid.Cell.extend({
+    events: {
+        'click .edit': 'editBlog'
+    },
+
+    editBlog: function(e){
+        e.preventDefault();
+        const modalView = new App.Modals.BlogModal();
+        $('.app').show().html(modalView.render().el);
+        modalView.fillForm(this.model.attributes);
+    },
+
+    render: function () {
+        this.$el.html('<button class="edit btn btn-sm btn-info glyphicon glyphicon-pencil"></button>');
+        return this;
+    }
+});
+
 App.Grids.blogGridColumns = $.fn.createGridColumns([
     {
         name: "id",
@@ -137,6 +155,10 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         width: 150,
         nesting: ["Posting"],
         filterType: "number"
+    }, {
+        name: "",
+        label: "Action",
+        cell: ActionCell
     }
 ]);
 

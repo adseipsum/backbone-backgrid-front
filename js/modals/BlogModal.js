@@ -14,8 +14,9 @@ App.Modals.BlogModal = Backbone.Modal.extend({
 
 		$.ajax({
 			method: 'POST',
-			url: App.baseUrl + '/frontapi/blog/new',
+			url: App.baseUrl + '/frontapi/blog/upsert',
 			data: JSON.stringify({
+                'blogId': $('#blogId').val(),
 				'domainName': $('#domainName').val(),
 				'realIp': $('#realIp').val(),
 				'postingUserLogin': $('#postingUserLogin').val(),
@@ -32,5 +33,20 @@ App.Modals.BlogModal = Backbone.Modal.extend({
 				$('.app').empty();
 			}
 		});
-	}
+	},
+
+    fillForm: function(data){
+        var current = this;
+
+        $('#blogId').val(data.id);
+        $('#domainName').val($(data.domainName).text());
+        $('#realIp').val(data.realIp);
+        $('#postPeriodSeconds').val(data.postPeriodSeconds);
+        $('#tags').val(data.tags);
+
+        $('#postingUserLogin').attr('required', false);
+        $('#postingUserPassword').attr('required', false);
+        $('#clientId').attr('required', false);
+        $('#clientSecret').attr('required', false);
+    },
 });
