@@ -63,7 +63,11 @@ App.Views.BaseView = Backbone.View.extend({
             $('.content').fadeTo("fast", 0.33);
             dataFiltered = true;
             const currPage = collections.fullCollection.pageableCollection.state.currentPage;
-            collections.fetch({reset: true,
+            collections.fetch({
+                reset: true,
+                headers: {'Authorization' : "Bearer ".concat(App.token)},
+                crossDomain: true,
+                error: function(collection, response, options) { collections.processError(response); },
                 success: function(){
                     const requestFilter = filterModel.exportFilter("mongo");
                     const resultDataIn = collections.fullCollection.models.slice(0);
@@ -81,7 +85,11 @@ App.Views.BaseView = Backbone.View.extend({
             if (dataFiltered) {
                 $('.content').fadeTo("fast", 0.33);
                 dataFiltered = false;
-                collections.fetch({reset: true,
+                collections.fetch({
+                    reset: true,
+                    headers: {'Authorization' : "Bearer ".concat(App.token)},
+                    crossDomain: true,
+                    error: function(collection, response, options) { collections.processError(response); },
                     success: function(){
                         $('.content').fadeTo("fast", 1);
                     }
