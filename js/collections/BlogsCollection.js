@@ -143,7 +143,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                             pingStatus = 1;
                         }
                     }
-                    v.ping = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').html(new App.Modals.BlogSeoPingModal(\'' + v.id + '\', \'' + domainName + '\', ' + v.checkTimestamp + ').render().el);" />';
+                    v.ping = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').show().html(new App.Modals.BlogSeoPingModal(\'' + v.id + '\', \'' + domainName + '\', ' + v.checkTimestamp + ').render().el);" />';
                 }
                 v.pingStatus = pingStatus;
             }
@@ -173,7 +173,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                             availabilitieStatus = 1;
                         }
                     }
-                    v.availability = '<img src="img/status' + availabilitieStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').html(new App.Modals.BlogSeoAvailabilityModal(\'' + v.id + '\', \'' + url + '\', ' + v.checkTimestamp + ').render().el);" />';
+                    v.availability = '<img src="img/status' + availabilitieStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').show().html(new App.Modals.BlogSeoAvailabilityModal(\'' + v.id + '\', \'' + url + '\', ' + v.checkTimestamp + ').render().el);" />';
                 }
                 v.availabilitieStatus = availabilitieStatus;
             }
