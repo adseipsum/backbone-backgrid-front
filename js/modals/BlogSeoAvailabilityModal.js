@@ -14,7 +14,12 @@ App.Modals.BlogSeoAvailabilityModal = Backbone.Modal.extend({
 
     onRender: function() {
         const availabilities = new App.Collections.BlogSeoAvailabilities(this.blogId);
-        availabilities.fetch({reset: true});
+        availabilities.fetch({
+            headers: {
+                'Authorization': "Bearer ".concat(App.token)
+            },
+            reset: true
+        });
         this.blogSeoAvailabilitiesGrid = new Backgrid.Grid({
             columns: App.Grids.BlogSeoAvailabilitiesGridColumns,
             collection: availabilities

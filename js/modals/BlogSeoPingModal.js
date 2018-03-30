@@ -14,7 +14,12 @@ App.Modals.BlogSeoPingModal = Backbone.Modal.extend({
 
     onRender: function() {
         const pings = new App.Collections.BlogSeoPings(this.blogId);
-        pings.fetch({reset: true});
+        pings.fetch({
+            headers: {
+                'Authorization': "Bearer ".concat(App.token)
+            },
+            reset: true
+        });
         this.blogSeoPingsGrid = new Backgrid.Grid({
             columns: App.Grids.BlogSeoPingsGridColumns,
             collection: pings
