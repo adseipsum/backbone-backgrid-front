@@ -1,5 +1,21 @@
 /*jshint esversion: 6 */
 
+const KeywordsModal = new Backbone.Modal.extend({
+    template: '#keywords-modal-template',
+    cancelEl: '.bbm-button'
+});
+
+const KeywordsCell = Backgrid.HtmlCell.extend({
+    events: {
+        'click .show-keywords': 'showKeywords'
+    },
+
+    showKeywords: function (e) {
+        e.preventDefault();
+        $('.app').show().html(KeywordsModal.render().el);
+    }
+});
+
 const ActionCell = Backgrid.Cell.extend({
 	events: {
 		'click .delete': 'deleteCampaign',
@@ -66,17 +82,16 @@ App.Grids.campaignGridColumns = $.fn.createGridColumns([
 		name: "mainDomain",
 		label: "Domain",
 		cell: "string",
-	}, {
-		name: "mainKeywords",
-		label: "Keywords",
-		cell: "html",
-        width: "*",
-		formatter: {
-			fromRaw: function (value, model) {
-				return value.substring(0, 30);
-
-			}
-		},
+    }, {
+        name: "mainKeywords",
+        label: "Keywords",
+        cell: KeywordsCell,
+        width: "20",
+        formatter: {
+            fromRaw: function (value, model) {
+                return '<a href=""><span class="glyphicon glyphicon-eye-open show-keywords" data-keywords="' + value + '"></span></a>';
+            }
+        },
 	}, {
 		name: "subLinks",
 		label: "Sub Links",
