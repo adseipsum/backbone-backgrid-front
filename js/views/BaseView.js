@@ -59,7 +59,7 @@ App.Views.BaseView = Backbone.View.extend({
         });
 
         let dataFiltered = (activeFilterId !== undefined);
-        self.advancedFilter.on("filter:apply", function(filterId, filterModel) {
+        self.advancedFilter.on("filter:apply filter:loaded", function(filterId, filterModel) {
             $('.content').fadeTo("fast", 0.33);
             dataFiltered = true;
             const currPage = collections.fullCollection.pageableCollection.state.currentPage;
@@ -255,7 +255,7 @@ App.Views.BaseView = Backbone.View.extend({
         self.addSizer(content);
 
         // Render the paginator
-        $(main.find('.footer')).html(self.paginator.render().el);
+        $(main.find('.paginator')).html(self.paginator.render().el);
 
         self.onAfterRender();
 	},

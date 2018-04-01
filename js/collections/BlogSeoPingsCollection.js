@@ -4,13 +4,16 @@ App.Collections.BlogSeoPings = Backbone.Collection.extend({
     model: App.Models.BlogSeoPing,
     url: App.baseUrl + "/frontapi/blog/seo/pings",
 
-    constructor : function (blogId) {
+    constructor : function (blogId, isProxy) {
         Backbone.Collection.apply(this);
+        if (isProxy) {
+            this.url += '_proxy';
+        }
         this.url += '/' + blogId;
     },
 
 	processError: function (error) {
-		if(error.responseJSON.error == 'invalid_grant'){
+		if(error.responseJSON.error === 'invalid_grant'){
 			Backbone.history.navigate("/logout", true);
 		}
 	},

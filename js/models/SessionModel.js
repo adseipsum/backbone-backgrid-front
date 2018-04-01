@@ -43,10 +43,14 @@ App.Models.Session = Backbone.Model.extend({
 				xhr.setRequestHeader('Authorization', "Bearer ".concat(App.token));
 			},
 			error: function(responseObject){
-				if(responseObject.responseJSON.error == 'invalid_grant'){
+				if(responseObject.responseJSON !== undefined && responseObject.responseJSON.error === 'invalid_grant'){
 					self.clearToken();
 					Backbone.history.navigate("/logout", true);
-				}
+				} else {
+                    window.alert("Internal server error");
+                    self.clearToken();
+                    Backbone.history.navigate("/logout", true);
+                }
 			},
 			success: function(response){
 				self.updateSessionUser(response);

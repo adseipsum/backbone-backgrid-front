@@ -4,7 +4,9 @@ App.Views.LoginView = Backbone.View.extend({
 	el: $('#main'),
 
 	events: {
-		"click #login-btn": "login"
+		"click #login-btn": "login",
+		"keypress #login-username-input": "keypress",
+        "keypress #login-password-input": "keypress"
 	},
 
 	initialize: function(){
@@ -15,10 +17,30 @@ App.Views.LoginView = Backbone.View.extend({
 		$(this.el).html($('#login').html());
 	},
 
+	disableView: function() {
+        this.$('#login-btn').attr("disabled", "disabled");
+        this.$('#login-username-input').attr("disabled", "disabled");
+        this.$('#login-password-input').attr("disabled", "disabled");
+	},
+
+    enableView: function() {
+        this.$('#login-btn').removeAttr("disabled");
+        this.$('#login-username-input').removeAttr("disabled");
+        this.$('#login-password-input').removeAttr("disabled");
+        this.$('#login-password-input').val("");
+    },
+
+    keypress: function (e) {
+        if(e.which === 13) {
+            this.login(e);
+        }
+	},
+
 	login: function (e) {
 		e.preventDefault();
-		var username = this.$('#login-username-input').val();
-		var password = this.$('#login-password-input').val();
+        this.disableView();
+		const username = this.$('#login-username-input').val();
+		const password = this.$('#login-password-input').val();
 		this.errorEl = this.$('#login-error');
 		this.errorEl.hide();
 
@@ -26,12 +48,13 @@ App.Views.LoginView = Backbone.View.extend({
 			this.auth(username, password);
 		}else{
 			this.errorEl.show().text('Please enter your username and password');
+            this.enableView();
 		}
 
 	},
 
 	auth: function(login, password) {
-		var self = this;
+		const self = this;
 
 		$.post({
 			async: false,
@@ -55,9 +78,12 @@ App.Views.LoginView = Backbone.View.extend({
 				}
 			},
 			error: function (responseObject) {
-				if (responseObject.responseJSON.error) {
+				if (responseObject.responseJSON !== undefined && responseObject.responseJSON.error) {
 					self.errorEl.show().text(responseObject.responseJSON.error_description);
+				} else {
+					window.alert("Internal server error");
 				}
+                self.enableView();
 			}
 		});
 

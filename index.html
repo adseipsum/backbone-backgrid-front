@@ -29,7 +29,6 @@
 </head>
 
 <body>
-<div class="header-block"></div>
 <div id="main" class="container">
 
 </div>
@@ -320,22 +319,10 @@
 <script id="grid" type="text/template">
     <div class="header">
         <div class="row">
-            <div id="actions" class="btn-toolbar text-center well well-sm">
-            </div>
+            <div class="header-block"></div>
         </div>
         <div class="row">
-            <div class="btn-toolbar" style="margin:10px 0;">
-                <div style="float: left; margin: 5px 0 0 15px">
-                    <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
-                    <label for="auto-update-enable">Enable Table Auto Update.</label>
-                </div>
-                <div style="float: left; margin: 5px 0 0 15px">
-                    <input id="use-frame" type="checkbox" checked="checked" onchange="$.fn.changeFrame();"/>
-                    <label for="use-frame">Use frame.</label>
-                </div>
-            </div>
-
-
+            <div id="actions" class="btn-toolbar text-center well well-sm"></div>
         </div>
         <div class="row" style="margin: 5px 0 10px 0">
             <div class="col-md-1" style="font-weight: bold; text-align: right; margin-top: 5px;">Column&nbsp;control:</div>
@@ -346,11 +333,10 @@
             <div class="col-md-7" id="grid-filter" style="text-align: left; padding: 0"></div>
         </div>
     </div>
-    <div class="content">
-    </div>
+    <div class="content"></div>
     <div class="footer">
-    </div>
-    <div id="grid-actions" class="btn-toolbar pull-right">
+        <div class="paginator"></div>
+        <div id="grid-actions" class="btn-toolbar pull-right"></div>
     </div>
 </script>
 
@@ -366,6 +352,17 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <a class="navbar-brand" href="/">Sattelitor</a>
+
+            <div class="btn-toolbar" style="margin:10px 0; width: 500px; float: left;">
+                <div style="float: left; margin: 5px 0 0 15px">
+                    <input id="auto-update-enable" type="checkbox" onchange="$.fn.changeAutoUpdate();"/>
+                    <label for="auto-update-enable">Enable Table Auto Update.</label>
+                </div>
+                <div style="float: left; margin: 5px 0 0 15px">
+                    <input id="use-frame" type="checkbox" checked="checked" onchange="$.fn.changeFrame();"/>
+                    <label for="use-frame">Use frame.</label>
+                </div>
+            </div>
 
             <div id="header-alert" class="alert alert-success col-md-7 navbar-button" style="display:none;"></div>
 

@@ -43,7 +43,9 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
 
                 }
             }
-        })
+        }),
+        filterType: ["boolean"],
+        nesting: ["General"]
     }, {
         name: "domainName",
         sortValue: "domainNameSort",
@@ -53,26 +55,45 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         nesting: ["General"],
         filterType: "string"
 	}, {
+        name: "domainRegistrar",
+        label: "Registrar",
+        cell: "string",
+        nesting: ["General"],
+    }, {
+        name: "domainRegistrantName",
+        label: "Registrant",
+        cell: "string",
+        nesting: ["General"],
+    }, {
 		name: "realIp",
-		sortValue: "realIpSort",
 		label: "Real Ip",
-		cell: "html",
-		width: "*",
+        cell: "string",
 		nesting: ["General"],
-		filterType: "string"
+    }, {
+        name: "proxyIp",
+        label: "Proxy Ip",
+        cell: "string",
+        nesting: ["General"],
+    }, {
+        name: "pingRealIp",
+        sortValue: "pingRealIpStatus",
+        label: "Ping",
+        cell: Backgrid.HtmlCenterCell,
+        nesting: ["Check", "Server", "Real"],
+        filterType: "number"
     }, {
         name: "ping",
         sortValue: "pingStatus",
         label: "Ping",
         cell: Backgrid.HtmlCenterCell,
-        nesting: ["Check", "Server"],
+        nesting: ["Check", "Server", "Proxy"],
         filterType: "number"
     }, {
         name: "availability",
         sortValue: "availabilitieStatus",
         label: "Availability",
         cell: Backgrid.HtmlCenterCell,
-        nesting: ["Check", "Server"],
+        nesting: ["Check", "Server", "Proxy"],
         filterType: "number"
     },{
         name: "domainExpirationDate",

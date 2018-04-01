@@ -10,7 +10,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
     mode: "client", // page entirely on the client side
 
 	processError: function (error) {
-		if(error.responseJSON.error == 'invalid_grant'){
+		if(error.responseJSON.error === 'invalid_grant'){
 			Backbone.history.navigate("/logout", true);
 		}
 	},
@@ -122,6 +122,36 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
 
             {
                 let pingStatus = 2;
+                let pingsCountAll = v.pingsRealIpCountAll;
+                if (pingsCountAll === undefined) {
+                    pingsCountAll = 0;
+                }
+                let pingsCountValid = v.pingsRealIpCountValid;
+                if (pingsCountValid === undefined) {
+                    pingsCountValid = 0;
+                }
+                if (pingsCountAll === 0) {
+                    pingStatus = 0;
+                    title = notCheckStr;
+                    v.pingRealIp = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img" />';
+                } else {
+                    title = "Valid pings: " + pingsCountValid + " of " + pingsCountAll + "\n" + checkTimestamp + "\nClick for more info...";
+                    if (pingsCountAll !== pingsCountValid) {
+                        if (pingsCountValid === 0) {
+                            pingStatus = -1;
+                        } else {
+                            pingStatus = 1;
+                        }
+                    }
+                    v.pingRealIp = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').show().html(new App.Modals.BlogSeoPingModal(\'' + v.id + '\', \'' + v.realIp + '\', ' + v.checkTimestamp + ', false).render().el);" />';
+                }
+                v.pingRealIpStatus = pingStatus;
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            {
+                let pingStatus = 2;
                 let pingsCountAll = v.pingsCountAll;
                 if (pingsCountAll === undefined) {
                     pingsCountAll = 0;
@@ -143,7 +173,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                             pingStatus = 1;
                         }
                     }
-                    v.ping = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').show().html(new App.Modals.BlogSeoPingModal(\'' + v.id + '\', \'' + domainName + '\', ' + v.checkTimestamp + ').render().el);" />';
+                    v.ping = '<img src="img/status' + pingStatus + '.png" title="' + title + '" class="status-img focus-hand-cursor" onclick="$(\'.app\').show().html(new App.Modals.BlogSeoPingModal(\'' + v.id + '\', \'' + domainName + '\', ' + v.checkTimestamp + ', true).render().el);" />';
                 }
                 v.pingStatus = pingStatus;
             }
@@ -181,7 +211,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
             ////////////////////////////////////////////////////////////////////////////////////////
 
             {
-                const checkSeo1 = function (v, options) {
+                const checkSeo1 = function (v, v_prev, timestamp_prev, options) {
                     if (options === undefined) {
                         options = {};
                     }
@@ -189,6 +219,15 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                     const f = parseFloat(v);
                     if (isNaN(f)) {
                         return '<img src="img/status1.png" title="Value unknown.\n' + seoCheckTimestamp + '" class="status-img" />';
+                    }
+
+                    const f_prev = parseFloat(v_prev);
+                    let postfix = '';
+                    if (!isNaN(f_prev)) {
+                        const delta = f - f_prev;
+                        if (delta !== 0.0) {
+                            postfix = '<span title="' + timestamp_prev + '" style="color: ' + (delta < 0 ? '#fca380' : '#5DC374') + '">&nbsp;[' + (delta > 0 ? '+' : '') + delta + ']</span>';
+                        }
                     }
 
                     let color = 'green';
@@ -228,7 +267,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                         str = ret;
                     }
 
-                    return '<span title="' + seoCheckTimestamp + '" style="color: ' + color + '">' + str + '</span>';
+                    return '<span title="' + seoCheckTimestamp + '" style="color: ' + color + '">' + str + '</span>' + postfix;
                 };
 
                 const checkSeo2 = function (v) {
@@ -255,12 +294,21 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                     v.alexa_rank = val;
                     v.alexa_rank_sort = -2;
                 } else {
-                    v.maj_cf = checkSeo1(seo.maj_cf, {minVal: 15, maxSymbols: 2});
-                    v.maj_tf = checkSeo1(seo.maj_tf, {minVal: 15, maxSymbols: 2});
-                    v.moz_pa = checkSeo1(seo.moz_pa, {minVal: 15, addEndZero: true});
-                    v.moz_da = checkSeo1(seo.moz_da, {minVal: 15, addEndZero: true});
-                    v.moz_rank = checkSeo1(seo.moz_rank, {addEndZero: true});
-                    v.alexa_rank = checkSeo1(seo.alexa_rank, {maxSymbols: 8, addSpacer: true});
+                    let seoPrev = v.seoPrev;
+
+                    let prevTimestamp = seoPrev.timestamp;
+                    if (prevTimestamp !== undefined && prevTimestamp !== -1) {
+                        prevTimestamp = 'Prev check: ' + $.fn.unixTimeConverterEx(prevTimestamp);
+                    } else {
+                        prevTimestamp = "";
+                    }
+
+                    v.maj_cf = checkSeo1(seo.maj_cf, seoPrev.maj_cf, prevTimestamp, {minVal: 15, maxSymbols: 2});
+                    v.maj_tf = checkSeo1(seo.maj_tf, seoPrev.maj_tf, prevTimestamp, {minVal: 15, maxSymbols: 2});
+                    v.moz_pa = checkSeo1(seo.moz_pa, seoPrev.moz_pa, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
+                    v.moz_da = checkSeo1(seo.moz_da, seoPrev.moz_da, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
+                    v.moz_rank = checkSeo1(seo.moz_rank, seoPrev.moz_rank, prevTimestamp, {addEndZero: true});
+                    v.alexa_rank = checkSeo1(seo.alexa_rank, seoPrev.alexa_rank, prevTimestamp, {maxSymbols: 8, addSpacer: true});
 
                     v.maj_cf_sort = checkSeo2(seo.maj_cf);
                     v.maj_tf_sort = checkSeo2(seo.maj_tf);
