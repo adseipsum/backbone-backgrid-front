@@ -5,15 +5,16 @@ App.Modals.BlogSeoPingModal = Backbone.Modal.extend({
     template: '#simple-template',
     cancelEl: '.bbm-button',
 
-    constructor : function(blogId, domainName, checkTimestamp) {
+    constructor : function(blogId, domainName, checkTimestamp, isProxy) {
         Backbone.Modal.apply(this);
         this.blogId = blogId;
         this.domainName = domainName;
         this.checkTimestamp = checkTimestamp;
+        this.isProxy = isProxy;
     },
 
     onRender: function() {
-        const pings = new App.Collections.BlogSeoPings(this.blogId);
+        const pings = new App.Collections.BlogSeoPings(this.blogId, this.isProxy);
         pings.fetch({
             headers: {
                 'Authorization': "Bearer ".concat(App.token)

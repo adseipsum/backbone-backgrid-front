@@ -19,11 +19,14 @@ App.Router = Backbone.Router.extend({
 
 	index: function() {
 		if(App.token){
-			this.navigate("/campaigns", true);
+            let currentPage = sessionStorage.getItem('general-currentPage');
+            if (currentPage === undefined) {
+                currentPage = "/campaigns";
+            }
+			this.navigate(currentPage, true);
 		}else{
 			this.navigate("/login", true);
 		}
-
 	},
 
 	login: function () {
@@ -38,6 +41,7 @@ App.Router = Backbone.Router.extend({
 	},
 
 	campaigns: function(){
+        sessionStorage.setItem('general-currentPage', "/campaigns");
         App.currentView = new App.Views.CampaignView();
         App.currentView.fetchGrid();
         this.afterRender();
@@ -48,13 +52,13 @@ App.Router = Backbone.Router.extend({
 			App.Router.Instance.navigate('campaigns', true);
 			return false;
 		}
+        sessionStorage.setItem('general-currentPage', "/blogs");
         App.currentView = new App.Views.BlogView();
         App.currentView.fetchGrid();
         this.afterRender();
 	},
 
 	execute: function(callback, args, name) {
-		this.headerView.setElement($(".header-block")).render();
 		if(App.currentLoop) {
 			clearInterval(App.currentLoop);
 		}
@@ -73,6 +77,8 @@ App.Router = Backbone.Router.extend({
      * @private
      */
     afterRender: function() {
+        this.headerView.setElement($(".header-block")).render();
+
         {
             const isFrameControl = $('#use-frame');
             let isFrame = sessionStorage.getItem('general-isFrame');
