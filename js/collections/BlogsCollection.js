@@ -296,8 +296,22 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                 } else {
                     let seoPrev = v.seoPrev;
 
+                    let prev_maj_cf = '';
+                    let prev_maj_tf = '';
+                    let prev_moz_pa = '';
+                    let prev_moz_da = '';
+                    let prev_moz_rank = '';
+                    let prev_alexa_rank = '';
+                    
                     let prevTimestamp = "";
                     if (seoPrev !== undefined) {
+                        prev_maj_cf = seoPrev.maj_cf;
+                        prev_maj_tf = seoPrev.maj_tf;
+                        prev_moz_pa = seoPrev.moz_pa;
+                        prev_moz_da = seoPrev.moz_da;
+                        prev_moz_rank = seoPrev.moz_rank;
+                        prev_alexa_rank = seoPrev.alexa_rank;
+                    
                         prevTimestamp = seoPrev.timestamp;
                         if (prevTimestamp !== undefined && prevTimestamp !== -1) {
                             prevTimestamp = 'Prev check: ' + $.fn.unixTimeConverterEx(prevTimestamp);
@@ -306,12 +320,12 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                         }
                     }
 
-                    v.maj_cf = checkSeo1(seo.maj_cf, seoPrev.maj_cf, prevTimestamp, {minVal: 15, maxSymbols: 2});
-                    v.maj_tf = checkSeo1(seo.maj_tf, seoPrev.maj_tf, prevTimestamp, {minVal: 15, maxSymbols: 2});
-                    v.moz_pa = checkSeo1(seo.moz_pa, seoPrev.moz_pa, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
-                    v.moz_da = checkSeo1(seo.moz_da, seoPrev.moz_da, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
-                    v.moz_rank = checkSeo1(seo.moz_rank, seoPrev.moz_rank, prevTimestamp, {addEndZero: true});
-                    v.alexa_rank = checkSeo1(seo.alexa_rank, seoPrev.alexa_rank, prevTimestamp, {maxSymbols: 8, addSpacer: true});
+                    v.maj_cf = checkSeo1(seo.maj_cf, prev_maj_cf, prevTimestamp, {minVal: 15, maxSymbols: 2});
+                    v.maj_tf = checkSeo1(seo.maj_tf, prev_maj_tf, prevTimestamp, {minVal: 15, maxSymbols: 2});
+                    v.moz_pa = checkSeo1(seo.moz_pa, prev_moz_pa, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
+                    v.moz_da = checkSeo1(seo.moz_da, prev_moz_da, prevTimestamp, {minVal: 15, maxSymbols: 4, addEndZero: true});
+                    v.moz_rank = checkSeo1(seo.moz_rank, prev_moz_rank, prevTimestamp, {addEndZero: true});
+                    v.alexa_rank = checkSeo1(seo.alexa_rank, prev_alexa_rank, prevTimestamp, {maxSymbols: 8, addSpacer: true});
 
                     v.maj_cf_sort = checkSeo2(seo.maj_cf);
                     v.maj_tf_sort = checkSeo2(seo.maj_tf);
