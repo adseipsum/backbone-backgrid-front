@@ -296,11 +296,14 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                 } else {
                     let seoPrev = v.seoPrev;
 
-                    let prevTimestamp = seoPrev.timestamp;
-                    if (prevTimestamp !== undefined && prevTimestamp !== -1) {
-                        prevTimestamp = 'Prev check: ' + $.fn.unixTimeConverterEx(prevTimestamp);
-                    } else {
-                        prevTimestamp = "";
+                    let prevTimestamp = "";
+                    if (seoPrev !== undefined) {
+                        prevTimestamp = seoPrev.timestamp;
+                        if (prevTimestamp !== undefined && prevTimestamp !== -1) {
+                            prevTimestamp = 'Prev check: ' + $.fn.unixTimeConverterEx(prevTimestamp);
+                        } else {
+                            prevTimestamp = "";
+                        }
                     }
 
                     v.maj_cf = checkSeo1(seo.maj_cf, seoPrev.maj_cf, prevTimestamp, {minVal: 15, maxSymbols: 2});
