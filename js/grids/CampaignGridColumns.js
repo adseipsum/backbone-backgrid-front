@@ -1,9 +1,5 @@
 /*jshint esversion: 6 */
 
-const KeywordsModal = new Backbone.Modal.extend({
-    template: '#keywords-modal-template',
-    cancelEl: '.bbm-button'
-});
 
 const KeywordsCell = Backgrid.HtmlCell.extend({
     events: {
@@ -12,7 +8,9 @@ const KeywordsCell = Backgrid.HtmlCell.extend({
 
     showKeywords: function (e) {
         e.preventDefault();
-        $('.app').show().html(KeywordsModal.render().el);
+        var modalView = new App.Modals.BlankModal();
+        $('.app').show().html(modalView.render().el);
+        modalView.populate($(e.target).data('keywords'));
     }
 });
 
