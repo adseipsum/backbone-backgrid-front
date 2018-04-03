@@ -10,8 +10,8 @@ const App = {
     Session: {},
 	currentLoop: {},
     token: '',
-    baseUrl: 'https://sapi.robobloglab.com',
-//    baseUrl: 'http://127.0.0.1:8000',
+    baseUrl: 'https://sapi.robobloglab.com'
+    //baseUrl: 'http://aitext.me'
 };
 
 $(document).ready(function() {

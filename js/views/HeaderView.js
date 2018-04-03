@@ -4,6 +4,10 @@ App.Views.HeaderView = Backbone.View.extend({
 
 	template: _.template($('#header').html()),
 
+	events: {
+        'click #config': 'showConfig',
+	},
+
 	initialize: function () {
 		if(App.token){
 			if(!App.Session.isInRole(['ROLE_ADMIN'])){
@@ -12,6 +16,13 @@ App.Views.HeaderView = Backbone.View.extend({
 
 		// Listen for session logged_in state changes and re-render
 		//App.Session.Instance.on("change:logged_in", this.onLoginStatusChange);
+	},
+
+	showConfig: function(e){
+	    e.preventDefault();
+        const modalView = new App.Modals.ConfigModal();
+        $('.app').show().html(modalView.render().el);
+        modalView.showConfig();
 	},
 
 	render: function () {

@@ -348,6 +348,35 @@
     <button type="button" class="btn btn-success open newBlog">Add Blog</button>
 </script>
 
+<script id="config-template" type="text/template">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-6">
+                    <h4 class="modal-title">Config</h4>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="close bbm-button" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="config-form" class="form">
+                    <div class="form-group">
+                        <label>Additional Keywords</label>
+                        <textarea id="additionalKeywords" class="form-control" name="additionalKeywords" rows="8"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="saveConfig" type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary bbm-button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</script>
+
 <script id="header" type="text/template">
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -378,6 +407,9 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.get('username') %> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <% if(user.get('roles').indexOf('ROLE_ADMIN') > -1){ %>
+                                <li><a id="config" href="" data-bypass>Config</a>
+                            <% } %>
                             <li><a href="#logout" data-bypass>Logout</a></li>
                         </ul>
                     </li>
@@ -469,6 +501,7 @@
 
 <script src="js/modals/CampaignBacklinkedModal.js"></script>
 <script src="js/modals/CampaignRegularModal.js"></script>
+<script src="js/modals/ConfigModal.js"></script>
 <script src="js/modals/BlogModal.js"></script>
 <script src="js/modals/BlogSeoPingModal.js"></script>
 <script src="js/modals/BlogSeoAvailabilityModal.js"></script>
