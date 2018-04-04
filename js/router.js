@@ -20,7 +20,7 @@ App.Router = Backbone.Router.extend({
 	index: function() {
 		if(App.token){
             let currentPage = sessionStorage.getItem('general-currentPage');
-            if (currentPage === undefined) {
+            if (!["/campaigns", "/blogs"].includes(currentPage)) {
                 currentPage = "/campaigns";
             }
 			this.navigate(currentPage, true);

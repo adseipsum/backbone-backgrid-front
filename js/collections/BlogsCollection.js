@@ -28,7 +28,7 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
             domainName = domainName.replace('http://', '').replace('https://', '');
 
             v.domainNameSort = v.domainName;
-            v.domainName = '<a target="_blank" href="' + url + '">' + domainName + '</a>';
+            v.domainName = '<a target="_blank" href="' + url + '" title="' + url + '">' + domainName + '</a>';
             if(v.lastPostId){
 	            v.domainName += ' <a href="' + url + '?p=' + v.lastPostId + '" title="Last Post"><span class="glyphicon glyphicon-pushpin"></span></a>';
             }
