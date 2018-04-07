@@ -3,6 +3,6 @@ App.Modals.BlankModal = Backbone.Modal.extend({
     cancelEl: '.bbm-button',
 
     populate: function(data){
-        this.$el.find('.modal-body').text(data);
+        this.$el.find('.modal-body').html(data);
     }
 });

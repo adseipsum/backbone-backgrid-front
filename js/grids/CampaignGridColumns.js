@@ -1,7 +1,31 @@
 /*jshint esversion: 6 */
 
 
+const SubLinksCell = Backgrid.HtmlCell.extend({
+    attributes: {
+        style: "text-align:center;"
+    },
+    events: {
+        'click .show-sublinks': 'showSubLinks'
+    },
+
+    showSubLinks: function (e) {
+        e.preventDefault();
+        var template = _.template($('#sub-links-view-template').html());
+        var subLinks = [];
+        $.each(this.model.attributes.subLinks, function(key, value){
+            subLinks.push(template(value));
+        });
+        var modalView = new App.Modals.BlankModal();
+        $('.app').show().html(modalView.render().el);
+        modalView.populate(subLinks);
+    }
+});
+
 const KeywordsCell = Backgrid.HtmlCell.extend({
+    attributes: {
+        style: "text-align:center;"
+    },
     events: {
         'click .show-keywords': 'showKeywords'
     },
@@ -10,9 +34,10 @@ const KeywordsCell = Backgrid.HtmlCell.extend({
         e.preventDefault();
         var modalView = new App.Modals.BlankModal();
         $('.app').show().html(modalView.render().el);
-        modalView.populate($(e.target).data('keywords'));
+        modalView.populate(this.model.attributes.mainKeywords);
     }
 });
+
 
 const ActionCell = Backgrid.Cell.extend({
 	events: {
@@ -87,22 +112,18 @@ App.Grids.campaignGridColumns = $.fn.createGridColumns([
         width: "20",
         formatter: {
             fromRaw: function (value, model) {
-                return '<a href=""><span class="glyphicon glyphicon-eye-open show-keywords" data-keywords="' + value + '"></span></a>';
+                return '<a href="" class="btn btn-info btn-sm show-keywords"><span class="glyphicon glyphicon-eye-open"></span></a>';
             }
         },
 	}, {
 		name: "subLinks",
 		label: "Sub Links",
 		editable: false,
-		cell: "html",
+		cell: SubLinksCell,
 		formatter: {
-			fromRaw: function (object) {
-				const keys = $.map(object, function(value, key){
-					return '<a href="' + value.subLink  + '" alt="' + value.subLink  + '">' + 'Sub Link ' + ++key + '</a>' + ' (' + value.subLinkKeywords + ') </br>' ;
-				});
-
-				return keys.join("\n");
-			}
+            fromRaw: function (object) {
+                return '<a href="" class="btn btn-info btn-sm show-sublinks"><span class="glyphicon glyphicon-eye-open"></span></a>';
+            }
 		}
 	}, {
 		name: "created",
