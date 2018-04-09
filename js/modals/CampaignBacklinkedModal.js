@@ -92,10 +92,10 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		//TODO: check if domain name same as main
 
 		var tpl = $.parseHTML($('#sub-links-template').html());
-
+		
 		if(data) {
 			$(tpl).find('.subLink').val(data.subLink);
-			$(tpl).find('.subLinkKeywords').text(data.subLinkKeywords);
+			$(tpl).find('.subLinkKeywords').text(data.subLinkKeywords.join(','));
 			$(tpl).find('.subAdditionalKeywordsPercentage').val(data.subAdditionalKeywordsPercentage);
 		}
 
