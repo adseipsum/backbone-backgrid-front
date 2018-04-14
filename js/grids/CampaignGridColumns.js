@@ -34,7 +34,7 @@ const KeywordsCell = Backgrid.HtmlCell.extend({
         e.preventDefault();
         var modalView = new App.Modals.BlankModal();
         $('.app').show().html(modalView.render().el);
-        modalView.populate(this.model.attributes.mainKeywords);
+        modalView.populate(this.model.attributes.mainKeywords.join(', '));
     }
 });
 

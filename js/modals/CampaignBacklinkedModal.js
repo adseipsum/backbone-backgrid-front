@@ -95,7 +95,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 
 		if(data.subLink || data.subLinkKeywords || data.subAdditionalKeywordsPercentage) {
 			$(tpl).find('.subLink').val(data.subLink);
-			$(tpl).find('.subLinkKeywords').text(data.subLinkKeywords.join(','));
+			$(tpl).find('.subLinkKeywords').text(data.subLinkKeywords.join(', '));
 			$(tpl).find('.subAdditionalKeywordsPercentage').val(data.subAdditionalKeywordsPercentage);
 		}
 
@@ -111,7 +111,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		$('#mainDomain').val(data.mainDomain);
 		$('#postMainDomainLinks').val(data.postMainDomainLinks);
 		$('#postSubLinks').val(data.postSubLinks);
-		$('#mainKeywords').val(data.mainKeywords);
+		$('#mainKeywords').val(data.mainKeywords.join(', '));
 		$('#additionalKeysPercentage').val(data.additionalKeysPercentage);
 		$('#postPeriodDays').val(data.postPeriodDays);
 		$.each(data.subLinks, function(key, value){
