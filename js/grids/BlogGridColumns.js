@@ -47,6 +47,13 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         filterType: ["boolean"],
         nesting: ["General"]
     }, {
+        name: "isNeedRecovery",
+        sortValue: "isNeedRecoverySort",
+        label: "Need Recovery",
+        cell: Backgrid.HtmlCenterCell,
+        nesting: ["General"],
+        filterType: "boolean"
+    }, {
         name: "domainName",
         sortValue: "domainNameSort",
         label: "Domain name",

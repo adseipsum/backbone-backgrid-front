@@ -176,3 +176,35 @@ $.fn.createGridColumns = function(columns) {
     }
     return columns;
 };
+
+
+
+$.fn.needRecoveryBlog = function(blog_id, is_need_recovery) {
+    $('.content').fadeTo("fast", 0.33);
+    const res = window.confirm(is_need_recovery ?
+        'Are you sure that you need to restore blog "' + blog_id + '"?' :
+        'Are you sure that you need to disable the blog "' + blog_id + '" recovery?');
+    if (!res) {
+        App.currentView.fetchGrid();
+        return;
+    }
+    $.post({
+        crossOrigin: true,
+        method: 'POST',
+        url: App.baseUrl + "/frontapi/blog/need_recovery",
+        data: {
+            'blog_id': blog_id,
+            'is_need_recovery': is_need_recovery
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('Authorization', "Bearer ".concat(App.token));
+        },
+        success: function (response) {
+            App.currentView.fetchGrid();
+        },
+        error: function (responseObject) {
+            window.alert(responseObject.responseText);
+        }
+    });
+};

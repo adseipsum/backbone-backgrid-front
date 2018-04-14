@@ -34,7 +34,7 @@ App.Models.Session = Backbone.Model.extend({
 	},
 
 	getUserInfo: function () {
-		var self = this;
+		const self = this;
 		$.post({
 			async: false,
 			method: 'GET',
@@ -64,21 +64,21 @@ App.Models.Session = Backbone.Model.extend({
 	},
 
 	isInRole: function (roles) {
-		var allowed = false;
-		var userRoles = this.user.get('roles');
+		let allowed = false;
+		const userRoles = this.user.get('roles');
 
 		if(!roles || $.isEmptyObject(userRoles)){
 			return false;
 		}
 
-		var self = this;
+		const self = this;
 		$.each(roles, function(i) {
 			if (userRoles.indexOf(roles[i]) > -1) {
 				allowed = true;
 			}
 		});
 
-		if(allowed){
+		if (allowed) {
 			return true;
 		}
 

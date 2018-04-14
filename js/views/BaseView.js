@@ -277,6 +277,7 @@ App.Views.BaseView = Backbone.View.extend({
                     if (currPage !== 1) {
                         collections.getPage(currPage);
                     }
+                    $('.content').fadeTo("fast", 1.0);
                 }
             });
         } else {
@@ -293,6 +294,7 @@ App.Views.BaseView = Backbone.View.extend({
                     if (currPage !== 1) {
                         collections.getPage(currPage);
                     }
+                    $('.content').fadeTo("fast", 1.0);
                 }
             });
         }

@@ -61,6 +61,16 @@ App.Collections.Blogs = Backbone.PageableCollection.extend({
                     v.domainExpirationDate = '<img src="img/status0.png" title="' + notCheckStr + '" class="status-img" />';
                 }
             }
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            {
+                let isNeedRecovery = false;
+                if (v.isNeedRecoveryFromWebArchive !== undefined || v.isNeedRecoveryFromWebArchive !== null) {
+                    isNeedRecovery = v.isNeedRecoveryFromWebArchive;
+                }
+                v.isNeedRecoverySort = isNeedRecovery;
+                v.isNeedRecovery = '<input ' + (isNeedRecovery ? 'checked="checked"' : '') + ' type="checkbox" onchange="$.fn.needRecoveryBlog(\'' + v.id + '\', ' + !isNeedRecovery + ');">';
+            }
 
             ////////////////////////////////////////////////////////////////////////////////////////
 
