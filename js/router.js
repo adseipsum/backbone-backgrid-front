@@ -8,7 +8,8 @@ App.Router = Backbone.Router.extend({
 		'login': 'login',
 		'logout': 'logout',
 		'campaigns': 'campaigns',
-		'blogs': 'blogs'
+		'blogs': 'blogs',
+        'tasks/:campaignId': 'tasks'
 	},
 
 	initialize: function(){
@@ -57,6 +58,18 @@ App.Router = Backbone.Router.extend({
         App.currentView.fetchGrid();
         this.afterRender();
 	},
+
+    tasks: function(campaignId){
+        if(!App.Session.isInRole(['ROLE_ADMIN'])){
+            App.Router.Instance.navigate('campaigns', true);
+            return false;
+        }
+        sessionStorage.setItem('general-currentPage', "/tasks");
+        App.currentView = new App.Views.TaskView();
+        App.currentView.setCampaign(campaignId);
+        App.currentView.fetchGrid();
+        this.afterRender();
+    },
 
 	execute: function(callback, args, name) {
 		if(App.currentLoop) {

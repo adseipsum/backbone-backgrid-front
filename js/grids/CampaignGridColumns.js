@@ -42,7 +42,8 @@ const KeywordsCell = Backgrid.HtmlCell.extend({
 const ActionCell = Backgrid.Cell.extend({
 	events: {
 		'click .delete': 'deleteCampaign',
-		'click .edit': 'editCampaign'
+		'click .edit': 'editCampaign',
+        'click .showTasks': 'showTasks'
 	},
 
 	deleteCampaign: function(e) {
@@ -70,8 +71,13 @@ const ActionCell = Backgrid.Cell.extend({
 		modalView.fillForm(this.model.attributes);
 	},
 
+    showTasks: function(e){
+        e.preventDefault();
+        App.Router.Instance.navigate('tasks/' + this.model.attributes.id, true);
+    },
+
 	render: function () {
-		this.$el.html('<button class="edit btn btn-sm btn-info glyphicon glyphicon-pencil"></button>&nbsp;<button class="delete btn btn-sm btn-danger glyphicon glyphicon-trash"></button>');
+		this.$el.html('<button class="showTasks btn btn-sm btn-info glyphicon glyphicon-list-alt"></button>&nbsp;<button class="edit btn btn-sm btn-info glyphicon glyphicon-pencil"></button>&nbsp;<button class="delete btn btn-sm btn-danger glyphicon glyphicon-trash"></button>');
 		return this;
 	}
 });
