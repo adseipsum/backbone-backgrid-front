@@ -8,6 +8,7 @@ App.Router = Backbone.Router.extend({
 		'login': 'login',
 		'logout': 'logout',
 		'campaigns': 'campaigns',
+        'regular-campaigns': 'regularCampaigns',
 		'blogs': 'blogs',
         'tasks/:campaignId': 'tasks'
 	},
@@ -44,9 +45,22 @@ App.Router = Backbone.Router.extend({
 	campaigns: function(){
         sessionStorage.setItem('general-currentPage', "/campaigns");
         App.currentView = new App.Views.CampaignView();
+        App.currentView.setType();
         App.currentView.fetchGrid();
         this.afterRender();
 	},
+
+    regularCampaigns: function(){
+        if(!App.Session.isInRole(['ROLE_ADMIN'])){
+            App.Router.Instance.navigate('campaigns', true);
+            return false;
+        }
+        sessionStorage.setItem('general-currentPage', "/regcampaigns");
+        App.currentView = new App.Views.CampaignRegularView();
+        App.currentView.setType();
+        App.currentView.fetchGrid();
+        this.afterRender();
+    },
 
 	blogs: function(){
 		if(!App.Session.isInRole(['ROLE_ADMIN'])){

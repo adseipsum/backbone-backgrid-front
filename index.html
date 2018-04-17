@@ -136,6 +136,7 @@
             <div class="modal-body">
                 <div class="row">
                     <form id="newCampaignForm" role="form" class="col-lg-11 col-lg-offset-1">
+                        <input type="hidden" id="campaignId" name="campaignId"/>
                         <div class="row">
                             <div class="form-group col-lg-5">
                                 <label for="needPosts">Need Posts</label>
@@ -417,6 +418,7 @@
                     <a href="#campaigns" id="campaigns-button" class="btn btn-primary navbar-btn">Campaigns</a>
                     <% if(user.get('roles').indexOf('ROLE_ADMIN') > -1){ %>
                         <a href="#blogs" id="blogs-button" class="btn btn-primary navbar-btn">Blogs</a>
+                        <a href="#regular-campaigns" id="campaigns-regular-button" class="btn btn-primary navbar-btn">Regular Campaign</a>
                     <% } %>
                 </div>
 
@@ -514,6 +516,7 @@
 
 <script src="js/grids/HtmlCenterCell.js"></script>
 <script src="js/grids/CampaignGridColumns.js"></script>
+<script src="js/grids/CampaignRegularGridColumns.js"></script>
 <script src="js/grids/BlogGridColumns.js"></script>
 <script src="js/grids/TaskGridColumns.js"></script>
 <script src="js/grids/BlogSeoPingsGridColumns.js"></script>
@@ -529,6 +532,7 @@
 
 <script src="js/views/BaseView.js"></script>
 <script src="js/views/CampaignView.js"></script>
+<script src="js/views/CampaignRegularView.js"></script>
 <script src="js/views/BlogView.js"></script>
 <script src="js/views/TaskView.js"></script>
 <script src="js/views/LoginView.js"></script>

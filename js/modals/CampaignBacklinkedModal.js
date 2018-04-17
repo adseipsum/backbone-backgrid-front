@@ -122,35 +122,35 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		this.fillInBlogs(data.blogTags, data.blogs);
 	},
 
+    fillInBlogs: function(tags, blogs){
+
+        $.ajax({
+            method: 'GET',
+            url: App.baseUrl + '/frontapi/blog/list',
+            data: {
+                'tags': tags
+            },
+            headers: {
+                'Authorization': "Bearer ".concat(App.token)
+            },
+            success: function (response) {
+                $.each(response.result.value, function(key, val){
+
+                    if(typeof(blogs) != 'undefined' && !(val.id in blogs)){
+                        return true;
+                    }
+
+                    //TODO: template with Mustache
+                    $('#selectedBlogs')
+                        .append($('<li>').text(val.domainName)
+                            .append($('<input>').attr('type', 'checkbox').attr('value', val.id).attr('checked', true)));
+                });
+            }
+        });
+    },
+
 	execute: function(callback, args, name) {
 		$('#selectedBlogs').html('');
 		if (callback) callback.apply(this, args);
 	},
-
-	fillInBlogs: function(tags, blogs){
-
-		$.ajax({
-			method: 'GET',
-			url: App.baseUrl + '/frontapi/blog/list',
-			data: {
-				'tags': tags
-			},
-			headers: {
-				'Authorization': "Bearer ".concat(App.token)
-			},
-			success: function (response) {
-				$.each(response.result.value, function(key, val){
-
-					if(typeof(blogs) != 'undefined' && !(val.id in blogs)){
-						return true;
-					}
-
-					//TODO: template with Mustache
-					$('#selectedBlogs')
-						.append($('<li>').text(val.domainName)
-							.append($('<input>').attr('type', 'checkbox').attr('value', val.id).attr('checked', true)));
-				});
-			}
-		});
-	}
 });
