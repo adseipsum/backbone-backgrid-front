@@ -21,6 +21,30 @@ const ActionCell = Backgrid.Cell.extend({
     }
 });
 
+const ErrorsCell = Backgrid.HtmlCell.extend({
+    attributes: {
+        style: "text-align:center;"
+    },
+    events: {
+        'click .show-errors': 'showErrors'
+    },
+
+    showErrors: function (e) {
+        e.preventDefault();
+        var modalView = new App.Modals.BlankModal();
+        $('.app').show().html(modalView.render().el);
+        modalView.populate(this.model.attributes.lastErrorMessage);
+    },
+
+    render: function () {
+        if(this.model.attributes.lastErrorMessage) {
+            this.$el.html('<a href="" class="btn btn-default btn-sm show-errors"><span class="glyphicon glyphicon-eye-open"></span></a>');
+        }
+        return this;
+    }
+});
+
+
 App.Grids.blogGridColumns = $.fn.createGridColumns([
     {
         name: "id",
@@ -183,6 +207,11 @@ App.Grids.blogGridColumns = $.fn.createGridColumns([
         width: 150,
         nesting: ["Posting"],
         filterType: "number"
+    }, {
+        name: "lastErrorMessage",
+        label: "Last Error",
+        nesting: ["Posting"],
+        cell: ErrorsCell
     }, {
         name: "",
         label: "Action",
