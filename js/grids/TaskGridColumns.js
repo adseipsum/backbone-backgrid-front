@@ -7,16 +7,30 @@ App.Grids.taskGridColumns = $.fn.createGridColumns([
 		cell: "string",
 		formatter: {
 			fromRaw: function (object) {
-				return object.substring(9);
+				return object.substring(5);
 			}
 		},
+    }, {
+        name: "status",
+        label: "Status",
+        cell: "string"
+    }, {
+        name: "created",
+        label: "Created",
+        cell: "string"
+    }, {
+        name: "blogId",
+        label: "Blog",
+        cell: "string"
 	}, {
 		name: "link",
 		label: "Link",
-		cell: "string",
-	}, {
-		name: "blogId",
-		label: "Blog",
-		cell: "string"
+		cell: "html",
+        width: '*',
+        formatter: {
+            fromRaw: function (value) {
+                return '<a href="' + value + '">' + value + '</a>';
+            }
+        }
 	}
 ]);
