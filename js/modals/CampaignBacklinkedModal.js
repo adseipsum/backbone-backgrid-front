@@ -40,6 +40,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 				'postSubLinks': $('#postSubLinks').val(),
 				'mainKeywords' : $('#mainKeywords').val(),
 				'subLinks': mapSubLinks,
+                'noFollowPercentage': $('#noFollowPercentage').val(),
 				'additionalKeysPercentage': $('#additionalKeysPercentage').val(),
 				'postPeriodDays': $('#postPeriodDays').val(),
 				'blogTags' : $('#newCampaignForm .filter-option').text(),
@@ -112,6 +113,7 @@ App.Modals.CampaignBacklinkedModal = Backbone.Modal.extend({
 		$('#postMainDomainLinks').val(data.postMainDomainLinks);
 		$('#postSubLinks').val(data.postSubLinks);
 		$('#mainKeywords').val(data.mainKeywords.join(', '));
+        $('#noFollowPercentage').val(data.noFollowPercentage);
 		$('#additionalKeysPercentage').val(data.additionalKeysPercentage);
 		$('#postPeriodDays').val(data.postPeriodDays);
 		$.each(data.subLinks, function(key, value){

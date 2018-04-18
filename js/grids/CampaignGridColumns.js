@@ -139,6 +139,10 @@ App.Grids.campaignGridColumns = $.fn.createGridColumns([
 		name: "needPosts",
 		label: "Posts",
 		cell: "integer",
+    }, {
+        name: "noFollowPercentage",
+        label: "no-follow",
+        cell: "number",
 	}, {
 		name: "additionalKeysPercentage",
 		label: "AKP",
